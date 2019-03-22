@@ -1,7 +1,4 @@
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
+               <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title">Personal Info</h4>
@@ -61,7 +58,7 @@
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <mat-label>City</mat-label>
-                                        <mat-select formControlName="city" >
+                                        <mat-select formControlName="city" (ngModelChange)="onCity($event)" >
                                           <mat-option>--</mat-option>
                                           <mat-option *ngFor="let city of cities" [value]="city">
                                             {{city.city}}
@@ -72,7 +69,33 @@
 
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Province" type="text" formControlName="province">
+                                      <input matInput placeholder="Province" type="text" formControlName="province" [value]="_province">
+                                    </mat-form-field>
+                                  </div>
+                                  
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Country" type="text" formControlName="country" [value]="_country" >
+                                  </mat-form-field>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <mat-label>Religion</mat-label>
+                                        <mat-select formControlName="religion" >
+                                          <mat-option>--</mat-option>
+                                          <mat-option *ngFor="let religion of religions" [value]="religion">
+                                            {{religion}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Profession" type="text" formControlName="profession">
                                     </mat-form-field>
                                   </div>
                                   
@@ -104,24 +127,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="#pablo">
-                            <img class="img" src="./assets/img/faces/marc.jpg" />
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
-                        <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                        </p>
-                        <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-  
+            
+       
+

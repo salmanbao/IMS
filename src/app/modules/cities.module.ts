@@ -1,4 +1,5 @@
 export class City {
+  religions=['Islam','Hinduism', 'Christianity', 'Sikhism','Ahmadiyya','Buddhism','Judaism'];
   cities = [
     {
       city: 'Karachi',

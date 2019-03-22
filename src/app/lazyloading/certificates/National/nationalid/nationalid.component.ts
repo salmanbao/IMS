@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, NgForm, ValidatorFn, AbstractControl, FormControl} from '@angular/forms';
-import { City } from '../../../modules/cities.module';
-import { _MatChipListMixinBase, MatOption } from '@angular/material';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { City } from 'app/modules/cities.module';
 import { PersonalInfoService } from 'app/services/personal-info.service';
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 @Component({
-  selector: 'app-personalinfo',
-  templateUrl: './personalinfo.component.html',
-  styleUrls: ['./personalinfo.component.scss']
+  selector: 'app-nationalid',
+  templateUrl: './nationalid.component.html',
+  styleUrls: ['./nationalid.component.scss']
 })
-export class PersonalinfoComponent implements OnInit {
+export class NationalidComponent implements OnInit {
 
   minDate = new Date(1950, 0, 1);
   addForm: FormGroup;
   maxDate = new Date();
   regionInfo: City = new City(); 
   cities:any = this.regionInfo.cities;
+  _province:string='';
+  _country:string='';
+  religions:any = this.regionInfo.religions;
+
   constructor(
     private _formBuilder: FormBuilder,
     private userService: PersonalInfoService
@@ -33,12 +35,14 @@ export class PersonalinfoComponent implements OnInit {
       country: ['', Validators.required],
       description: ['', Validators.required],
       province: ['', Validators.required],
-      date:['',null] 
+      date:['',null] ,
+      religion:['',null],
+      profession:['',null]
     })
   }
 
-  //### Create citizen ######
-  registerUser(){
+   //### Create citizen ######
+   registerUser(){
     console.log(this.addForm);
     console.log(JSON.stringify(this.addForm.value))
 
@@ -56,5 +60,13 @@ export class PersonalinfoComponent implements OnInit {
     //send request to server for generating DID and return
     console.log("generate ID");
   }
-  
+
+  onCity(event:any){
+
+    console.log(event);
+    this._province = event.admin;
+    this._country = event.country;
+  }
+
+
 }

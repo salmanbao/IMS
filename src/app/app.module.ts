@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -41,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
    
 
   ],
