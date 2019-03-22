@@ -30,11 +30,12 @@ export class NationalidComponent implements OnInit {
   ngOnInit() {
     this.addForm = this._formBuilder.group({
       username: ['', Validators.required],
-      email: ['', null],
+      phone: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
+      gender:['',Validators.required],
       country: ['', Validators.required],
       description: ['', Validators.required],
       province: ['', Validators.required],

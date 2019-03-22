@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { CertificatesRoutingModule } from 'app/routings/personalinfo.routing';
 import { ComponentsModule } from 'app/components/components.module';
 import { MaterialModule } from 'app/modules/material.module';
@@ -22,6 +23,7 @@ import { NationalIdHomeComponent } from './National/national-id-home/national-id
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+
     
   ],
   declarations: [
