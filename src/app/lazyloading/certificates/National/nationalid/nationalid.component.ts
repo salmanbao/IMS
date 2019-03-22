@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
+import { Professions } from 'app/modules/professions.module';
 import { PersonalInfoService } from 'app/services/personal-info.service';
 
 @Component({
@@ -13,11 +14,13 @@ export class NationalidComponent implements OnInit {
   minDate = new Date(1950, 0, 1);
   addForm: FormGroup;
   maxDate = new Date();
+  genders:Array<string>= ['Male','Female'];
   regionInfo: City = new City(); 
   cities:any = this.regionInfo.cities;
   _province:string='';
   _country:string='';
   religions:any = this.regionInfo.religions;
+  professions:Array<string> = new Professions().professions;
 
   constructor(
     private _formBuilder: FormBuilder,
