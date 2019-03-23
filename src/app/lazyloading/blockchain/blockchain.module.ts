@@ -6,6 +6,7 @@ import { AddccComponent } from './addcc/addcc.component';
 import { ManagepeersComponent } from './managepeers/managepeers.component';
 import { BlockchainRoutingModule } from 'app/routings/blockchain.routing';
 import { MaterialModule } from 'app/modules/material.module';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { MaterialModule } from 'app/modules/material.module';
     BlockchainhomeComponent, 
     ManagechannelsComponent, 
     AddccComponent, 
-    ManagepeersComponent
+    ManagepeersComponent, AddMemberComponent
   ]
 })
 export class BlockchainModule { }
