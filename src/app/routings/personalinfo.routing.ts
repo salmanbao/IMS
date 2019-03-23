@@ -17,8 +17,6 @@ const routes: Routes = [
     {  path: 'nationalidlist', component:NationalIdHomeComponent  },
     {  path: 'addnationalid', component:NationalidComponent  },
     {  path: 'marriage', component: MarriageComponent}
-    //{  path: '', CertificatesHomeComponent }
-    //{  path: '', CertificatesHomeComponent }
 ];
 
 @NgModule({

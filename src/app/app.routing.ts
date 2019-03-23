@@ -20,7 +20,8 @@ const routes: Routes =[
       path: '',
       loadChildren: './lazyloading/admin-panel/admin-layout.module#AdminLayoutModule'
   }]},
-    {  path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' },
+    { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' },
+    { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule' }
      //{ path: 'input',      component: InputcomponentComponent }
     // { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },

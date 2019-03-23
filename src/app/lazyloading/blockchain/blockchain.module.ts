@@ -5,10 +5,12 @@ import { ManagechannelsComponent } from './managechannels/managechannels.compone
 import { AddccComponent } from './addcc/addcc.component';
 import { ManagepeersComponent } from './managepeers/managepeers.component';
 import { BlockchainRoutingModule } from 'app/routings/blockchain.routing';
+import { MaterialModule } from 'app/modules/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     BlockchainRoutingModule    
   ],
   declarations: [
