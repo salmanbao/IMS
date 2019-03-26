@@ -11,8 +11,7 @@ export interface PeriodicElement {
   age: Number;
   gender: string;
   religion: string;
-  familyNumber: string;
-
+  issueanceDate: String;
 } 
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -26,7 +25,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     age: 21,
     gender: 'male',
     religion: 'Islam',
-    familyNumber:'11RT34'
+    issueanceDate: '22-02-2017'
    }
 
 ];
@@ -49,7 +48,7 @@ export class ListBirthComponent implements OnInit {
     'gender', 
     'religion', 
     'city',
-    'familyNumber'
+    'issueanceDate'
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
