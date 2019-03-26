@@ -1,3 +1,197 @@
-<p>
-  update-national-id works!
-</p>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title">Personal Info</h4>
+            <p class="card-category">User Profile</p>
+        </div>
+        <div class="card-body">
+            <form  [formGroup]="addForm">
+              <!-- First Row -->
+                <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Identitifier ">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-icon-button matTooltip="Get Data" (click)= "getData()">
+                            <mat-icon aria-label="generate did">fingerprint</mat-icon>
+                          </button>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Username" formControlName="username">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <span matPrefix>+92 &nbsp;</span>
+                            <input type="text" mask="(000) 000 00 00"  matInput placeholder="Telephone" formControlName="phone">
+                            <mat-icon matSuffix>phone</mat-icon>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <!-- Second Row -->
+                <div class="row">
+                    <div class="col-md-5">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="First Name" type="text" formControlName="fname">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Last Name" type="text" formControlName="lname">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                      <mat-form-field class="example-full-width">
+                        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="DOB"  formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker disabled="false" ></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                </div>  
+                <!-- Third Row -->
+
+                <div class="row">
+                    <div class="col-md-5">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Father DID" type="text" formControlName="fatherDID">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Mother DID" type="text" formControlName="motherDID">
+                        </mat-form-field>
+                      </div>
+                    <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Family" type="text" formControlName="familyNumber">
+                                <mat-icon matSuffix>group</mat-icon>
+                            </mat-form-field>
+                    </div>
+                </div>
+                <!-- ROW -->
+                <div class="row">
+                    <div class="col-md-10">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Adress" type="text" formControlName="address">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-label>Gender</mat-label>
+                            <mat-select formControlName="gender" (ngModelChange)="onCity($event)" >
+                              <mat-option>--</mat-option>
+                              <mat-option *ngFor="let gender of genders" [value]="gender">
+                                {{gender}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+
+
+                <!-- Fourth Row -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Religion</mat-label>
+                            <mat-select formControlName="religion" >
+                              <mat-option>--</mat-option>
+                              <mat-option *ngFor="let religion of religions" [value]="religion">
+                                {{religion}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                        <mat-label>Profession</mat-label>
+                        <mat-select formControlName="profession" >
+                          <mat-option>--</mat-option>
+                          <mat-option *ngFor="let profession of professions" [value]="profession">
+                            {{profession}}
+                          </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                      </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                        <mat-label>Martial Status</mat-label>
+                        <mat-select formControlName="martialStatus" >
+                          <mat-option>--</mat-option>
+                          <mat-option *ngFor="let status of _martialStatus" [value]="status">
+                            {{status}}
+                          </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                      </div>
+                      
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Country" type="text" formControlName="country" [value]="_country" >
+                      </mat-form-field>
+                    </div>  
+                </div>
+                <!-- Fifth Row -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Province</mat-label>
+                            <mat-select formControlName="province" (ngModelChange)="onCity($event)" >
+                              <mat-option>--</mat-option>
+                              <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city.city}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field >
+                          <mat-label>Division</mat-label>
+                          <mat-select formControlName="division" (ngModelChange)="onCity($event)" >
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                              {{city.city}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field>
+                          <mat-label>District</mat-label>
+                          <mat-select formControlName="district" (ngModelChange)="onCity($event)" >
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                              {{city.city}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Tehsile</mat-label>
+                            <mat-select formControlName="tehsile" (ngModelChange)="onCity($event)" >
+                              <mat-option>--</mat-option>
+                              <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city.city}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                      </div>
+                </div>
+                <!-- Sixth Row -->
+                
+
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right"  (click)="registerUser()">Save Profile</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

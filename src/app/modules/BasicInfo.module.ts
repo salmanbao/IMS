@@ -1,4 +1,4 @@
-export class Professions{
+export class BasicInfo{
     professions:Array<string> = [
         'Business',
         'Engineer',
@@ -8,5 +8,9 @@ export class Professions{
         'Labour',
         'IT',
         'Others'
+    ];
+    martialStatus:Array<string> = [
+        'Married',
+        'Unmarried'
     ];
 }

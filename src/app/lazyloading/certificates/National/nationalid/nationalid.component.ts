@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
-import { Professions } from 'app/modules/professions.module';
+import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { PersonalInfoService } from 'app/services/personal-info.service';
 
 @Component({
@@ -20,8 +20,8 @@ export class NationalidComponent implements OnInit {
   _province:string='';
   _country:string='';
   religions:any = this.regionInfo.religions;
-  professions:Array<string> = new Professions().professions;
-
+  professions:Array<string> = new BasicInfo().professions;
+  _martialStatus:Array<string> = new BasicInfo().martialStatus; 
   constructor(
     private _formBuilder: FormBuilder,
     private userService: PersonalInfoService
@@ -33,12 +33,19 @@ export class NationalidComponent implements OnInit {
       phone: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
+      fatherDID: ['',Validators.required],
+      motherDID: ['',Validators.required],
+      familyNumber: ['',Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       gender:['',Validators.required],
+      martialStatus:['',Validators.required],
       country: ['', Validators.required],
       description: ['', Validators.required],
       province: ['', Validators.required],
+      division:['',Validators.required],
+      district:['', Validators.required],
+      tehsile:['',Validators.required],
       date:['',null] ,
       religion:['',null],
       profession:['',null]

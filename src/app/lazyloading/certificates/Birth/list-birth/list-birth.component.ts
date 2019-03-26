@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 export interface PeriodicElement {
@@ -13,7 +13,7 @@ export interface PeriodicElement {
   religion: string;
   familyNumber: string;
 
-}  
+} 
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
@@ -31,16 +31,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 ];
 @Component({
-  selector: 'app-listnationalid',
-  templateUrl: './listnationalid.component.html',
-  styleUrls: ['./listnationalid.component.scss']
+  selector: 'app-list-birth',
+  templateUrl: './list-birth.component.html',
+  styleUrls: ['./list-birth.component.scss']
 })
-
-
-export class ListnationalidComponent implements OnInit {
+export class ListBirthComponent implements OnInit {
 
   constructor() { }
-
+  
   displayedColumns: string[] = [
     'did',
     'fname', 
@@ -64,5 +62,6 @@ export class ListnationalidComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 
 }
