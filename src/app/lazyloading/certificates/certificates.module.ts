@@ -7,7 +7,6 @@ import { MaterialModule } from 'app/modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CertificatehomeComponent } from './certificatehome/certificatehome.component';
 import { DeathComponent } from './death/death.component';
-import { MarriageComponent } from './marriage/marriage.component';
 import { NationalidService } from 'app/services/nationalid.service';
 import { NationalidComponent } from './National/nationalid/nationalid.component';
 import { ListnationalidComponent } from './National/listnationalid/listnationalid.component';
@@ -17,6 +16,10 @@ import { ListBirthComponent } from './Birth/list-birth/list-birth.component';
 import { BirthHomeComponent } from './Birth/birth-home/birth-home.component';
 import { UpdateBirthComponent } from './Birth/update-birth/update-birth.component';
 import { AddBirthComponent } from './Birth/add-birth/add-birth.component';
+import { ListMarriageComponent } from './Marriage/list-marriage/list-marriage.component';
+import { AddMarriageComponent } from './Marriage/add-marriage/add-marriage.component';
+import { UpdateMarriageComponent } from './Marriage/update-marriage/update-marriage.component';
+import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.component';
 
 @NgModule({
   imports: [
@@ -27,21 +30,22 @@ import { AddBirthComponent } from './Birth/add-birth/add-birth.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-
-    
   ],
   declarations: [
     CertificatehomeComponent,
     DeathComponent,
     NationalidComponent,
-    MarriageComponent,
     ListnationalidComponent,
     UpdateNationalIdComponent,
     NationalIdHomeComponent,
     ListBirthComponent,
     BirthHomeComponent,
     UpdateBirthComponent,
-    AddBirthComponent
+    AddBirthComponent,
+    ListMarriageComponent,
+    AddMarriageComponent,
+    UpdateMarriageComponent,
+    HomeMarriageComponent
   ],
   exports: [
     

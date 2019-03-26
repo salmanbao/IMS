@@ -46,4 +46,4 @@ import {
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

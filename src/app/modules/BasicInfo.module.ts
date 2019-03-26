@@ -1,5 +1,5 @@
-export class BasicInfo{
-    professions:Array<string> = [
+export class BasicInfo {
+    professions: Array<string> = [
         'Business',
         'Engineer',
         'Lawyer',
@@ -9,7 +9,7 @@ export class BasicInfo{
         'IT',
         'Others'
     ];
-    martialStatus:Array<string> = [
+    martialStatus: Array<string> = [
         'Married',
         'Unmarried'
     ];

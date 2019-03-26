@@ -1,8 +1,8 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 export interface PeriodicElement {
-  did:  string;
+  did: string;
   fname: string;
   lname: string;
   fatherDID: string;
@@ -13,21 +13,21 @@ export interface PeriodicElement {
   religion: string;
   familyNumber: string;
 
-}  
+}
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     did: 'G45YY56H76UI78I78',
     fname: 'Muhammad Salman',
-    lname:'Muhammad Saleem',
-    fatherDID:"HG45Y54Y6UU67II7I78",
-    motherDID :"TYJH6J56U7I978OI87O87",
+    lname: 'Muhammad Saleem',
+    fatherDID: "HG45Y54Y6UU67II7I78",
+    motherDID: "TYJH6J56U7I978OI87O87",
     city: 'Lahore',
     age: 21,
     gender: 'male',
     religion: 'Islam',
-    familyNumber:'11RT34'
-   }
+    familyNumber: '11RT34'
+  }
 
 ];
 @Component({
@@ -43,13 +43,13 @@ export class ListnationalidComponent implements OnInit {
 
   displayedColumns: string[] = [
     'did',
-    'fname', 
-    'lname', 
+    'fname',
+    'lname',
     'fatherDID',
     'motherDID',
-    'age', 
-    'gender', 
-    'religion', 
+    'age',
+    'gender',
+    'religion',
     'city',
     'familyNumber'
   ];

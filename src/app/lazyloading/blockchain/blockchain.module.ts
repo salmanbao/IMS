@@ -15,6 +15,7 @@ import { InitiateCCComponent } from './initiate-cc/initiate-cc.component';
 import { AddPeerComponent } from './add-peer/add-peer.component';
 import { ManageCertificatesAuthorityComponent } from './manage-certificates-authority/manage-certificates-authority.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { ListOrgMembersComponent } from './list-org-members/list-org-members.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     InitiateCCComponent, 
     AddPeerComponent, 
     ManageCertificatesAuthorityComponent, 
-    AddUserComponent
+    AddUserComponent, ListOrgMembersComponent
   ]
 })
 export class BlockchainModule { }

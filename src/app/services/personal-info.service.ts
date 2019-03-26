@@ -10,5 +10,5 @@ export class PersonalInfoService {
 
   create(user: any) {
     return this.http.post('/api/users', user);
-}
+  }
 }

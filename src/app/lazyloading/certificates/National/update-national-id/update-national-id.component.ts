@@ -14,18 +14,18 @@ export class UpdateNationalIdComponent implements OnInit {
   minDate = new Date(1950, 0, 1);
   addForm: FormGroup;
   maxDate = new Date();
-  genders:Array<string>= ['Male','Female'];
-  regionInfo: City = new City(); 
-  cities:any = this.regionInfo.cities;
-  _province:string='';
-  _country:string='';
-  religions:any = this.regionInfo.religions;
-  professions:Array<string> = new BasicInfo().professions;
-  _martialStatus:Array<string> = new BasicInfo().martialStatus; 
+  genders: Array<string> = ['Male', 'Female'];
+  regionInfo: City = new City();
+  cities: any = this.regionInfo.cities;
+  _province: string = '';
+  _country: string = '';
+  religions: any = this.regionInfo.religions;
+  professions: Array<string> = new BasicInfo().professions;
+  _martialStatus: Array<string> = new BasicInfo().martialStatus;
   constructor(
     private _formBuilder: FormBuilder,
     private userService: PersonalInfoService
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.addForm = this._formBuilder.group({
@@ -33,45 +33,45 @@ export class UpdateNationalIdComponent implements OnInit {
       phone: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
-      fatherDID: ['',Validators.required],
-      motherDID: ['',Validators.required],
-      familyNumber: ['',Validators.required],
+      fatherDID: ['', Validators.required],
+      motherDID: ['', Validators.required],
+      familyNumber: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
-      gender:['',Validators.required],
-      martialStatus:['',Validators.required],
+      gender: ['', Validators.required],
+      martialStatus: ['', Validators.required],
       country: ['', Validators.required],
       description: ['', Validators.required],
       province: ['', Validators.required],
-      division:['',Validators.required],
-      district:['', Validators.required],
-      tehsile:['',Validators.required],
-      date:['',null] ,
-      religion:['',null],
-      profession:['',null]
+      division: ['', Validators.required],
+      district: ['', Validators.required],
+      tehsile: ['', Validators.required],
+      date: ['', null],
+      religion: ['', null],
+      profession: ['', null]
     })
   }
 
-  registerUser(){
+  registerUser() {
     console.log(this.addForm);
     console.log(JSON.stringify(this.addForm.value))
 
-        this.userService.create(this.addForm.value)
-            .subscribe(
-                data => {
-                    console.log(data);
-                },
-                error => {
-                  console.log(error);
-                });
+    this.userService.create(this.addForm.value)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  getData(){
+  getData() {
     //send request to server for generating DID and return
     console.log("generate ID");
   }
 
-  onCity(event:any){
+  onCity(event: any) {
 
     console.log(event);
     this._province = event.admin;

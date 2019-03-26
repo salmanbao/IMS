@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, FormBuilder,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -36,14 +36,14 @@ import { HttpClientModule } from '@angular/common/http';
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
   ],
-  exports:[
+  exports: [
     FormsModule,
     MaterialModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent
-   
+
 
   ],
   providers: [FormBuilder],

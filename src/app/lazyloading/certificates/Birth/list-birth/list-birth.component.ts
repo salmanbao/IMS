@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 export interface PeriodicElement {
-  did:  string;
+  did: string;
   fname: string;
   lname: string;
   fatherDID: string;
@@ -12,21 +12,21 @@ export interface PeriodicElement {
   gender: string;
   religion: string;
   issueanceDate: String;
-} 
+}
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     did: 'G45YY56H76UI78I78',
     fname: 'Muhammad Salman',
-    lname:'Muhammad Saleem',
-    fatherDID:"HG45Y54Y6UU67II7I78",
-    motherDID :"TYJH6J56U7I978OI87O87",
+    lname: 'Muhammad Saleem',
+    fatherDID: "HG45Y54Y6UU67II7I78",
+    motherDID: "TYJH6J56U7I978OI87O87",
     city: 'Lahore',
     age: 21,
     gender: 'male',
     religion: 'Islam',
     issueanceDate: '22-02-2017'
-   }
+  }
 
 ];
 @Component({
@@ -37,16 +37,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ListBirthComponent implements OnInit {
 
   constructor() { }
-  
+
   displayedColumns: string[] = [
     'did',
-    'fname', 
-    'lname', 
+    'fname',
+    'lname',
     'fatherDID',
     'motherDID',
-    'age', 
-    'gender', 
-    'religion', 
+    'age',
+    'gender',
+    'religion',
     'city',
     'issueanceDate'
   ];
