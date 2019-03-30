@@ -140,10 +140,10 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>Province</mat-label>
-              <mat-select formControlName="province" (ngModelChange)="onCity($event)">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let city of cities" [value]="city">
-                  {{city.city}}
+              <mat-select formControlName="province" (ngModelChange)="onProvince($event)">
+                <mat-option [value] = "invalid">--</mat-option>
+                <mat-option *ngFor="let province of provinces" [value]="province">
+                  {{province}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -152,10 +152,10 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>Division</mat-label>
-              <mat-select formControlName="division" (ngModelChange)="onCity($event)">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let city of cities" [value]="city">
-                  {{city.city}}
+              <mat-select formControlName="division" (ngModelChange)="onDivision($event)">
+                <mat-option [value] = "invalid">--</mat-option>
+                <mat-option *ngFor="let division of divisions" [value]="division">
+                  {{division}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -164,10 +164,10 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>District</mat-label>
-              <mat-select formControlName="district" (ngModelChange)="onCity($event)">
+              <mat-select formControlName="district" (ngModelChange)="onDistrict($event)">
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let city of cities" [value]="city">
-                  {{city.city}}
+                <mat-option *ngFor="let district of districts" [value]="district">
+                  {{district}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -175,10 +175,10 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>Tehsile</mat-label>
-              <mat-select formControlName="tehsile" (ngModelChange)="onCity($event)">
+              <mat-select formControlName="tehsile">
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let city of cities" [value]="city">
-                  {{city.city}}
+                <mat-option *ngFor="let tehsile of tehsiles" [value]="tehsile">
+                  {{tehsile}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

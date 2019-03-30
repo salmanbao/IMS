@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { PersonalInfoService } from 'app/services/personal-info.service';
+import { Area } from 'app/modules/area.module';
 
 @Component({
   selector: 'app-nationalid',
@@ -17,11 +18,17 @@ export class NationalidComponent implements OnInit {
   genders: Array<string> = ['Male', 'Female'];
   regionInfo: City = new City();
   cities: any = this.regionInfo.cities;
-  _province: string = '';
+  _provincesArray: any = new Area().provinces;
+  provinces: Array<string> = []; // array of all provinces
+  divisions: Array<string> = []; //array of all divisions
+  districts: Array<string> = []; //array of all districts
+  tehsiles: Array<string> = []; //array of all tehsiles
+  _districts: any;
   _country: string = '';
   religions: any = this.regionInfo.religions;
   professions: Array<string> = new BasicInfo().professions;
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
+
   constructor(
     private _formBuilder: FormBuilder,
     private userService: PersonalInfoService
@@ -50,6 +57,9 @@ export class NationalidComponent implements OnInit {
       religion: ['', null],
       profession: ['', null]
     })
+    this._provincesArray.forEach(element => {
+      this.provinces = this.provinces.concat(Object.keys(element));
+    });
   }
 
   //### Create citizen ######
@@ -73,11 +83,65 @@ export class NationalidComponent implements OnInit {
   }
 
   onCity(event: any) {
-
     console.log(event);
-    this._province = event.admin;
-    this._country = event.country;
   }
 
+  checkProvinces = prov => (element) => {
+    if (Object.keys(element)[0] == prov)
+      return element;
+  }
+  
 
+
+  getProvinces(event){
+    return this._provincesArray.filter(this.checkProvinces(event))[0]
+  }
+  
+
+  onProvince(event: any) {
+    if(event != "invalid")  {
+      this.divisions = [];
+      let tempProvince = this.getProvinces(event);
+      tempProvince[event].forEach(element => {
+          this.divisions.push(element.division);
+      });
+    }
+    else
+    console.log("Invalid choice");
+}
+
+  onDivision(event: any){
+    let prov = this.addForm.get('province').value;
+    if(event != "invalid"){
+      this._districts = [];
+      this.districts = [];
+      let tempProvince = this.getProvinces(prov);
+      tempProvince[prov].forEach(element => {
+        this._districts[element.division] = element.district;
+    });
+    this._districts[this.addForm.get('division').value].forEach(element => {
+      this.districts.push(Object.keys(element)[0]);
+    });
+    }
+    else
+    console.log("Invalid choice")
+  }
+
+  // checkDistricts(dist){
+  //   let dis = this.addForm.get('district').value;
+  //   return dist[dis].tehsile;
+  // }
+
+  onDistrict( event: any){
+    let dis = this.addForm.get('district').value;
+    this.tehsiles = [];
+    if(event != "invalid"){
+    //console.log(this._districts[this.addForm.get('division').value].find(this.checkDistricts));
+    this.tehsiles = this._districts[this.addForm.get('division').value][0].tehsile;
+    console.log(this.tehsiles);
+    }
+    else
+    console.log("Invalid choice")
+  }
+  
 }
