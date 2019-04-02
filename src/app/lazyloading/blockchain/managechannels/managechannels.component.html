@@ -1,3 +1,44 @@
-<p>
-  managechannels works!
-</p>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Channel">
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-danger" id="addChannel" (click)="checkClick()"> Request Channel</button>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+ 
+    <!-- Time Created Column -->
+    <ng-container matColumnDef="timeCreated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TIME CREATED </th>
+      <td mat-cell *matCellDef="let element"> {{element.timeCreated}} </td>
+    </ng-container>
+
+    <!-- Block HeightColumn -->
+    <ng-container matColumnDef="blockHeight">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> BLOCK HEIGHT </th>
+      <td mat-cell *matCellDef="let element"> {{element.blockHeight}} </td>
+    </ng-container>
+
+    <!-- Peers Column -->
+    <ng-container matColumnDef="peers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> PEERS </th>
+      <td mat-cell *matCellDef="let element"> {{element.peers}} </td>
+    </ng-container>
+
+    <!-- action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+      <td mat-cell *matCellDef="let element"> {{element.action}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

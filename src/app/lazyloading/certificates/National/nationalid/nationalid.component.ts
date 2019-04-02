@@ -90,41 +90,46 @@ export class NationalidComponent implements OnInit {
     if (Object.keys(element)[0] == prov)
       return element;
   }
-  
 
 
-  getProvinces(event){
+
+  getProvinces(event) {
     return this._provincesArray.filter(this.checkProvinces(event))[0]
   }
-  
+
 
   onProvince(event: any) {
-    if(event != "invalid")  {
+    this.divisions = [];
+    this.districts = [];
+    this.tehsiles = [];
+    if (event != "invalid") {
       this.divisions = [];
       let tempProvince = this.getProvinces(event);
       tempProvince[event].forEach(element => {
-          this.divisions.push(element.division);
+        this.divisions.push(element.division);
       });
     }
     else
-    console.log("Invalid choice");
-}
+      console.log("Invalid choice");
+  }
 
-  onDivision(event: any){
+  onDivision(event: any) {
+    this.districts = [];
+    this.tehsiles = [];
     let prov = this.addForm.get('province').value;
-    if(event != "invalid"){
+    if (event != "invalid") {
       this._districts = [];
       this.districts = [];
       let tempProvince = this.getProvinces(prov);
       tempProvince[prov].forEach(element => {
         this._districts[element.division] = element.district;
-    });
-    this._districts[this.addForm.get('division').value].forEach(element => {
-      this.districts.push(Object.keys(element)[0]);
-    });
+      });
+      this._districts[this.addForm.get('division').value].forEach(element => {
+        this.districts.push(Object.keys(element)[0]);
+      });
     }
     else
-    console.log("Invalid choice")
+      console.log("Invalid choice")
   }
 
   // checkDistricts(dist){
@@ -132,16 +137,20 @@ export class NationalidComponent implements OnInit {
   //   return dist[dis].tehsile;
   // }
 
-  onDistrict( event: any){
-    let dis = this.addForm.get('district').value;
+  onDistrict(event: any) {
     this.tehsiles = [];
-    if(event != "invalid"){
-    //console.log(this._districts[this.addForm.get('division').value].find(this.checkDistricts));
-    this.tehsiles = this._districts[this.addForm.get('division').value][0].tehsile;
-    console.log(this.tehsiles);
+    let dis = this.addForm.get('district').value;
+    if (event != "invalid") {
+      let _teh;
+      this._districts[this.addForm.get('division').value].forEach(element => {
+        if (element[dis] != undefined) {
+          _teh = element[dis];
+        }
+      });
+      this.tehsiles = _teh[0].tehsil;
     }
     else
-    console.log("Invalid choice")
+      console.log("Invalid choice")
   }
-  
+
 }

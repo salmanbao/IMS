@@ -66,8 +66,6 @@ export class AddBirthComponent implements OnInit {
   }
 
   onCity(event: any) {
-
-    console.log(event);
     this._province = event.admin;
     this._country = event.country;
   }

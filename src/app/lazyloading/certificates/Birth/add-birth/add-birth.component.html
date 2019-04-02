@@ -87,7 +87,13 @@
           </div>
           <div class="col-md-4">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="City" type="text" formControlName="city" [value]="_country">
+              <mat-label>City</mat-label>
+              <mat-select formControlName="city" (ngModelChange)="onCity($event)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let city of cities" [value]="city" >
+                  {{city.city}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
