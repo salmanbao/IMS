@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import {
   AgmCoreModule
 } from '@agm/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.component';
 import { MaterialModule } from './modules/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconRegistry } from '@angular/material';
 
 
 
@@ -49,4 +50,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [FormBuilder],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  }
+ }

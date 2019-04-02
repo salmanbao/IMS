@@ -3,8 +3,7 @@
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Member">
     </mat-form-field>
-    <button mat-raised-button class="btn btn-danger" id="addMember" (click)="checkClick()"><i
-        class="material-icons">add_box</i> Add User</button>
+    <button mat-raised-button class="btn btn-danger" id="addMember" (click)="checkClick()"><mat-icon svgIcon="account-plus-outline"></mat-icon> Add User</button>
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
