@@ -2,34 +2,43 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 export interface PeriodicElement {
-  member: string;
+  member: {};
   msp: string;
   requester: string;
   status: string;
-  action: string;
+  action: boolean;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
-    member: 'john@gmail.com',
+    member: {
+      "org": "Org1",
+      "email": 'john@gmail.com'
+    },
     msp: 'PeerOrg1',
     requester: 'john@gmail.com',
-    status: "joined",
-    action: "block"
+    status: "Joined",
+    action: false
   },
   {
-    member: 'johndoe@gmail.com',
+    member: {
+      "org": "Org1",
+      "email": 'johndoe@gmail.com'
+    },
     msp: 'PeerOrg1',
     requester: 'johndoe@gmail.com',
-    status: "pending",
-    action: "unblock"
+    status: "Pending",
+    action: true
   },
   {
-    member: 'doe@gmail.com',
+    member: {
+      "org": "Org1",
+      "email": 'doe@gmail.com'
+    },
     msp: 'PeerOrg1',
     requester: 'doe@gmail.com',
     status: "Joined",
-    action: "block"
+    action: false
   }
 
 ];
@@ -41,7 +50,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListOrgMembersComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
   displayedColumns: string[] = [
     'member',
     'msp',
@@ -52,7 +63,7 @@ export class ListOrgMembersComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
-
+  blinker: boolean = true;
   ngOnInit() {
     this.dataSource.sort = this.sort;
   }
@@ -60,5 +71,7 @@ export class ListOrgMembersComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
 
 }

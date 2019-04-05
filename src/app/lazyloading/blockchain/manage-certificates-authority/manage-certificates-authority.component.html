@@ -3,7 +3,7 @@
     <mat-form-field> 
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search CA">
     </mat-form-field>
-    <button mat-raised-button class="btn btn-danger" id="addUser" (click)="checkClick()"> Add User</button>
+    <button mat-raised-button class="btn btn-danger" id="addUser" (click)="checkClick()"><mat-icon svgIcon="account-plus-outline"></mat-icon> Add User</button>
   </div>
 
 
@@ -31,8 +31,8 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
       <td mat-cell *matCellDef="let element">
-        <button *ngIf="element.id == 'admin'" mat-raised-button (click)="checkClick()"><i
-            class="material-icons">add_box</i> <b class="text-danger">Generate Certificate</b></button>
+        <button *ngIf="element.id == 'admin'" mat-button (click)="checkClick()">
+          <mat-icon matTooltip="Generate Certificate">input</mat-icon></button>
       </td>
     </ng-container>
 

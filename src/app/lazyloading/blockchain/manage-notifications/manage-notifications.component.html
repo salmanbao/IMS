@@ -1,0 +1,22 @@
+<mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <b class="text-danger">All</b>
+      </ng-template>
+      <app-all-notifications></app-all-notifications>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <b class="text-danger">Pending</b>
+      </ng-template>
+      <app-pending-notifications></app-pending-notifications>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+          <b class="text-danger">Completed</b>
+        </ng-template>
+        <app-completed-notifications></app-completed-notifications>
+      </mat-tab>
+  </mat-tab-group>

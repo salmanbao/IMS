@@ -9,7 +9,7 @@
         </mat-form-field>
 
     <button mat-raised-button class="btn btn-danger" id="installCC" (click)="checkClick()">
-      <mat-icon svgIcon="arrow-down-bold-box-outline"></mat-icon> Install Chaincode</button>
+      <mat-icon svgIcon="cogs"></mat-icon> Install Chaincode</button>
   </div>
 
 
@@ -31,7 +31,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button><i class="material-icons">add_box</i> </button>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions For Chaincode">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                  <mat-icon svgIcon="rotate-3d"></mat-icon>
+                <span>Initiate</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>settings_input_component</mat-icon>
+                <span>View Channels</span>
+              </button>
+            </mat-menu>
       </td>
     </ng-container>
 
