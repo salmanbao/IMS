@@ -5,38 +5,14 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { MatButtonModule, 
-  MatInputModule, 
-  MatAutocompleteModule, 
-  MatIconModule, 
-  MatAccordion, 
-  MatBadgeModule, 
-  MatBottomSheetModule, 
-  MatButtonToggleModule, 
-  MatCardModule, 
-  MatCheckboxModule, 
-  MatChipsModule, 
-  MatDatepickerModule
- } from '@angular/material';
+import { MaterialModule } from 'app/modules/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatIconModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule
-
-
-  ],
+    MaterialModule
+  ], 
   declarations: [
     FooterComponent,
     NavbarComponent,
@@ -46,17 +22,6 @@ import { MatButtonModule,
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatIconModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule
   ]
 })
 export class ComponentsModule { }

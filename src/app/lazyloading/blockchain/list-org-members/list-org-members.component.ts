@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.component';
+
 
 export interface PeriodicElement {
   member: {};
@@ -49,8 +51,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./list-org-members.component.scss']
 })
 export class ListOrgMembersComponent implements OnInit {
-
-  constructor() {
+  title: string;
+  Orgname: string;
+  OperatorName:string;
+  constructor(public dialog: MatDialog) {
 
   }
   displayedColumns: string[] = [
@@ -71,7 +75,22 @@ export class ListOrgMembersComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddMemberDialogComponent, {
+      width: '50%',
+      data: {  
+        title: this.title,
+        Orgname: this.Orgname,
+        OperatorName:this.OperatorName
 
+       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
 
 
 }

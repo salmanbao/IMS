@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { AddMemberDialogComponent } from '../add-member-dialog/add-member-dialog.component';
-
+import { AddMemberCertificatesDialogComponent } from './add-member-certificates-dialog/add-member-certificates-dialog.component';
 
 
 export interface PeriodicElement {
@@ -36,8 +35,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AddMembersCertificatesComponent implements OnInit {
 
-  animal: string;
+  title: string;
   name: string;
+  certificate:string;
+    
   constructor(public dialog: MatDialog) { }
   displayedColumns: string[] = [
     'name',
@@ -56,17 +57,22 @@ export class AddMembersCertificatesComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddMemberDialogComponent, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
+    const dialogRef = this.dialog.open(AddMemberCertificatesDialogComponent, {
+      width: '50%',
+      data: {  
+        title: this.title,
+        name: this.name,
+        certificate:this.certificate
+
+       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+      console.log(result);
     });
   }
 
 }
-

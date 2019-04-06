@@ -3,7 +3,7 @@
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Member">
     </mat-form-field>
-    <button mat-raised-button class="btn btn-danger" id="addMember" (click)="checkClick()">
+    <button mat-raised-button class="btn btn-danger" id="addMember" (click)="openDialog()">
       <mat-icon svgIcon="account-plus-outline"></mat-icon> Add User
     </button>
   </div>
@@ -17,9 +17,9 @@
         <p class="message">
           {{element.member.email}}
         </p> 
-      </td>
+      </td> 
     </ng-container>
-
+ 
     <!-- MSP Column -->
     <ng-container matColumnDef="msp">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> MSP ID </th>

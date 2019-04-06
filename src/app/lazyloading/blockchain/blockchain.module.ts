@@ -20,12 +20,16 @@ import { ManageNotificationsComponent } from './manage-notifications/manage-noti
 import { AllNotificationsComponent } from './all-notifications/all-notifications.component';
 import { PendingNotificationsComponent } from './pending-notifications/pending-notifications.component';
 import { CompletedNotificationsComponent } from './completed-notifications/completed-notifications.component';
-import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.component';
+import { AddMemberDialogComponent } from './list-org-members/add-member-dialog/add-member-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { AddMemberCertificatesDialogComponent } from './add-members-certificates/add-member-certificates-dialog/add-member-certificates-dialog.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
     BlockchainRoutingModule
   ],
   declarations: [
@@ -47,7 +51,12 @@ import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.
     AllNotificationsComponent,
     PendingNotificationsComponent,
     CompletedNotificationsComponent,
-    AddMemberDialogComponent
+    AddMemberDialogComponent,
+    AddMemberCertificatesDialogComponent
+  ],
+  entryComponents: [
+    AddMemberDialogComponent,
+    AddMemberCertificatesDialogComponent
   ]
 })
 export class BlockchainModule { }

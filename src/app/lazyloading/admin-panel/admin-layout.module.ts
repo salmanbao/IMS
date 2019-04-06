@@ -11,15 +11,8 @@ import { TypographyComponent } from 'app/components/typography/typography.compon
 import { MapsComponent } from 'app/components/maps/maps.component';
 import { NotificationsComponent } from 'app/components/notifications/notifications.component';
 import { UpgradeComponent } from 'app/components/upgrade/upgrade.component';
+import { MaterialModule } from 'app/modules/material.module';
 
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule
-} from '@angular/material';
 
 
 @NgModule({
@@ -27,12 +20,7 @@ import {
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
+    MaterialModule
   ],
   declarations: [
     DashboardComponent,

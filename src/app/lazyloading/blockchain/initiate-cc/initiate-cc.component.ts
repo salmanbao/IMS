@@ -21,10 +21,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./initiate-cc.component.scss']
 })
 export class InitiateCCComponent implements OnInit {
-  addForm: FormGroup;
 
+ selected:any;
   constructor(
-    private _formBuilder: FormBuilder
   ) { }
   displayedColumns: string[] = [
     'id',
@@ -37,9 +36,6 @@ export class InitiateCCComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.addForm = this._formBuilder.group({
-      peers: ['', null],
-    })
   }
 
   applyFilter(filterValue: string) {
