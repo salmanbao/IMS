@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.component';
 
-
 export interface PeriodicElement {
   member: {};
   msp: string;
