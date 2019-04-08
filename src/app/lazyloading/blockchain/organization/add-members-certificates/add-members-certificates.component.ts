@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { AddMemberCertificatesDialogComponent } from './add-member-certificates-dialog/add-member-certificates-dialog.component';
 
 
@@ -39,7 +39,13 @@ export class AddMembersCertificatesComponent implements OnInit {
   name: string;
   certificate:string;
     
-  constructor(public dialog: MatDialog) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+    ) { }
   displayedColumns: string[] = [
     'name',
     'dateAdded',
@@ -75,4 +81,19 @@ export class AddMembersCertificatesComponent implements OnInit {
     });
   }
 
+  openSnackBarCertificate() {
+    this.snackBar.open('Certificate has been revoked', 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  openSnackBarSyncCertificate() {
+    this.snackBar.open('Certificate has been synchronized', 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
 }

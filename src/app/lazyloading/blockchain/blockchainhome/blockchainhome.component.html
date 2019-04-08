@@ -30,7 +30,13 @@
                 <ng-template mat-tab-label>
                     <mat-icon class="text-danger example-tab-icon"  matTooltip="Chaincode" >dvr</mat-icon>
                   </ng-template>
-                  <app-initiate-cc></app-initiate-cc>
+                  <app-list-chaincode></app-list-chaincode>
+            </mat-tab>
+            <mat-tab label="Peers">
+                <ng-template mat-tab-label>
+                    <mat-icon class="text-danger example-tab-icon" svgIcon="lan-pending" matTooltip="Peers" ></mat-icon>
+                  </ng-template>
+                  <app-list-peers></app-list-peers>
             </mat-tab>
 
         </mat-tab-group>

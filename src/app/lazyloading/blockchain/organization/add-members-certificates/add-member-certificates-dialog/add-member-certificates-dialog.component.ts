@@ -16,7 +16,7 @@ export interface DialogData {
 export class AddMemberCertificatesDialogComponent implements OnInit {
 
   ngOnInit() {
-  }
+  } 
   
   constructor(
     public dialogRef: MatDialogRef<AddMembersCertificatesComponent>,

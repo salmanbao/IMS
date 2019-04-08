@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatSnackBarVerticalPosition, MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material';
 import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.component';
 
 export interface PeriodicElement {
@@ -53,9 +53,14 @@ export class ListOrgMembersComponent implements OnInit {
   title: string;
   Orgname: string;
   OperatorName:string;
-  constructor(public dialog: MatDialog) {
 
-  }
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+    ) { }
   displayedColumns: string[] = [
     'member',
     'msp',
@@ -91,5 +96,12 @@ export class ListOrgMembersComponent implements OnInit {
     });
   }
 
+  openSnackBar() {
+    this.snackBar.open('Organization removed', 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
 
 }

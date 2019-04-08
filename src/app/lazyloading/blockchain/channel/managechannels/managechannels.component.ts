@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog } from '@angular/material';
+import { AddChannelComponent } from '../add-channel/add-channel.component';
+import { RequestChannelComponent } from '../request-channel/request-channel.component';
 
 
 export interface PeriodicElement {
@@ -7,6 +9,7 @@ export interface PeriodicElement {
   timeCreated: string;
   blockHeight: Number;
   peers: Number;
+  permissions:Array<string>;
   action: string;
 }
 
@@ -16,6 +19,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/2/2019',
     blockHeight: 20,
     peers: 6,
+    permissions:['Operator','Writer','Reader'],
     action: "block"
   },
   {
@@ -23,6 +27,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/4/2019',
     blockHeight: 34,
     peers: 3,
+    permissions:['Operator','Writer','Reader'],
     action: "unblock"
   },
   {
@@ -30,10 +35,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/4/2019',
     blockHeight: 67,
     peers: 6,
+    permissions:['Operator','Writer','Reader'],
     action: "block"
   }
 
 ];
+
+
 
 @Component({
   selector: 'app-managechannels',
@@ -41,15 +49,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./managechannels.component.scss']
 })
 export class ManagechannelsComponent implements OnInit {
+  
+  title: string;
+  channelName: string;
+  channelFile:string;
+  peers:Array<string>;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+    ) { }
+
+
   displayedColumns: string[] = [
     'id',
     'timeCreated',
     'blockHeight',
     'peers',
+    'permissions',
     'action'
   ];
+
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
@@ -64,6 +86,48 @@ export class ManagechannelsComponent implements OnInit {
 
   checkClick(){
     console.log("clicked"); 
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddChannelComponent, {
+      width: '50%',
+      data: {  
+        title: this.title,
+        channelName: this.channelName,
+        channelFile:this.channelFile
+
+       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
+
+  openDialogRequestChannel(): void {
+    const dialogRef = this.dialog.open(RequestChannelComponent, {
+      width: '50%',
+      data: {  
+        title: this.title,
+        channelName: this.channelName,
+        peers:this.peers
+
+       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
+
+  openSnackBarSyncCertificate() {
+    this.snackBar.open('Certificates has been synchronized', 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 
 }

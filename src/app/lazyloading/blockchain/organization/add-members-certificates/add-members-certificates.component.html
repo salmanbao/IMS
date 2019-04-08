@@ -28,11 +28,11 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="openSnackBarCertificate()" >
                 <mat-icon svgIcon="square-edit-outline"></mat-icon>
                 <span>Revok</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="openSnackBarSyncCertificate()">
                 <mat-icon svgIcon="sync"></mat-icon>
                 <span>Sync Certificates</span>
               </button>

@@ -20,7 +20,7 @@ import { ListMarriageComponent } from './Marriage/list-marriage/list-marriage.co
 import { AddMarriageComponent } from './Marriage/add-marriage/add-marriage.component';
 import { UpdateMarriageComponent } from './Marriage/update-marriage/update-marriage.component';
 import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.component';
-
+ 
 @NgModule({
   imports: [
     CommonModule,
