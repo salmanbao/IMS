@@ -15,7 +15,7 @@ import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.com
 import { MaterialModule } from './modules/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconRegistry } from '@angular/material';
-import { ListFamiliesComponent } from './src/app/lazyloading/certificates/Family/list-families/list-families.component';
+
 
 
 @NgModule({
@@ -40,8 +40,7 @@ import { ListFamiliesComponent } from './src/app/lazyloading/certificates/Family
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    ListFamiliesComponent
+    AdminLayoutComponent
 
 
   ],

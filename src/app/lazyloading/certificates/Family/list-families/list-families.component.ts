@@ -3,7 +3,7 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { ViewDetailDialogComponent } from './view-detail-dialog/view-detail-dialog.component';
 
 export interface PeriodicElement {
-  did: string;
+
   fname: string;
   lname: string;
   fatherDID: string;
@@ -13,7 +13,6 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
-    did: 'G45YY56H76UI78I78',
     fname: 'Muhammad Salman',
     lname: 'Muhammad Saleem',
     fatherDID: "HG45Y54Y6UU67II7I78",
@@ -52,12 +51,11 @@ export class ListFamiliesComponent implements OnInit {
   //------------------------End-----------------------//
 
   displayedColumns: string[] = [
-    'did',
+    'familyNumber',
     'fname',
     'lname',
     'fatherDID',
     'motherDID',
-    'familyNumber',
     'actions'
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);

@@ -20,10 +20,9 @@ import { AddMarriageComponent } from './Marriage/add-marriage/add-marriage.compo
 import { UpdateMarriageComponent } from './Marriage/update-marriage/update-marriage.component';
 import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.component';
 import { ListFamiliesComponent } from './Family/list-families/list-families.component';
-import { AddFamilyComponent } from './Family/add-family/add-family.component';
-import { UpdateFamilyComponent } from './Family/update-family/update-family.component';
 import { FamilyHomeComponent } from './Family/family-home/family-home.component';
 import { ViewDetailDialogComponent } from './Family/list-families/view-detail-dialog/view-detail-dialog.component';
+import { FamilyTreeComponent } from './Family/family-tree/family-tree.component';
  
 @NgModule({
   imports: [
@@ -50,10 +49,9 @@ import { ViewDetailDialogComponent } from './Family/list-families/view-detail-di
     UpdateMarriageComponent,
     HomeMarriageComponent,
     ListFamiliesComponent,
-    AddFamilyComponent,
-    UpdateFamilyComponent,
     FamilyHomeComponent,
-    ViewDetailDialogComponent
+    ViewDetailDialogComponent,
+    FamilyTreeComponent
   ],
   exports: [
     
