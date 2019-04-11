@@ -1,3 +1,112 @@
-<p>
-  add-family works!
-</p>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Family Info</h4>
+      <p class="card-category">Family Certificate</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="addBirthForm">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Enter DID" formControlName="did">
+              <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="getData()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="First Name" type="text" formControlName="fname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last Name" type="text" formControlName="lname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="DOB"
+                formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Father DID" type="text" formControlName="fatherDID">
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Mother DID" type="text" formControlName="motherDID">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Family" type="text" formControlName="familyNumber">
+              <mat-icon matSuffix>group</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Address" type="text" formControlName="address">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" (ngModelChange)="onCity($event)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let gender of genders" [value]="gender">
+                  {{gender}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-label>Religion</mat-label>
+              <mat-select formControlName="religion">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let religion of religions" [value]="religion">
+                  {{religion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <mat-label>City</mat-label>
+              <mat-select formControlName="city" (ngModelChange)="onCity($event)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let city of cities" [value]="city" >
+                  {{city.city}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Country" type="text" formControlName="country" [value]="_country">
+            </mat-form-field>
+          </div>
+        </div>
+        <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="registerUser()">Save
+          Profile</button>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>
