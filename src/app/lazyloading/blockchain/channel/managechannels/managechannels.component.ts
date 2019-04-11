@@ -84,10 +84,6 @@ export class ManagechannelsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  checkClick(){
-    console.log("clicked"); 
-  }
-
   openDialog(): void {
     const dialogRef = this.dialog.open(AddChannelComponent, {
       width: '50%',

@@ -27,8 +27,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     religion: 'Islam',
     issueanceDate: '22-02-2017'
   }
-
 ];
+
 @Component({
   selector: 'app-list-birth',
   templateUrl: './list-birth.component.html',

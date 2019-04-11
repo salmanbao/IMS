@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeathComponent } from './death.component';
+import { ListFamiliesComponent } from './list-families.component';
 
-describe('DeathComponent', () => {
-  let component: DeathComponent;
-  let fixture: ComponentFixture<DeathComponent>;
+describe('ListFamiliesComponent', () => {
+  let component: ListFamiliesComponent;
+  let fixture: ComponentFixture<ListFamiliesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeathComponent ]
+      declarations: [ ListFamiliesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeathComponent);
+    fixture = TestBed.createComponent(ListFamiliesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

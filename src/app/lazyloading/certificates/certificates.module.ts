@@ -6,7 +6,6 @@ import { ComponentsModule } from 'app/components/components.module';
 import { MaterialModule } from 'app/modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CertificatehomeComponent } from './certificatehome/certificatehome.component';
-import { DeathComponent } from './death/death.component';
 import { NationalidService } from 'app/services/nationalid.service';
 import { NationalidComponent } from './National/nationalid/nationalid.component';
 import { ListnationalidComponent } from './National/listnationalid/listnationalid.component';
@@ -20,6 +19,11 @@ import { ListMarriageComponent } from './Marriage/list-marriage/list-marriage.co
 import { AddMarriageComponent } from './Marriage/add-marriage/add-marriage.component';
 import { UpdateMarriageComponent } from './Marriage/update-marriage/update-marriage.component';
 import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.component';
+import { ListFamiliesComponent } from './Family/list-families/list-families.component';
+import { AddFamilyComponent } from './Family/add-family/add-family.component';
+import { UpdateFamilyComponent } from './Family/update-family/update-family.component';
+import { FamilyHomeComponent } from './Family/family-home/family-home.component';
+import { ViewDetailDialogComponent } from './Family/list-families/view-detail-dialog/view-detail-dialog.component';
  
 @NgModule({
   imports: [
@@ -33,7 +37,6 @@ import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.co
   ],
   declarations: [
     CertificatehomeComponent,
-    DeathComponent,
     NationalidComponent,
     ListnationalidComponent,
     UpdateNationalIdComponent,
@@ -45,10 +48,18 @@ import { HomeMarriageComponent } from './Marriage/home-marriage/home-marriage.co
     ListMarriageComponent,
     AddMarriageComponent,
     UpdateMarriageComponent,
-    HomeMarriageComponent
+    HomeMarriageComponent,
+    ListFamiliesComponent,
+    AddFamilyComponent,
+    UpdateFamilyComponent,
+    FamilyHomeComponent,
+    ViewDetailDialogComponent
   ],
   exports: [
     
+  ],
+  entryComponents:[
+    ViewDetailDialogComponent
   ],
   providers : [
     NationalidService

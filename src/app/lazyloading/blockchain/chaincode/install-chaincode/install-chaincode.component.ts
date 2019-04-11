@@ -17,8 +17,8 @@ export interface DialogData {
 })
 export class InstallChaincodeComponent implements OnInit {
 
-  languages = ['Golang','Javascript'];
-  paths = ['gov','hec'];
+  languages = ['Golang', 'Javascript'];
+  paths = ['gov', 'hec'];
   constructor(
     public dialogRef: MatDialogRef<InstallChaincodeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
@@ -31,7 +31,5 @@ export class InstallChaincodeComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  
-  
 
 }

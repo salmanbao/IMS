@@ -15,10 +15,7 @@ import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.com
 import { MaterialModule } from './modules/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconRegistry } from '@angular/material';
-
-
-
-
+import { ListFamiliesComponent } from './src/app/lazyloading/certificates/Family/list-families/list-families.component';
 
 
 @NgModule({
@@ -43,7 +40,8 @@ import { MatIconRegistry } from '@angular/material';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    ListFamiliesComponent
 
 
   ],
@@ -51,7 +49,7 @@ import { MatIconRegistry } from '@angular/material';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg')); // Or whatever path you placed mdi.svg at
   }
- }
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { InstallChaincodeComponent } from '../install-chaincode/install-chaincode.component';
+import { InitiateCCComponent } from '../initiate-cc/initiate-cc.component';
 
 export interface PeriodicElement {
   id: string;
@@ -29,6 +30,13 @@ export class ListChaincodeComponent implements OnInit {
   languageType: string;
   choosedFiles: string;
   selectedPath: string;
+  // Initiate dialog box variables
+  cc_title: string;
+  cc_name: string;
+  cc_version: string;
+  cc_function: string;
+  cc_arguments: Array<string>;
+
 
   selected: any;
   constructor(
@@ -61,6 +69,24 @@ export class ListChaincodeComponent implements OnInit {
         languageType: this.languageType,
         choosedFiles: this.choosedFiles,
         selectedPath: this.selectedPath
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
+
+  openInitiateChaincodeDialog(): void {
+    const dialogRef = this.dialog.open(InitiateCCComponent, {
+      width: '50%',
+      data: {
+        cc_title: this.cc_title,
+        cc_name: this.cc_name,
+        cc_version: this.cc_version,
+        cc_function: this.cc_function,
+        cc_arguments: this.cc_arguments
       }
     });
 

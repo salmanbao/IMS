@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { AddMemberComponent } from '../add-member/add-member.component';
 
 export interface PeriodicElement {
   id: string;
@@ -22,7 +23,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     action: ""
   }
 ];
-
+ 
 @Component({
   selector: 'app-manage-certificates-authority',
   templateUrl: './manage-certificates-authority.component.html',
@@ -30,7 +31,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManageCertificatesAuthorityComponent implements OnInit {
 
-  constructor() { }
+  title: string;
+  name: string;
+  orgName: string;
+
+  constructor(
+    public dialog: MatDialog
+  ) { }
   displayedColumns: string[] = [
     'id',
     'type',
@@ -49,8 +56,20 @@ export class ManageCertificatesAuthorityComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  checkClick() {
-    console.log("clicked");
+  openAddUserDialog(): void {
+    const dialogRef = this.dialog.open(AddMemberComponent, {
+      width: '60%',
+      data: {
+        title: this.title,
+        name: this.name,
+        orgName: this.orgName
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 }

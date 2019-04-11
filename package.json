@@ -33,6 +33,7 @@
     "@angular/router": "7.0.2",
     "@mdi/font": "^3.5.95",
     "ajv": "6.4.0",
+    "angular-material-fileupload": "^2.0.0",
     "arrive": "2.4.1",
     "bootstrap": "4.1.0",
     "bootstrap-material-design": "4.1.1",

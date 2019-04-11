@@ -26,7 +26,6 @@ import { InstallChaincodeComponent } from './chaincode/install-chaincode/install
 import { ListChaincodeComponent } from './chaincode/list-chaincode/list-chaincode.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -64,7 +63,9 @@ import { ListChaincodeComponent } from './chaincode/list-chaincode/list-chaincod
     AddChannelComponent,
     RequestChannelComponent,
     AddPeerComponent,
-    InstallChaincodeComponent
+    InstallChaincodeComponent,
+    AddMemberComponent,
+    InitiateCCComponent
   ]
 })
 export class BlockchainModule { }
