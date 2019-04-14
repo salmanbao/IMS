@@ -22,7 +22,7 @@ var Peer = require('fabric-client/lib/Peer.js');
 var config = require('../config.json');
 var helper = require('./helper.js');
 var logger = helper.getLogger('invoke-chaincode');
-var EventHub = require('fabric-client/lib/EventHub.js');
+var EventHub = require('fabric-client/lib/ChannelEventHub.js');
 hfc.addConfigFile(path.join(__dirname, 'network-config.json'));
 var ORGS = hfc.getConfigSetting('network-config');
 var ordererFailure = 0;
