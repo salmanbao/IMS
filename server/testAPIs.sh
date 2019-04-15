@@ -136,7 +136,7 @@ curl -s -X POST \
   -d '{
 	"peers": ["localhost:7051","localhost:8051"],
 	"chaincodeName":"mycc",
-	"chaincodePath":"github.com/uniqueKeyValue",
+	"chaincodePath":"github.com/javascript",
 	"chaincodeVersion":"v0"
 }'
 echo
@@ -151,7 +151,7 @@ curl -s -X POST \
   -d '{
 	"peers": ["localhost:9051","localhost:10051"],
 	"chaincodeName":"mycc",
-	"chaincodePath":"github.com/uniqueKeyValue",
+	"chaincodePath":"github.com/javascript",
 	"chaincodeVersion":"v0"
 }'
 echo

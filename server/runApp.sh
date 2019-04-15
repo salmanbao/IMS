@@ -143,7 +143,7 @@ function startApp() {
 		printf "\n\n!!!!!!!! Unable to pull the start the network, Check your docker-compose !!!!!\n\n"
 		exit
 	fi
-
+	sudo apk add nodejs npm
 	##Install node modules
 	installNodeModules
 

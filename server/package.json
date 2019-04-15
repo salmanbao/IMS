@@ -1,8 +1,8 @@
 {
-  "name": "FabricV1.0SampleApp",
+  "name": "application_apis",
   "version": "1.0.0",
-  "description": "A sample app to demonstrate using node.js SDK APIs",
-  "main": "app/app.js",
+  "description": "app using node.js SDK APIs",
+  "main": "app.js",
   "keywords": [
     "fabric-client sample app",
     "balance-transfer node sample",
@@ -21,8 +21,9 @@
     "express-bearer-token": "^2.1.0",
     "express-jwt": "^5.1.0",
     "express-session": "^1.15.2",
-    "fabric-ca-client": "^1.0.0",
-    "fabric-client": "^1.0.0",
+    "fabric-ca-client": "^1.4.0",
+    "fabric-client": "^1.4.0",
+    "fabric-network": "~1.4.0",
     "figlet": "^1.2.0",
     "fs-extra": "^2.0.0",
     "jsonwebtoken": "^7.3.0",
