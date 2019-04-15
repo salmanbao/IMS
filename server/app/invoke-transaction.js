@@ -30,7 +30,7 @@ var peerFailures = 0;
 var allEventhubs = [];
 var propResponse = null;
 var tempPropResponse = null;
-var deferred = Promise.defer();
+//var deferred = Promise.defer();
 var propRequest = {};
 var invokeChaincode = function(peersUrls, channelName, chaincodeName, fcn, args, username, org) {
     logger.debug(util.format('\n============ invoke transaction on organization %s ============\n', org));
