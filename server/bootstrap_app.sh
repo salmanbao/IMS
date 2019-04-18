@@ -62,4 +62,4 @@ restartNetwork
 installNodeModules
 
 # start the node app on port 4000
-PORT=4000 node app
+PORT=4000 nodemon app.js

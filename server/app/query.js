@@ -54,4 +54,4 @@ var queryChaincode = async function(peer, channelName, chaincodeName, args, fcn,
 };
 
 exports.queryChaincode = queryChaincode;
-exports.getBlockByNumber = getBlockByNumber;
+
