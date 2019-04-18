@@ -14,203 +14,162 @@
  *  limitations under the License.
  */
 'use strict';
-var path = require('path');
-var fs = require('fs');
 var util = require('util');
-var hfc = require('fabric-client');
-var Peer = require('fabric-client/lib/Peer.js');
-var config = require('../config.json');
 var helper = require('./helper.js');
 var logger = helper.getLogger('invoke-chaincode');
-var EventHub = require('fabric-client/lib/ChannelEventHub.js');
-hfc.addConfigFile(path.join(__dirname, 'network-config.json'));
-var ORGS = hfc.getConfigSetting('network-config');
-var ordererFailure = 0;
-var peerFailures = 0;
-var allEventhubs = [];
-var propResponse = null;
-var tempPropResponse = null;
-//var deferred = Promise.defer();
-var propRequest = {};
-var invokeChaincode = function(peersUrls, channelName, chaincodeName, fcn, args, username, org) {
-    logger.debug(util.format('\n============ invoke transaction on organization %s ============\n', org));
-    var client = helper.getClientForOrg(org);
-    var channel = helper.getChannelForOrg(org, channelName);
-    if (peerFailures > 0) {
-        //TODO: Add your peers here
-        peersUrls = []; // rather eiminate duplicates
-        peersUrls.push('localhost:8051');
-    }
-    var targets = helper.newPeers(peersUrls);
-    var tx_id = null;
-    var ordererCount = channel.getOrderers().length;
-    var closeConnections = function() {
-        for (var key in allEventhubs) {
-            var eventhub = allEventhubs[key];
-            if (eventhub && eventhub.isconnected()) {
-                logger.debug('Disconnecting the event hub');
-                eventhub.disconnect();
-            }
-        }
-    };
-    return helper.getRegisteredUsers(username, org).then((user) => {
-        if (ordererFailure > 0 && propResponse) {
-            return propResponse;
-        } else {
-            tx_id = client.newTransactionID();
-            logger.debug(util.format('Sending transaction "%j"', tx_id));
-            // send proposal to endorser
-            propRequest = {
-                targets: targets,
-                chaincodeId: chaincodeName,
-                fcn: fcn,
-                args: args,
-                chainId: channelName,
-                txId: tx_id
-            };
-            return channel.sendTransactionProposal(propRequest);
-        }
-    }, (err) => {
-        logger.error('Failed to enroll user \'' + username + '\'. ' + err);
-        throw new Error('Failed to enroll user \'' + username + '\'. ' + err);
-    }).then((results) => {
 
-        var proposalResponses = results[0];
-        var proposal = results[1];
-        var header = results[2];
-        if (ordererFailure > 0) {
-            //TODO: why the offset values are getting changed ?
-            proposal.payload.offset = 0;
-            proposal.header.offset = 0;
-        }
-        var all_good = true;
-        for (var i in proposalResponses) {
-            let one_good = false;
-            if (proposalResponses && proposalResponses[0].response &&
-                proposalResponses[0].response.status === 200) {
-                one_good = true;
-                logger.info('transaction proposal was good');
-            } else {
-                logger.error('transaction proposal was bad');
-            }
-            all_good = all_good & one_good;
-        }
-        if (!all_good && peerFailures < ordererCount) {
-            peerFailures++;
-            logger.debug('\n>>>>>>>>>>>>>>>  R E T R Y  - ' + peerFailures + '  <<<<<<<<<<<<\n');
-            invokeChaincode(peersUrls, channelName, chaincodeName, fcn, args, username, org);
-        }
-        if (all_good) {
-            if (ordererFailure < 1) {
-                tempPropResponse = results;
-            }
-            propResponse = results;
-            logger.debug(util.format(
-                'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s", metadata - "%s", endorsement signature: %s',
-                proposalResponses[0].response.status, proposalResponses[0].response.message,
-                proposalResponses[0].response.payload, proposalResponses[0].endorsement
-                .signature));
-            var request = {
-                proposalResponses: proposalResponses,
-                proposal: proposal,
-                header: header
-            };
-            // set the transaction listener and set a timeout of 30sec
-            // if the transaction did not get committed within the timeout period,
-            // fail the test
-            var transactionID = propRequest.txId.getTransactionID();
-            var sendPromise = channel.sendTransaction(request);
+var invokeChaincode = async function(peerNames, channelName, chaincodeName, args, fcn, username, org_name) {
+	logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
+	var error_message = null;
+	var tx_id_string = null;
+	try {
+		// first setup the client for this org
+		var client = await helper.getClientForOrg(org_name, username);
+		logger.debug('Successfully got the fabric client for the organization "%s"', org_name);
+		var channel = client.getChannel(channelName);
+		if(!channel) {
+			let message = util.format('Channel %s was not defined in the connection profile', channelName);
+			logger.error(message);
+			throw new Error(message);
+		}
+		var tx_id = client.newTransactionID();
+		// will need the transaction ID string for the event registration later
+		tx_id_string = tx_id.getTransactionID();
 
-            var eventPromises = [];
+		// send proposal to endorser
+		var request = {
+			targets: [peerNames],
+			chaincodeId: chaincodeName,
+			fcn: fcn,
+			args: args,
+			chainId: channelName,
+			txId: tx_id
+		};
 
-            var eventhubs = helper.newEventHubs(peersUrls, org);
-            for (let key in eventhubs) {
-                let eh = eventhubs[key];
-                eh.connect();
-                allEventhubs.push(eh);
+		let results = await channel.sendTransactionProposal(request);
 
-                let txPromise = new Promise((resolve, reject) => {
-                    let handle = setTimeout(() => {
-                        eh.disconnect();
-                        reject();
-                    }, 30000);
+		// the returned object has both the endorsement results
+		// and the actual proposal, the proposal will be needed
+		// later when we send a transaction to the orderer
+		var proposalResponses = results[0];
+		var proposal = results[1];
 
-                    eh.registerTxEvent(transactionID, (tx, code) => {
-                        clearTimeout(handle);
-                        eh.unregisterTxEvent(transactionID);
-                        eh.disconnect();
+		// lets have a look at the responses to see if they are
+		// all good, if good they will also include signatures
+		// required to be committed
+		var all_good = true;
+		for (var i in proposalResponses) {
+			let one_good = false;
+			if (proposalResponses && proposalResponses[i].response &&
+				proposalResponses[i].response.status === 200) {
+				one_good = true;
+				logger.info('invoke chaincode proposal was good');
+			} else {
+				logger.error('invoke chaincode proposal was bad');
+			}
+			all_good = all_good & one_good;
+		}
 
-                        if (code !== 'VALID') {
-                            logger.error(
-                                'The balance transfer transaction was invalid, code = ' + code);
-                            reject();
-                        } else {
-                            logger.info(
-                                'The balance transfer transaction has been committed on peer ' +
-                                eh._ep._endpoint.addr);
-                            resolve();
-                        }
-                    });
-                });
-                eventPromises.push(txPromise);
-            };
+		if (all_good) {
+			logger.info(util.format(
+				'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s", metadata - "%s", endorsement signature: %s',
+				proposalResponses[0].response.status, proposalResponses[0].response.message,
+				proposalResponses[0].response.payload, proposalResponses[0].endorsement.signature));
 
-            return Promise.all([sendPromise].concat(eventPromises)).then((results) => {
-                logger.debug(' event promise all complete and testing complete');
-                return results[0]; // the first returned value is from the 'sendPromise' which is from the 'sendTransaction()' call
-            }).catch((err) => {
-                closeConnections();
-                //Check if this error is from Ordering Service
-                if (err && err.stack.toString().indexOf('SERVICE_UNAVAILABLE') > -1) {
-                    //return 'Failed to send transaction and get notifications within the timeout period.';
-                    return 'SERVICE_UNAVAILABLE';
-                }
-                return 'Failed to send transaction and get notifications within the timeout period.';
-            });
-        } else {
-            logger.error(
-                'Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...'
-            );
-            return 'Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...';
-        }
-    }, (err) => {
-        logger.error('Failed to send proposal due to error: ' + err.stack ? err.stack :
-            err);
-        return 'Failed to send proposal due to error: ' + err.stack ? err.stack :
-            err;
-    }).then((response) => {
-        if (response.status === 'SUCCESS') {
-            ordererFailure = 0;
-            propResponse = null;
-            logger.info('Successfully sent transaction to the orderer.');
-            return propRequest.txId.getTransactionID();
-            //tx_id.getTransactionID();
-        } else {
-            if (response && response.indexOf('SERVICE_UNAVAILABLE') > -1 && ordererFailure < ordererCount) {
-                let orderers = channel.getOrderers();
-                let ordererToRemove = orderers[0];
-                logger.debug(orderers[1]);
-                channel.removeOrderer(ordererToRemove);
-                channel.addOrderer(ordererToRemove);
-                ordererFailure++;
-                logger.debug('\n>>>>>>>>>>>>>>>  R E T R Y  - ' + ordererFailure + '  <<<<<<<<<<<<\n');
-                invokeChaincode(peersUrls, channelName, chaincodeName, fcn, args, username, org);
-                //return 'Failed to send transaction and get notifications within the timeout period.';
-                if (ordererFailure === ordererCount) {
-                    ordererFailure = 0; // TODO: Is this rt ?
-                    return 'SERVICE_UNAVAILABLE';
-                }
-            } else {
-                logger.error('Failed to order the transaction. Error code: ' + response);
-                return 'Failed to order the transaction. Error code: ' + response;
-            }
-        }
-    }, (err) => {
-        logger.error('Failed to send transaction due to error: ' + err.stack ? err
-            .stack : err);
-        return 'Failed to send transaction due to error: ' + err.stack ? err.stack :
-            err;
-    });
+			// wait for the channel-based event hub to tell us
+			// that the commit was good or bad on each peer in our organization
+			var promises = [];
+			let event_hubs = channel.getChannelEventHubsForOrg();
+			event_hubs.forEach((eh) => {
+				logger.debug('invokeEventPromise - setting up event');
+				let invokeEventPromise = new Promise((resolve, reject) => {
+					let event_timeout = setTimeout(() => {
+						let message = 'REQUEST_TIMEOUT:' + eh.getPeerAddr();
+						logger.error(message);
+						eh.disconnect();
+					}, 3000);
+					eh.registerTxEvent(tx_id_string, (tx, code, block_num) => {
+						logger.info('The chaincode invoke chaincode transaction has been committed on peer %s',eh.getPeerAddr());
+						logger.info('Transaction %s has status of %s in blocl %s', tx, code, block_num);
+						clearTimeout(event_timeout);
+
+						if (code !== 'VALID') {
+							let message = util.format('The invoke chaincode transaction was invalid, code:%s',code);
+							logger.error(message);
+							reject(new Error(message));
+						} else {
+							let message = 'The invoke chaincode transaction was valid.';
+							logger.info(message);
+							resolve(message);
+						}
+					}, (err) => {
+						clearTimeout(event_timeout);
+						logger.error(err);
+						reject(err);
+					},
+						// the default for 'unregister' is true for transaction listeners
+						// so no real need to set here, however for 'disconnect'
+						// the default is false as most event hubs are long running
+						// in this use case we are using it only once
+						{unregister: true, disconnect: true}
+					);
+					eh.connect();
+				});
+				promises.push(invokeEventPromise);
+			});
+
+			var orderer_request = {
+				txId: tx_id,
+				proposalResponses: proposalResponses,
+				proposal: proposal
+			};
+			var sendPromise = channel.sendTransaction(orderer_request);
+			// put the send to the orderer last so that the events get registered and
+			// are ready for the orderering and committing
+			promises.push(sendPromise);
+			let results = await Promise.all(promises);
+			logger.debug(util.format('------->>> R E S P O N S E : %j', results));
+			let response = results.pop(); //  orderer results are last in the results
+			if (response.status === 'SUCCESS') {
+				logger.info('Successfully sent transaction to the orderer.');
+			} else {
+				error_message = util.format('Failed to order the transaction. Error code: %s',response.status);
+				logger.debug(error_message);
+			}
+
+			// now see what each of the event hubs reported
+			for(let i in results) {
+				let event_hub_result = results[i];
+				let event_hub = event_hubs[i];
+				logger.debug('Event results for event hub :%s',event_hub.getPeerAddr());
+				if(typeof event_hub_result === 'string') {
+					logger.debug(event_hub_result);
+				} else {
+					if(!error_message) error_message = event_hub_result.toString();
+					logger.debug(event_hub_result.toString());
+				}
+			}
+		} else {
+			error_message = util.format('Failed to send Proposal and receive all good ProposalResponse');
+			logger.debug(error_message);
+		}
+	} catch (error) {
+		logger.error('Failed to invoke due to error: ' + error.stack ? error.stack : error);
+		error_message = error.toString();
+	}
+
+	if (!error_message) {
+		let message = util.format(
+			'Successfully invoked the chaincode %s to the channel \'%s\' for transaction ID: %s',
+			org_name, channelName, tx_id_string);
+		logger.info(message);
+		return proposalResponses[0].response.payload;
+	} else {
+		let message = util.format('Failed to invoke chaincode. cause:%s',error_message);
+		logger.error(message);
+		// throw new Error(message);
+		return message;
+	}
 };
 
 exports.invokeChaincode = invokeChaincode;

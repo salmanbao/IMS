@@ -1,293 +1,134 @@
-## Fabric Node-SDK Sample app
 
-A sample Node.js app to demonstrate **__fabric-client__** & **__fabric-ca-client__** Node.js SDK APIs
 
-**As of writing this supports beta (and above) commit levels**
 
-### Prerequisites and setup: 
+# Securing Artwork using Blockchain Digital Certificates
 
-* [Docker](https://www.docker.com/products/overview) - v1.12 or higher
-* [Docker Compose](https://docs.docker.com/compose/overview/) - v1.8 or higher
-* [Git client](https://git-scm.com/downloads) - needed for clone commands
-* **Node.js** v6.2.0 - 6.10.0 ( __Node v7+ is not supported__ )
-* Download docker images
+This code pattern is a sample auction Node.js based application that demonstrates storing base64 encoded and encrypted images on a Blockchain ledger and retrieving the same. This application launches Hyperledger Fabric network and then starts the application as a REST API server built on top of NodeSDK APIs.
 
+**Auction Blockchain Application Credits**: Mohan Venkataraman, Sandeep Pulluru and Ratnakar Asara
+
+**Disclaimer**: The image used in this sample demo has been downloaded from publicly available images on the internet, and the copyright belongs to the respective owners. The usage here is strictly for non-commercial purposes as sample data. We recommend that users create their own sample data as appropriate. All details used in the sample data are fictitious. The information provided in this `README.md` is subject to change. Also this is based out of fabric-sample balance-transfer example.
+
+When the reader has completed this code pattern, he or she will understand how to:
+
+* Set up a Blockchain network
+* Generate a base64 encrypted image and store it on the blockchain ledger
+* Query chaincode to retrieve image and store it in a public folder
+
+
+<!--Remember to dump an image in this path-->
+<p align="center">
+<img src="./readme-images/auction-diagram.png"/>
+</p>
+
+## Flow
+<!--Add new flow steps based on the architecture diagram-->
+1. Teardown any existing networks, remove any existing containers or images lying around
+2. Launch the Hyperledger Fabric network
+3. Launch the Node.js application (Rest Server wrapper of top of the NodeSDK API)
+4. Create the channel myChannel
+5. Install and instantiate the auction chaincode
+6. Invoke a transaction where the Node.js app transforms a base 64 encrypted image into a string format
+7. Store the encrypted image image on the Blockchain ledger
+8. Query ledger to get the image data by its imageID and save the image as a Thumbnail in a public folder
+
+<!--Update this section-->
+## Prerequisites
+* [Docker](https://www.docker.com/): 17.09.x or higher
+* [Docker Compose](https://docs.docker.com/compose/): 1.16.1 or higher
+* [jq](https://stedolan.github.io/jq/)
+* [Hyperledger Fabric SDK](https://fabric-sdk-node.github.io/): Enables backend to connect to IBM Blockchain service
+* [Node.js packages](https://docs.docker.com/compose/): If expecting to run this application locally, please continue by installing [Node.js](https://docs.docker.com/compose/) runtime and NPM. Currently the Hyperledger Fabric SDK only appears to work with node v8.9.0+, but [is not yet supported](https://github.com/hyperledger/fabric-sdk-node#build-and-test) on node v9.0+. If your system requires newer versions of node for other projects, we'd suggest using [nvm](https://github.com/creationix/nvm) to easily switch between node versions. We did so with the following commands
 ```
-cd FabricNodeApp1.0
-#IMAGE_TAG="`uname -m`-1.0.0-beta" docker-compose -f artifacts/base.yaml pull
-```
-
-Once you have completed the above setup, you will be provisioned a local network with following configuration:
-* 4 Kafka Brokers + 3 Zookeepers
-* 3 Orderers
-* 2 CA Orgs
-* 4 peers (2 peers per Org)
-* 4 Couchdbs attached to all the peers
-
-#### Artifacts
-* Crypto material has been generated using the **cryptogen** tool from fabric and mounted to all peers, the orderering node and CA containers. More details regarding the cryptogen tool are available [here](http://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html#using-the-cryptogen-tool).
-* An Orderer genesis block (genesis.block) and channel configuration transactions based on the number of channels option (mychannel1.tx) has been pre generated using the **configtxgen** tool and placed within the artifacts folder. More details regarding the configtxgen tool are available [here](http://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html#using-the-configtxgen-tool).
-
-## Running the sample program
-##### Terminal Window 1
-```
-cd FabricNodeApp1.0
-
-./runApp.sh
-
-```
- 
-* This launches the required network on your local machine
-* Installs the "beta" tagged node modules
-* And, starts the node app on PORT 4000
-
-##### Terminal Window 2
-
-
-In order for the following shell script to properly parse the JSON, you must install [jq](https://stedolan.github.io/jq/):
-
-With the application started in terminal 1, next, test the APIs by executing the script - **testAPIs.sh**:
-```
-cd FabricNodeApp1.0
-
-./testAPIs.sh
-
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+# Place next three lines in ~/.bash_profile
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm install v8.9.0
+nvm use 8.9.0
 ```
 
-#### Cleanup:
+<!--Update this section-->
+## Included components
+* [Hyperledger Composer v0.19.4](https://hyperledger.github.io/composer/latest/) Hyperledger Composer is an extensive, open development toolset and framework to make developing blockchain applications easier
+* [Hyperledger Fabric v1.1](https://hyperledger-fabric.readthedocs.io) Hyperledger Fabric is a platform for distributed ledger solutions, underpinned by a modular architecture delivering high degrees of confidentiality, resiliency, flexibility and scalability.
 
-Once the tests are completed, cleanup the network and crypto material using the below command
+<!--Update this section-->
+## Featured technologies
+* [Hyperledger Node.js SDK](https://github.com/hyperledger/fabric-sdk-node)
+* [jq](https://stedolan.github.io/jq/): a lightweight and flexible command-line JSON processor
+* [Docker](https://www.docker.com/): 17.09.x or higher
+* [Docker Compose](https://docs.docker.com/compose/): 1.16.1 or higher
+* [Node.js](https://docs.docker.com/compose/): v8.9.0 or higher
 
-```
-./runApp.sh -m stop
-```
+## Steps
+1. [Clone the repo](#1-clone-the-repo)
+2. [Launch Hyperledger Fabric Network and Node App](#2-launch-hyperledger-fabric-network-and-node-app)
+3. [Create the Network Channel and Invoke a Transaction](#3-Create-the-Network-Channel-and-Invoke-a-Transaction)
 
-**NOTE** : There are two more options available **start** and **restart** (restart is default)
 
-## Sample REST APIs Requests
+### Step 1. Clone the repo
 
-**PLEASE NOTE:** these requests are getting changed over time, If things are not working as expected
-Please refer [testAPIs.sh](https://github.com/asararatnakar/FabricNodeApp1.0/blob/master/testAPIs.sh)
-
-### Login Request
-
-* Register and enroll new users in Organization - **Org1**:
-
-`curl -s -X POST http://localhost:4000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=Jim&orgName=org1'`
-
-**OUTPUT:**
-
-```
-{
-  "success": true,
-  "secret": "RaxhMgevgJcm",
-  "message": "Jim enrolled Successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI"
-}
-```
-
-The response contains the success/failure status, an **enrollment Secret** and a **JSON Web Token (JWT)** that is a required string in the Request Headers for subsequent requests.
-
-#### Revoke user
-```
-curl -s -X GET \
-  http://localhost:4000/revoke \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI"  \
-  -H "content-type: application/json"
-```
-
-### Create Channel request
+Clone the `SecuringArt-using-Blockchain-DigitalCertificates` repo locally. In a terminal, run:
 
 ```
-curl -s -X POST \
-  http://localhost:4000/channels \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json" \
-  -d '{
-	"channelName":"mychannel1",
-	"channelConfigPath":"../artifacts/channel/mychannel1.tx"
-}'
+git clone https://github.com/IBM/SecuringArt-using-Blockchain-DigitalCertificates.git
 ```
 
-Please note that the Header **authorization** must contain the JWT returned from the `POST /users` call
+### Step 2. Launch Hyperledger Fabric Network and Node App
 
-### Join Channel request
-
+In one terminal launch hyperledger fabric network and Node.js application (a REST Server wrapper on top of Fabric NodeSDK api) with the following command
 ```
-curl -s -X POST \
-  http://localhost:4000/channels/mychannel1/peers \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json" \
-  -d '{
-	"peers": ["localhost:7051","localhost:8051"]
-}'
+cd SecuringArt-using-Blockchain-DigitalCertificates
+./bootstrap_app.sh
 ```
-### Install chaincode
+The above script **bootstrap_app.sh** performs the following actions:
+* remove any old *docker* images
+* *Downloads* fabric images
+* restarts the *Fabric network*
+* *Installs* required node modules
+* *Starts* the node application on Port 4000
 
+**NOTE:** You may be tempted to run `http://localhost:4000` at this point - please do not do that; otherwise you will get an `UnauthorizedError: No authorization token was found` error.  After running the `bootstrap_app.sh` command, immediately go to [Create the Network Channel and Invoke a Transaction](#3-Create-the-Network-Channel-and-Invoke-a-Transaction) and run the `quicketest.sh` command.
+
+### Step 3. Create the Network Channel and Invoke a Transaction
+In another terminal issue the following command from auction directory.
 ```
-curl -s -X POST \
-  http://localhost:4000/chaincodes \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json" \
-  -d '{
-	"peers": ["localhost:7051","localhost:8051"],
-	"chaincodeName":"mycc",
-	"chaincodePath":"github.com/uniqueKeyValue",
-	"chaincodeVersion":"v0"
-}'
+./quicktest.sh
 ```
+The above script **quicktest.sh** performs the following actions:
+* creates a *channel* named **mychannel** & and all the peers on the network *join*s the channel
+* *Installs* & *Instantiates* auction chaincode
+* send an *Invoke transaction*. where Node.js app generates base64 encrypted image in to a string format and sends it to chaincode, then *auction chaincode* stores the image on the Blockchain ledger of the channel *mychannel*.
+* Query chaincode to get the Image data using the imageID, the image will be saved as Thumbnail and saved in `public/images` folder.
 
-### Instantiate chaincode
-
-```
-curl -s -X POST \
-  http://localhost:4000/channels/mychannel1/chaincodes \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json" \
-  -d '{
-	"peers": ["localhost:7051"],
-	"chaincodeName":"mycc",
-	"chaincodeVersion":"v0",
-	"functionName":"init",
-	"args":["a","100","b","200"]
-}'
-```
-
-### Invoke request
-
-```
-curl -s -X POST \
-  http://localhost:4000/channels/mychannel1/chaincodes/mycc \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json" \
-  -d '{
-	"peers": ["localhost:7051", "localhost:8051"],
-	"fcn":"invoke",
-	"args":["put","a","putsomerandomvalue"]
-}'
-```
-**NOTE:** Ensure that you save the Transaction ID from the response in order to pass this string in the subsequent query transactions. 
-
-### Chaincode Query
-
-```
-curl -s -X GET \
-  "http://localhost:4000/channels/mychannel1/chaincodes/mycc?peer=peer1&args=%5B%get%22%2C%22a%22%5D" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
-
-### Query Block by BlockNumber
-
-```
-curl -s -X GET \
-  "http://localhost:4000/channels/mychannel1/blocks/1?peer=peer1" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
-
-### Query Transaction by TransactionID
-
-```
-curl -s -X GET http://localhost:4000/channels/mychannel1/transactions/TRX_ID?peer=peer1 \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
-**NOTE**: Here the TRX_ID can be from any previous invoke transaction
+You should see similar results from running `quicktest.sh`:
+<p align="center">
+<img src="./readme-images/image-output.png"/>
+</p>
 
 
-### Query ChainInfo
+* For all the image processing & conversion refer to the Node.js code [here](https://github.com/ChainyardLabs/auction/blob/master/app/saveImageTx.js)
 
-```
-curl -s -X GET \
-  "http://localhost:4000/channels/mychannel1?peer=peer1" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
+* Storing an image using chaincode, refer the code snippet [here](https://github.com/ChainyardLabs/auction/blob/master/artifacts/src/github.com/auction/auction.go#L138-L168)
 
-### Query Installed chaincodes
+* Please check youtube video available here: https://goo.gl/jH1uCQ
 
-```
-curl -s -X GET \
-  "http://localhost:4000/chaincodes?peer=peer1&type=installed" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
 
-### Query Instantiated chaincodes
+# Links
 
-```
-curl -s -X GET \
-  "http://localhost:4000/chaincodes?peer=peer1&type=instantiated" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
+* [IBM Blockchain - Marbles demo](https://github.com/IBM-Blockchain/marbles)
+* [Hyperledger Composer](https://hyperledger.github.io/composer/latest/index.html)
 
-### Query Channels
 
-```
-curl -s -X GET \
-  "http://localhost:4000/channels?peer=peer1" \
-  -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTQ4NjU1OTEsInVzZXJuYW1lIjoiSmltIiwib3JnTmFtZSI6Im9yZzEiLCJpYXQiOjE0OTQ4NjE5OTF9.yWaJhFDuTvMQRaZIqg20Is5t-JJ_1BP58yrNLOKxtNI" \
-  -H "content-type: application/json"
-```
+# Learn more
 
-### Network configuration considerations
+* **Blockchain Code Patterns**: Enjoyed this Code Pattern? Check out our other [Blockchain Code Patterns](https://developer.ibm.com/code/technologies/blockchain/)
 
-You have the ability to change configuration parameters by editing the network-config.json file.
+* **Blockchain 101**: Learn why IBM believes that blockchain can transform businesses, industries – and even the world. [Blockchain 101](https://developer.ibm.com/code/technologies/blockchain/)
 
-#### IP Address and PORT information 
+# License
+This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
-If you choose to customize your docker-compose yaml file by hardcoding IP Addresses and PORT information for your peers and orderer, then you MUST also add the identical values into the network-config.json file. The paths shown below will need to be adjusted to match your docker-compose yaml file.
-
-```
-		"orderer": [{
-			"url": "grpcs://x.x.x.x:7050",
-			"server-hostname": "orderer0",
-			"tls_cacerts": "../artifacts/tls/orderer/ca-cert.pem"
-		},
-		{...}],
-		"org1": {
-			"ca": "http://x.x.x.x:7054",
-			"peer1": {
-				"requests": "grpcs://x.x.x.x:7051",
-				"events": "grpcs://x.x.x.x:7053",
-				...
-			},
-			"peer2": {
-				"requests": "grpcs://x.x.x.x:8051",
-				"events": "grpcs://x.x.x.x:8053",
-				...
-			},
-			"admin": {
-				"key": ".../org1.example.com/users/Admin@org1.example.com/msp/keystore",
-				"cert": "../org1.example.com/users/Admin@org1.example.com/msp/signcerts"
-			}
-		},
-		"org2": {
-			"ca": "http://x.x.x.x:8054",
-			"peer1": {
-				"requests": "grpcs://x.x.x.x:9051",
-				"events": "grpcs://x.x.x.x:9053",
-				...			},
-			"peer2": {
-				"requests": "grpcs://x.x.x.x:10051",
-				"events": "grpcs://x.x.x.x:10053",
-				...
-			},
-			"admin": {
-				"key": ".../org2.example.com/users/Admin@org2.example.com/msp/keystore",
-				"cert": "../org2.example.com/users/Admin@org2.example.com/msp/signcerts"
-			}
-		}
-
-```
-
-#### Discover IP Address 
-
-To retrieve the IP Address for one of your network entities, issue the following command:
-
-```
-# this will return the IP Address for peer0
-docker inspect peer0 | grep IPAddress
-```
+[Apache Software License (ASL) FAQ](http://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
