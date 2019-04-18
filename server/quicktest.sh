@@ -77,7 +77,7 @@ curl -s -X POST \
 }'
 echo
 echo
-
+# for installing nodejs chaincode path should be absolute
 echo "POST Install chaincode on Org1"
 echo
 curl -s -X POST \
@@ -85,11 +85,11 @@ curl -s -X POST \
   -H "authorization: Bearer $ORG1_TOKEN" \
   -H "content-type: application/json" \
   -d "{
-	\"peers\": [\"peer0.org1.example.com\",\"peer1.org1.example.com\"],
-	\"chaincodeName\":\"mycc\",
-	\"chaincodePath\":\"$CC_SRC_PATH\",
-	\"chaincodeType\": \"$LANGUAGE\",
-	\"chaincodeVersion\":\"v0\"
+    \"peers\": [\"peer0.org1.example.com\",\"peer1.org1.example.com\"],
+    \"chaincodeName\":\"mycc\",
+    \"chaincodePath\":\"$CC_SRC_PATH\",
+    \"chaincodeType\": \"$LANGUAGE\",
+    \"chaincodeVersion\":\"v0\"
 }"
 echo
 echo
