@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <div class="card">
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Channel Name" [(ngModel)]="data.channelName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Channel File</mat-label>
+                <mat-select [(value)]="data.channelFile">
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let channel of channels" [value]="channel">{{channel}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+  <button mat-button class="btn btn-danger" [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+</div>

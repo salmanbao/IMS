@@ -1,0 +1,68 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
+
+export interface PeriodicElement {
+  did: string;
+  fname: string;
+  lname: string;
+  fatherDID: string;
+  motherDID: string;
+  city: string;
+  age: Number;
+  gender: string;
+  religion: string;
+  familyNumber: string;
+
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {
+    did: 'G45YY56H76UI78I78',
+    fname: 'Muhammad Salman',
+    lname: 'Muhammad Saleem',
+    fatherDID: "HG45Y54Y6UU67II7I78",
+    motherDID: "TYJH6J56U7I978OI87O87",
+    city: 'Lahore',
+    age: 21,
+    gender: 'male',
+    religion: 'Islam',
+    familyNumber: '11RT34'
+  }
+
+];
+@Component({
+  selector: 'app-listnationalid',
+  templateUrl: './listnationalid.component.html',
+  styleUrls: ['./listnationalid.component.scss']
+})
+
+
+export class ListnationalidComponent implements OnInit {
+
+  constructor() { }
+
+  displayedColumns: string[] = [
+    'did',
+    'fname',
+    'lname',
+    'fatherDID',
+    'motherDID',
+    'age',
+    'gender',
+    'religion',
+    'city',
+    'familyNumber'
+  ];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+}

@@ -143,12 +143,12 @@ function startApp() {
 		printf "\n\n!!!!!!!! Unable to pull the start the network, Check your docker-compose !!!!!\n\n"
 		exit
 	fi
-	sudo apk add nodejs npm
+	
 	##Install node modules
 	installNodeModules
 
 	##Start app on port 4000
-	PORT=4000 node app
+	PORT=4000 nodemon app
 }
 
 function shutdownApp() {

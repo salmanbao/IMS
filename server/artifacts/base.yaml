@@ -16,6 +16,8 @@ services:
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
       # The following setting skips the gossip handshake since we are
       # are not doing mutual TLS
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
@@ -45,3 +47,5 @@ services:
       - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
     ports:
       - '9092'
+  
+    

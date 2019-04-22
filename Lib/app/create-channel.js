@@ -37,7 +37,7 @@ var createChannel = function(channelName, channelConfigPath, configUpdate, usern
 		let signature = client.signChannelConfig(channelConfig);
 		signatures.push(signature)
 		// If it is a config update then sign with second organization
-		if (configUpdate){
+/*		if (configUpdate){
 			//FIXME: change the logic to get the rest of the orgs clients
 			var otherOrg;
 			if (orgName == 'org1') {
@@ -50,20 +50,20 @@ var createChannel = function(channelName, channelConfigPath, configUpdate, usern
 			signatures.push(signature)
 		}
 
-		let request = {
+*/		let request = {
 			config: channelConfig,
 			signatures: signatures,
 			name: channelName,
 			orderer: channel.getOrderers()[0],
-			txId: client.newTransactionID()
+			txId: client.newTransactionID(true)
 		};
 
 		// send to orderer
-		if (configUpdate){
+		//if (configUpdate){
 			return client.createChannel(request);
-		} else {
-			return client.updateChannel(request);
-		}
+	//	} else {
+	//		return client.updateChannel(request);
+	//	}
 
 	}, (err) => {
 		logger.error('Failed to enroll user \''+username+'\'. Error: ' + err);
