@@ -117,6 +117,7 @@ curl -s -X POST \
   -H "authorization: Bearer $ORG1_TOKEN" \
   -H "content-type: application/json" \
   -d "{
+	\"peers\": [\"peer0.org1.example.com\",\"peer1.org1.example.com\"],
 	\"chaincodeName\":\"mycc\",
 	\"chaincodeVersion\":\"v0\",
 	\"chaincodeType\": \"$LANGUAGE\",
