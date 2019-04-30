@@ -2,6 +2,7 @@ node_modules
 artifacts/logs
 Tests/block*.txt
 logs
+package-lock.json
 .DS_Store
 #artifacts/docker-compose.yaml
 #artifacts/crypto-config/

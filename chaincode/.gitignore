@@ -6,14 +6,8 @@
 /out-tsc
 
 # dependencies
-chaincode/node_modules
-chaincode/package-lock.json
-frontend/node_modules
-frontend/package-lock.json
-Lib/node_modules
-Lib/package-lock.json
-server/node_modules
-server/package-lock.json
+/node_modules
+
 # IDEs and editors
 /.idea
 .project
