@@ -1,0 +1,42 @@
+<div class="col-md-12">
+  <div class="col-md-12">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-danger" id="addNode" (click)="openDialog()">
+      <mat-icon>add_to_queue</mat-icon> Add Node
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- NAME Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> NAME </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.name}}
+      </td>
+    </ng-container>
+
+    <!-- ROUTE Column -->
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ROUTE </th>
+      <td mat-cell *matCellDef="let element"> {{element.route}} </td>
+    </ng-container>
+
+    <!-- TYPE Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <!-- MSP ID Column -->
+    <ng-container matColumnDef="mspId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> MSP ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.mspId}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

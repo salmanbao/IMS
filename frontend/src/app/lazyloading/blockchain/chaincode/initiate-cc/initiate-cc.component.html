@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{data.cc_title}}</h1>
+<div mat-dialog-content>
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Chaincode Name" [(ngModel)]="data.cc_name">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Version" [(ngModel)]="data.cc_version">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Function Name" [(ngModel)]="data.cc_function">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Function Arguments" [(ngModel)]="data.cc_arguments">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+    <button mat-button class="btn btn-danger" [mat-dialog-close]="data" cdkFocusInitial (click)="registerUser()">Initiate</button>
+</div>

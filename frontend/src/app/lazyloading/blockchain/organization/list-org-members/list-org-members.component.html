@@ -1,0 +1,60 @@
+<div class="col-md-12">
+  <div class="col-md-12">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Member">
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-danger" id="addMember" (click)="openDialog()">
+      <mat-icon svgIcon="account-plus-outline"></mat-icon> Add User
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- Member Column -->
+    <ng-container matColumnDef="member">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> MEMBERS </th>
+      <td mat-cell *matCellDef="let element"> 
+        <span class="heading">{{element.member.org}} </span>
+        <p class="message">
+          {{element.member.email}}
+        </p> 
+      </td> 
+    </ng-container>
+ 
+    <!-- MSP Column -->
+    <ng-container matColumnDef="msp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> MSP ID </th>
+      <td mat-cell *matCellDef="let element" class="heading"> {{element.msp}} </td>
+    </ng-container>
+
+    <!-- Requester Column -->
+    <ng-container matColumnDef="requester">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> REQUESTER </th>
+      <td mat-cell *matCellDef="let element" class="message"> {{element.requester}} </td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </th>
+      <td mat-cell *matCellDef="let element" class="heading"> <i *ngIf="element.status=='Joined';else pending" matTooltip="Joined"
+          class="fa fa-circle text-success"></i> {{element.status}}
+        <ng-template #pending>
+          <i matTooltip="Joined" class="fa fa-circle"></i>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" aria-label="Icon" [disabled]="!element.action" (click)="openSnackBar()" [(value)]="verticalPosition">
+          <mat-icon svgIcon='close-circle-outline'></mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

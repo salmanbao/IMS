@@ -1,0 +1,53 @@
+##join peers
+http://localhost:4000/channels/mychannel/peers
+{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"]
+}
+
+
+
+##create channel
+http://localhost:4000/channels
+{
+	"channelName":"mychannel",
+	"channelConfigPath":"../artifacts/channel/mychannel.tx"
+}
+
+##install chaincode
+http://localhost:4000/chaincodes
+{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
+	"chaincodeName":"fabcar",
+	"chaincodePath":"absolute path of directory",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v0"
+}
+
+##register user
+http://localhost:4000/users
+{
+	"username":"bao",
+	"orgName":"Org1"
+}
+
+
+##instantiate chaincode
+http://localhost:4000/channels/mychannel/chaincodes
+{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
+	"chaincodeName":"fabcar",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v0",
+	"args":[""],
+	"fcn":""
+}
+
+
+##invoke chaincode function
+http://localhost:4000/channels/:channelName/chaincodes/:chaincodeName
+{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
+	"args":[""],
+	"fcn":"initLedger"
+}
+
