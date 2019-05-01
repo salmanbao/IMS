@@ -1,26 +1,4 @@
 
-
-
-# Securing Artwork using Blockchain Digital Certificates
-
-This code pattern is a sample auction Node.js based application that demonstrates storing base64 encoded and encrypted images on a Blockchain ledger and retrieving the same. This application launches Hyperledger Fabric network and then starts the application as a REST API server built on top of NodeSDK APIs.
-
-**Auction Blockchain Application Credits**: Mohan Venkataraman, Sandeep Pulluru and Ratnakar Asara
-
-**Disclaimer**: The image used in this sample demo has been downloaded from publicly available images on the internet, and the copyright belongs to the respective owners. The usage here is strictly for non-commercial purposes as sample data. We recommend that users create their own sample data as appropriate. All details used in the sample data are fictitious. The information provided in this `README.md` is subject to change. Also this is based out of fabric-sample balance-transfer example.
-
-When the reader has completed this code pattern, he or she will understand how to:
-
-* Set up a Blockchain network
-* Generate a base64 encrypted image and store it on the blockchain ledger
-* Query chaincode to retrieve image and store it in a public folder
-
-
-<!--Remember to dump an image in this path-->
-<p align="center">
-<img src="./readme-images/auction-diagram.png"/>
-</p>
-
 ## Flow
 <!--Add new flow steps based on the architecture diagram-->
 1. Teardown any existing networks, remove any existing containers or images lying around
@@ -70,17 +48,17 @@ nvm use 8.9.0
 
 ### Step 1. Clone the repo
 
-Clone the `SecuringArt-using-Blockchain-DigitalCertificates` repo locally. In a terminal, run:
+Clone the `ims` repo locally. In a terminal, run:
 
 ```
-git clone https://github.com/IBM/SecuringArt-using-Blockchain-DigitalCertificates.git
+git clone https://github.com/salmanbao/ims.git
 ```
 
 ### Step 2. Launch Hyperledger Fabric Network and Node App
 
 In one terminal launch hyperledger fabric network and Node.js application (a REST Server wrapper on top of Fabric NodeSDK api) with the following command
 ```
-cd SecuringArt-using-Blockchain-DigitalCertificates
+cd ims
 ./bootstrap_app.sh
 ```
 The above script **bootstrap_app.sh** performs the following actions:
