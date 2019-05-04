@@ -13,8 +13,12 @@ import {
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.component';
 import { MaterialModule } from './modules/material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconRegistry } from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { fakeBackendProvider } from './helpers/fake.backend';
 
 
 
@@ -40,11 +44,18 @@ import { MatIconRegistry } from '@angular/material';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent
 
 
   ],
-  providers: [FormBuilder],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // provider used to create fake backend
+    //fakeBackendProvider,
+    FormBuilder
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

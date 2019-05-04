@@ -3,15 +3,15 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.component';
-
-
-
+import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full',
+    pathMatch: 'full', 
+    canActivate: [AuthGuard]
   }, {
     path: '',
     component: AdminLayoutComponent,
@@ -19,10 +19,13 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: './lazyloading/admin-panel/admin-layout.module#AdminLayoutModule'
-      }]
+      }
+    ],
+    canActivate: [AuthGuard]
   },
-  { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' },
-  { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule' }
+  { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' ,canActivate: [AuthGuard]},
+  { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule',canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   //{ path: 'input',      component: InputcomponentComponent }
   // { path: 'user-profile',   component: UserProfileComponent },
   // { path: 'table-list',     component: TableListComponent },
