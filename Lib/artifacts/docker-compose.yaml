@@ -263,3 +263,8 @@ services:
       - orderer0.example.com
       - orderer1.example.com
       - orderer2.example.com
+  server:
+    container_name: backend
+    build: ../
+    port: 4000
+

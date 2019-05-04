@@ -6,7 +6,6 @@ import { ComponentsModule } from 'app/components/components.module';
 import { MaterialModule } from 'app/modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CertificatehomeComponent } from './certificatehome/certificatehome.component';
-import { NationalidService } from 'app/services/nationalid.service';
 import { NationalidComponent } from './National/nationalid/nationalid.component';
 import { ListnationalidComponent } from './National/listnationalid/listnationalid.component';
 import { UpdateNationalIdComponent } from './National/update-national-id/update-national-id.component';
@@ -23,6 +22,7 @@ import { ListFamiliesComponent } from './Family/list-families/list-families.comp
 import { FamilyHomeComponent } from './Family/family-home/family-home.component';
 import { ViewDetailDialogComponent } from './Family/list-families/view-detail-dialog/view-detail-dialog.component';
 import { FamilyTreeComponent } from './Family/family-tree/family-tree.component';
+import { CertificateService } from 'app/services/certificate.service';
  
 @NgModule({
   imports: [
@@ -60,7 +60,7 @@ import { FamilyTreeComponent } from './Family/family-tree/family-tree.component'
     ViewDetailDialogComponent
   ],
   providers : [
-    NationalidService
+    CertificateService
   ]
 })
 export class CertificatesModule { }

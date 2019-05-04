@@ -59,7 +59,7 @@ downloaFabricImages
 restartNetwork
 
 #Install 1.2 node modules
-installNodeModules
+#installNodeModules
 
 # start the node app on port 4000
-PORT=4000 nodemon app
+#PORT=4000 nodemon app

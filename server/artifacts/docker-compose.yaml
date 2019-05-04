@@ -146,3 +146,17 @@ services:
       - COUCHDB_PASSWORD=
     ports:
       - 5984:5984
+  client:
+    container_name: backenfrontend
+    build: ../../frontend/
+    ports: 
+      - 4200:4200
+    depends_on:
+      - ca.org1.example.com
+      - ca.org2.example.com
+      - orderer.example.com
+      - peer0.org1.example.com
+      - peer1.org1.example.com
+      - peer0.org2.example.com
+      - peer1.org2.example.com
+      - couchdb

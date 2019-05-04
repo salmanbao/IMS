@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import { CertificateService } from 'app/services/certificate.service';
 
 export interface PeriodicElement {
   did: string;
@@ -36,7 +37,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListBirthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private certificateService: CertificateService) { }
 
   displayedColumns: string[] = [
     'did',

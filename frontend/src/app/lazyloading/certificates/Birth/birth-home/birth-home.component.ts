@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CertificateService } from 'app/services/certificate.service';
 
 @Component({
   selector: 'app-birth-home',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BirthHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private certificateService: CertificateService) { }
 
   ngOnInit() {
   }
