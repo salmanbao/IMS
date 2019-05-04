@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ManagechannelsComponent } from '../managechannels/managechannels.component';
+import { ChannelService } from 'app/services/channel.service';
 
 export interface DialogData {
   title: string;
@@ -15,11 +16,18 @@ export interface DialogData {
 })
 export class AddChannelComponent implements OnInit {
 
-  channels = ['channel1','channel2'];
+  channels:any;
   ngOnInit() {
+    
+    this.channelService.getChannelFiles().subscribe(
+      res=>{
+        console.log("component:",res);
+      }
+    );
   }
 
   constructor(
+    private channelService: ChannelService,
     public dialogRef: MatDialogRef<ManagechannelsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
       data.title ='Add Channel'; 
@@ -29,7 +37,6 @@ export class AddChannelComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 
 }
  

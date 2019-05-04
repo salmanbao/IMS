@@ -26,15 +26,7 @@ const routes: Routes = [
   { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' ,canActivate: [AuthGuard]},
   { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule',canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  //{ path: 'input',      component: InputcomponentComponent }
-  // { path: 'user-profile',   component: UserProfileComponent },
-  // { path: 'table-list',     component: TableListComponent },
-  // { path: 'typography',     component: TypographyComponent },
-  // { path: 'icons',          component: IconsComponent },
-  // { path: 'maps',           component: MapsComponent },
-  // { path: 'notifications',  component: NotificationsComponent },
-  // { path: 'upgrade',        component: UpgradeComponent },
-  // { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+  
 ];
 
 @NgModule({
