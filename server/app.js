@@ -1,4 +1,6 @@
 'use strict';
+var fs = require('fs');
+var path = require('path');
 var log4js = require('log4js');
 var logger = log4js.getLogger('SampleWebApp');
 var express = require('express');
@@ -113,7 +115,9 @@ app.post('/users', async function(req, res) {
     if (response && typeof response !== 'string') {
         logger.debug('Successfully registered the username %s for organization %s', username, orgName);
         response.token = token;
-        res.json(response);
+        res.status(200).json(response);
+        //res.json({ success: true, message: response });
+        //res.json(response);
     } else {
         logger.debug('Failed to register the username %s for organization %s with::%s', username, orgName, response);
         res.json({ success: false, message: response });
@@ -125,13 +129,16 @@ app.post('/channels', async function(req, res) {
     logger.info('<<<<<<<<<<<<<<<<< C R E A T E  C H A N N E L >>>>>>>>>>>>>>>>>');
     logger.debug('End point : /channels');
     var channelName = req.body.channelName;
-    var channelConfigPath = req.body.channelConfigPath;
+    //var channelConfigPath = req.body.channelConfigPath;
+    var channelFile = req.body.channelFile;
+    var channelConfigPath = '../artifacts/channel/'.concat(channelFile);
     logger.debug('Channel name : ' + channelName);
     logger.debug('channelConfigPath : ' + channelConfigPath); //../artifacts/channel/mychannel.tx
     if (!channelName) {
         res.json(getErrorMessage('\'channelName\''));
         return;
     }
+    data
     if (!channelConfigPath) {
         res.json(getErrorMessage('\'channelConfigPath\''));
         return;
@@ -242,6 +249,7 @@ app.post('/channels/:channelName/chaincodes', async function(req, res) {
 // Invoke transaction on chaincode on target peers
 app.post('/channels/:channelName/chaincodes/:chaincodeName', async function(req, res) {
     logger.debug('==================== INVOKE ON CHAINCODE ==================');
+    console.log("Body-------->", req.body);
     var peers = req.body.peers;
     var chaincodeName = req.params.chaincodeName;
     var channelName = req.params.channelName;
@@ -271,7 +279,7 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function(req,
         res.json(getErrorMessage('\'args\''));
         return;
     }
-	console.log("function name is :",fcn);
+    console.log("function name is :", fcn);
     invoke.invokeChaincode(peers, channelName, chaincodeName, args, fcn, req.username, req.orgname)
         .then(function(message) {
             res.send(message);
@@ -332,4 +340,28 @@ app.get('/channels/:channelName/blocks/:blockId', function(req, res) {
         .then(function(message) {
             res.send(message);
         });
+});
+
+app.get('/channelfiles', function(req, res) {
+    logger.debug('==================== GET Channel .tx Files ==================');
+    const directoryPath = path.join(__dirname, '/artifacts/channel');
+    var filesList =[];
+    fs.readdir(directoryPath, function(err, files) {
+        //handling error
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+        //listing all files using forEach
+
+        files.filter(function(e) {
+            if(path.extname(e).toLowerCase() === '.tx'){
+		var filename = path.basename(e);
+		filesList.push(filename);
+		console.log(filesList);
+		}
+        });
+       	res.send(filesList);
+
+    });
+   
 });

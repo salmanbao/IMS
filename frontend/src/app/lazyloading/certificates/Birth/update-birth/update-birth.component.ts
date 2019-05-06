@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
-import { PersonalInfoService } from 'app/services/personal-info.service';
+import { CertificateService } from 'app/services/certificate.service';
+
 
 @Component({
   selector: 'app-update-birth',
@@ -25,7 +26,7 @@ export class UpdateBirthComponent implements OnInit {
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
   constructor(
     private _formBuilder: FormBuilder,
-    private userService: PersonalInfoService
+    private certificateService: CertificateService
   ) { }
 
   ngOnInit() {
@@ -51,7 +52,7 @@ export class UpdateBirthComponent implements OnInit {
     console.log(this.addBirthForm);
     console.log(JSON.stringify(this.addBirthForm.value))
 
-    this.userService.create(this.addBirthForm.value)
+    this.certificateService.add(this.addBirthForm.value)
       .subscribe(
         data => {
           console.log(data);

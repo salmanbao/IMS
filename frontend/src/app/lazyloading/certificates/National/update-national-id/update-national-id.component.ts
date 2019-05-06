@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
-import { PersonalInfoService } from 'app/services/personal-info.service';
 import { Area } from 'app/modules/area.module';
+import { CertificateService } from 'app/services/certificate.service';
 
 @Component({
   selector: 'app-update-national-id',
@@ -30,7 +30,7 @@ export class UpdateNationalIdComponent implements OnInit {
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
   constructor(
     private _formBuilder: FormBuilder,
-    private userService: PersonalInfoService
+    private certificateService: CertificateService
   ) { }
 
   ngOnInit() {
@@ -65,7 +65,7 @@ export class UpdateNationalIdComponent implements OnInit {
     console.log(this.addForm);
     console.log(JSON.stringify(this.addForm.value))
 
-    this.userService.create(this.addForm.value)
+    this.certificateService.add(this.addForm.value)
       .subscribe(
         data => {
           console.log(data);
@@ -75,7 +75,7 @@ export class UpdateNationalIdComponent implements OnInit {
         });
   }
 
-  getData() {
+  generateID() {
     //send request to server for generating DID and return
     console.log("generate ID");
   }

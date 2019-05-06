@@ -204,8 +204,8 @@ export class FamilyTreeComponent implements AfterViewInit {
 
   }
 
-  search(value: string) {
-    console.log(this.familyNumber.value);
+  search() {
+    console.log("ID");
   }
 
 }

@@ -4,8 +4,8 @@ import { AddMembersCertificatesComponent } from '../add-members-certificates.com
 
 export interface DialogData {
   title: string;
-  Orgname: string;
-  OperatorName:string;
+  name: string;
+  certificate:string;
 }
 
 @Component({
