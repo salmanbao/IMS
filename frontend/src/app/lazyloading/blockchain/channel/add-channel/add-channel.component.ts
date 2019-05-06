@@ -21,7 +21,7 @@ export class AddChannelComponent implements OnInit {
     
     this.channelService.getChannelFiles().subscribe(
       res=>{
-        console.log("component:",res);
+        this.channels = res;
       }
     );
   }

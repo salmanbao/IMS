@@ -345,7 +345,7 @@ app.get('/channels/:channelName/blocks/:blockId', function(req, res) {
 app.get('/channelfiles', function(req, res) {
     logger.debug('==================== GET Channel .tx Files ==================');
     const directoryPath = path.join(__dirname, '/artifacts/channel');
-    var filesList;
+    var filesList =[];
     fs.readdir(directoryPath, function(err, files) {
         //handling error
         if (err) {
@@ -353,12 +353,15 @@ app.get('/channelfiles', function(req, res) {
         }
         //listing all files using forEach
 
-        filesList = files.filter(function(e) {
-            return path.extname(e).toLowerCase() === '.tx'
+        files.filter(function(e) {
+            if(path.extname(e).toLowerCase() === '.tx'){
+		var filename = path.basename(e);
+		filesList.push(filename);
+		console.log(filesList);
+		}
         });
-        console.log(filesList);
+       	res.send(filesList);
 
     });
-    //var result = JSON.stringify({ files: filesList });
-    res.status(200).send(filesList);
+   
 });
