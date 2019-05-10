@@ -364,3 +364,24 @@ app.get('/channelfiles', function(req, res) {
     });
 
 });
+
+app.get('/chaincodefiles', function(req, res) {
+    logger.debug('==================== GET Chaincode Files ==================');
+    const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
+    var filesList = [];
+    fs.readdir(directoryPath, function(err, files) {
+        //handling error
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+        for (var i in files) {
+            var name = directoryPath + files[i];
+            if (fs.statSync(name).isDirectory()) {
+                console.log(name);
+                filesList.push(name);
+            }
+        }
+        res.send(filesList);
+    });
+
+});

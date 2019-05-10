@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ChaincodeService } from 'app/services/chaincode.service';
 
 export interface DialogData {
   title: string;
@@ -23,12 +24,18 @@ export class InstallChaincodeComponent implements OnInit {
   paths = ['gov', 'hec'];
   msps = ["MSP1","MSP2"];
   constructor(
+    private chaincodeService:ChaincodeService,
     public dialogRef: MatDialogRef<InstallChaincodeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     data.title = 'Install chaincode'
   }
 
   ngOnInit() {
+    this.chaincodeService.getChaincodeFiles().subscribe(
+      res=>{
+        console.log(res);
+      }
+    );
 
   }
   onNoClick(): void {
