@@ -304,4 +304,4 @@ exports.getBlockByHash = getBlockByHash;
 exports.getChannelInfo = getChannelInfo;
 exports.getInstalledChaincodes = getInstalledChaincodes;
 exports.getChannels = getChannels;
-exports.getChannelHeight = getChannelHeight; 
+exports.getChannelHeight = getChannelHeight;
