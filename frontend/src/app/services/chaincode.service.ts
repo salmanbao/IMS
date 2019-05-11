@@ -12,4 +12,8 @@ export class ChaincodeService {
     console.log("--------Getting Data in Service--------------------");
     return this.http.get('http://localhost:4000/chaincodefiles');
   }
+
+  installChaincode(data):Observable<any>{
+    return this.http.post('http://localhost:4000/chaincodes',data);
+  }
 }

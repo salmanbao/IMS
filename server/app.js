@@ -176,6 +176,7 @@ app.post('/chaincodes', async function(req, res) {
     var chaincodePath = req.body.chaincodePath;
     var chaincodeVersion = req.body.chaincodeVersion;
     var chaincodeType = req.body.chaincodeType;
+
     logger.debug('peers : ' + peers); // target peers list
     logger.debug('chaincodeName : ' + chaincodeName);
     logger.debug('chaincodePath  : ' + chaincodePath);
@@ -369,6 +370,8 @@ app.get('/chaincodefiles', function(req, res) {
     logger.debug('==================== GET Chaincode Files ==================');
     const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
     var filesList = [];
+    var names = [];
+    var chaincodeObj = {};
     fs.readdir(directoryPath, function(err, files) {
         //handling error
         if (err) {
@@ -377,11 +380,38 @@ app.get('/chaincodefiles', function(req, res) {
         for (var i in files) {
             var name = directoryPath + files[i];
             if (fs.statSync(name).isDirectory()) {
-                console.log(name);
                 filesList.push(name);
             }
         }
-        res.send(filesList);
+        filesList.forEach(function(element) {
+            let list = element.split('/');
+            let name = list[list.length - 1];
+            names.push(name);
+            chaincodeObj[name] = element;
+        });
+        console.log(chaincodeObj);
+        res.send(chaincodeObj);
     });
 
 });
+
+// var buildPath = function(fileName) {
+//     const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
+//     fs.readdirSync(directoryPath, function(err, files) {
+//         //handling error
+//         if (err) {
+//             return console.log('Unable to scan directory: ' + err);
+//         }
+//         for (var i in files) {
+//             var name = directoryPath + files[i];
+//             if (fs.statSync(name).isDirectory()) {
+//                 let list = name.split('/');
+//                 let last_name = list[list.length - 1];
+//                 if (last_name === fileName) {
+//                     return name;
+//                 }
+//             }
+//         }
+
+//     });
+// };
