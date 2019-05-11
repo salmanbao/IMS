@@ -18,7 +18,6 @@ export class AddChannelComponent implements OnInit {
 
   channels:any;
   ngOnInit() {
-    
     this.channelService.getChannelFiles().subscribe(
       res=>{
         this.channels = res;
@@ -33,6 +32,19 @@ export class AddChannelComponent implements OnInit {
       data.title ='Add Channel'; 
      }
      
+  addChannel(){
+    let channelDetails = {
+      channelName : this.data.channelName,
+      channelFile : this.data.channelFile
+    };
+    this.channelService.addChannel(channelDetails).subscribe(
+      res=>{
+        if(res['success']){
+          this.onNoClick();
+        }
+      } 
+    );
+  }
     
   onNoClick(): void {
     this.dialogRef.close();

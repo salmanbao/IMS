@@ -46,9 +46,6 @@ export class AddBirthComponent implements OnInit {
 
   //### Create citizen ######
   addBirthCertificate() {
-    //console.log(this.addBirthForm);
-    console.log(JSON.stringify(this.addBirthForm.value))
-
     this.certificateService.add(this.addBirthForm.value)
       .subscribe(
         data => {

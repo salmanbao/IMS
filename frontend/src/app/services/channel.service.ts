@@ -9,8 +9,7 @@ import 'rxjs/add/operator/map';
 export class ChannelService {
 
   constructor(private http: HttpClient) { }
-  add(data: any) {
-    console.log("Service Data:",data);  
+  addChannel(data) {
     return this.http.post('http://localhost:4000/channels',data);
   }
 

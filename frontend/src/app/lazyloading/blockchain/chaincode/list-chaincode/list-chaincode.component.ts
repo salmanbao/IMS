@@ -64,11 +64,10 @@ export class ListChaincodeComponent implements OnInit {
       width: '80%',
       data: {
         title: this.title,
-        name: this.name,
-        version: this.version,
-        languageType: this.languageType,
-        choosedFiles: this.choosedFiles,
-        selectedPath: this.selectedPath
+        chaincodeName: this.name,
+        chaincodeVersion: this.version,
+        chaincodeType: this.languageType,
+        chaincodePath: this.selectedPath
       }
     });
 

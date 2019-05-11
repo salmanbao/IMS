@@ -138,7 +138,6 @@ app.post('/channels', async function(req, res) {
         res.json(getErrorMessage('\'channelName\''));
         return;
     }
-    data
     if (!channelConfigPath) {
         res.json(getErrorMessage('\'channelConfigPath\''));
         return;
@@ -177,6 +176,7 @@ app.post('/chaincodes', async function(req, res) {
     var chaincodePath = req.body.chaincodePath;
     var chaincodeVersion = req.body.chaincodeVersion;
     var chaincodeType = req.body.chaincodeType;
+
     logger.debug('peers : ' + peers); // target peers list
     logger.debug('chaincodeName : ' + chaincodeName);
     logger.debug('chaincodePath  : ' + chaincodePath);
@@ -345,7 +345,7 @@ app.get('/channels/:channelName/blocks/:blockId', function(req, res) {
 app.get('/channelfiles', function(req, res) {
     logger.debug('==================== GET Channel .tx Files ==================');
     const directoryPath = path.join(__dirname, '/artifacts/channel');
-    var filesList =[];
+    var filesList = [];
     fs.readdir(directoryPath, function(err, files) {
         //handling error
         if (err) {
@@ -354,14 +354,64 @@ app.get('/channelfiles', function(req, res) {
         //listing all files using forEach
 
         files.filter(function(e) {
-            if(path.extname(e).toLowerCase() === '.tx'){
-		var filename = path.basename(e);
-		filesList.push(filename);
-		console.log(filesList);
-		}
+            if (path.extname(e).toLowerCase() === '.tx') {
+                var filename = path.basename(e);
+                filesList.push(filename);
+                console.log(filesList);
+            }
         });
-       	res.send(filesList);
+        res.send(filesList);
 
     });
-   
+
 });
+
+app.get('/chaincodefiles', function(req, res) {
+    logger.debug('==================== GET Chaincode Files ==================');
+    const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
+    var filesList = [];
+    var names = [];
+    var chaincodeObj = {};
+    fs.readdir(directoryPath, function(err, files) {
+        //handling error
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+        for (var i in files) {
+            var name = directoryPath + files[i];
+            if (fs.statSync(name).isDirectory()) {
+                filesList.push(name);
+            }
+        }
+        filesList.forEach(function(element) {
+            let list = element.split('/');
+            let name = list[list.length - 1];
+            names.push(name);
+            chaincodeObj[name] = element;
+        });
+        console.log(chaincodeObj);
+        res.send(chaincodeObj);
+    });
+
+});
+
+// var buildPath = function(fileName) {
+//     const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
+//     fs.readdirSync(directoryPath, function(err, files) {
+//         //handling error
+//         if (err) {
+//             return console.log('Unable to scan directory: ' + err);
+//         }
+//         for (var i in files) {
+//             var name = directoryPath + files[i];
+//             if (fs.statSync(name).isDirectory()) {
+//                 let list = name.split('/');
+//                 let last_name = list[list.length - 1];
+//                 if (last_name === fileName) {
+//                     return name;
+//                 }
+//             }
+//         }
+
+//     });
+// };
