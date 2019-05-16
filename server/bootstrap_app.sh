@@ -41,8 +41,8 @@ function installNodeModules() {
 }
 
 function downloaFabricImages(){
-	FABRIC_TAG=1.2.0
-	FABRIC_IMAGES=$(docker images | grep 1.2.0 | wc -l)
+	FABRIC_TAG=latest
+	FABRIC_IMAGES=$(docker images | grep latest | wc -l)
 	if [ "$FABRIC_IMAGES" != "5" ]; then
 		echo "============== Downloading Fabric Images =============="
 		for image in peer orderer ca ccenv tools; do
