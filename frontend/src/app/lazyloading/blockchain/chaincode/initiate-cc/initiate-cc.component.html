@@ -6,24 +6,43 @@
             <div class="row">
                 <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Chaincode Name" [(ngModel)]="data.cc_name">
+                        <input matInput placeholder="Chaincode Name" [(ngModel)]="data.chaincodeName">
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Version" [(ngModel)]="data.cc_version">
+                        <input matInput placeholder="Version" [(ngModel)]="data.chaincodeVersion">
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Function Name" [(ngModel)]="data.cc_function">
+                        <input matInput placeholder="Function Name" [(ngModel)]="data.fcn">
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Function Arguments" [(ngModel)]="data.cc_arguments">
+                        <input matInput placeholder="Function Arguments" [(ngModel)]="data.args">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Peers</mat-label>
+                        <mat-select [formControl]="peers" [(value)]="data.peers" multiple>
+                            <mat-option *ngFor="let peer of peersList" [value]="peer">{{peer}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Chaincode Type</mat-label>
+                        <mat-select [(value)]="data.chaincodeType">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let language of languages" [value]="language">{{language}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
@@ -32,5 +51,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
-    <button mat-button class="btn btn-danger" [mat-dialog-close]="data" cdkFocusInitial>Initiate</button>
+    <button mat-button class="btn btn-danger" (click)="initiateChaincode()" cdkFocusInitial>Initiate</button>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ChaincodeService } from 'app/services/chaincode.service';
 import { FormControl, Validators } from '@angular/forms';
+import { InstallChaincode } from 'app/models/chaincode';
 
 export interface DialogData {
   title: string;
@@ -10,7 +11,7 @@ export interface DialogData {
   chaincodeVersion: string;
   chaincodePath:string;
   chaincodeType: string;
-}
+} 
  
 @Component({
   selector: 'app-install-chaincode',
@@ -41,7 +42,8 @@ export class InstallChaincodeComponent implements OnInit {
 
   installChaincode(){
     this.data.chaincodePath = this.chaincodeFilesObj[this.data.chaincodePath];
-    this.chaincodeService.installChaincode(this.data).subscribe(
+    let chaincodeConfig :InstallChaincode = new InstallChaincode(this.data);
+    this.chaincodeService.installChaincode(chaincodeConfig).subscribe(
       res => {console.log(res);}
     );  
   }

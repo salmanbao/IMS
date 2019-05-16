@@ -17,8 +17,6 @@ export interface DialogData {
 })
 export class AddPeerComponent implements OnInit {
 
-  // types = ['peer','ca','orderer'];
-  // msps = ['gov','school'];
   constructor(
     private peerService:PeerService,
     public dialogRef: MatDialogRef<AddPeerComponent>,
@@ -34,13 +32,6 @@ export class AddPeerComponent implements OnInit {
       peers : [this.data.name]
     };
     console.log(peerDetails);
-    this.peerService.addPeer(peerDetails).subscribe(
-      res=>{
-        if(res['success']){
-          this.onNoClick();
-        }
-      } 
-    );
   }
 
   onNoClick(): void {

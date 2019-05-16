@@ -14,6 +14,8 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var bearerToken = require('express-bearer-token');
 var cors = require('cors');
+var Peer = require('fabric-client/lib/Peer.js');
+var Client = require('fabric-client/lib/Client');
 
 require('./config.js');
 var hfc = require('fabric-client');
@@ -315,18 +317,16 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function(req, 
         res.json(getErrorMessage('\'args\''));
         return;
     }
-
     // let message = await query.queryChaincode(peer, channelName, chaincodeName, args, fcn, req.username, req.orgname, res);
     let message = await query.queryChaincode(peer, channelName, chaincodeName, args.toString(), fcn, req.username, req.orgname, res);
     // res.send('Successfully queried ')
     res.send(message);
 });
-
 //  Query Get Block by BlockNumber
-app.get('/channels/:channelName/blocks/:blockId', function(req, res) {
+app.get('/channels/:channelName/blocks/:blockId', async function(req, res) {
     logger.debug('==================== GET BLOCK BY NUMBER ==================');
     let blockId = req.params.blockId;
-    let peer = req.query.peer;
+    let peerName = req.query.peer;
     let channelName = req.params.channelName;
     logger.debug('channelName : ' + channelName);
     logger.debug('BlockID : ' + blockId);
@@ -335,13 +335,39 @@ app.get('/channels/:channelName/blocks/:blockId', function(req, res) {
         res.json(getErrorMessage('\'blockId\''));
         return;
     }
+    var args = peerName.split('.');
+    var cert = 'artifacts/channel/crypto-config/peerOrganizations/' + args[1] + '.example.com/peers/' + peerName + '/tls/ca.crt';
 
-    query.getBlockByNumber(peer, blockId, req.username, req.orgname, channelName)
-        .then(function(message) {
-            res.send(message);
+    try {
+        var client = await helper.getClientForOrg(req.orgname);
+        var channel = client.getChannel(channelName);
+        var peerUrl = client.getPeer(peerName).getUrl();
+        let data = fs.readFileSync(path.join(__dirname, cert));
+        var peer = client.newPeer(peerUrl, {
+            pem: Buffer.from(data).toString(),
+            'ssl-target-name-override': peerName
         });
-});
 
+        return channel.queryBlock(parseInt(blockId), peer, true, false).then((response_payloads) => {
+                if (response_payloads) {
+                    //TODO: determine # of trxns per block
+                    //logger.debug('\n\nTransactions Count : '+response_payloads.data.data.length+'\n\n');
+                    res.send(response_payloads); //response_payloads.data.data[0].buffer;
+                } else {
+                    logger.error('response_payloads is null');
+                    return 'response_payloads is null';
+                }
+            })
+            .catch((err) => {
+                res.send(new Error("Unable to fetch channel details"));
+            });
+
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+//  Query Get Channel Files .tx
 app.get('/channelfiles', function(req, res) {
     logger.debug('==================== GET Channel .tx Files ==================');
     const directoryPath = path.join(__dirname, '/artifacts/channel');
@@ -352,20 +378,16 @@ app.get('/channelfiles', function(req, res) {
             return console.log('Unable to scan directory: ' + err);
         }
         //listing all files using forEach
-
         files.filter(function(e) {
             if (path.extname(e).toLowerCase() === '.tx') {
                 var filename = path.basename(e);
                 filesList.push(filename);
-                console.log(filesList);
             }
         });
         res.send(filesList);
-
     });
-
 });
-
+// Query Get Chaincode Files
 app.get('/chaincodefiles', function(req, res) {
     logger.debug('==================== GET Chaincode Files ==================');
     const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
@@ -394,24 +416,137 @@ app.get('/chaincodefiles', function(req, res) {
     });
 
 });
+// Query Get Peers by Channel Name
+app.get('/peers/:channel', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var PEERS = [];
+        var client = await helper.getClientForOrg(req.orgname);
+        logger.debug('Successfully initialized the credential stores');
+        var peers = client.getPeersForOrgOnChannel([req.params.channel]);
+        peers.forEach(function(peer) {
+            PEERS.push({
+                name: peer._peer._name,
+                route: peer._peer._url,
+                mspId: peer._mspid,
+                type: "Peer(member)"
+            });
+        });
+        res.send(PEERS);
+    } catch (error) {
+        logger.error('Failed to get peers: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Peers Details by Channel Name
+app.get('/peersdetail/:channel', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var PEERS = [];
+        var client = await helper.getClientForOrg(req.orgname);
+        logger.debug('Successfully initialized the credential stores');
+        var peers = client.getPeersForOrgOnChannel([req.params.channel]);
+        peers.forEach(function(peer) {
+            PEERS.push({
+                name: peer._peer._name,
+                route: peer._peer._url,
+                mspId: peer._mspid,
+                request_timeout: peer._peer.request_timeout,
+                type: "Peer(member)",
+                role: peer._roles
+            });
+        });
+        res.send(PEERS);
+    } catch (error) {
+        logger.error('Failed to get peers: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Current CA Service
+app.get('/caservice', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var client = await helper.getClientForOrg(req.orgname);
+        logger.debug('Successfully initialized the credential stores');
+        var ca = client.getCertificateAuthority();
+        res.send({
+            name: ca._name,
+            url: ca._url,
+            cert: ca._tlsCACerts
+        });
+    } catch (error) {
+        logger.error('Failed to get caService: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get All Configuration
+app.get('/allconfig', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var client = await helper.getClientForOrg(req.orgname);
+        logger.debug('Successfully initialized the credential stores');
+        var allConfig = client.getConfigSetting();
+        res.send(allConfig);
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Peers Details by Org Name
+app.get('/peersdetail/:org', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var client = await helper.getClientForOrg(req.params.org);
+        logger.debug('Successfully initialized the credential stores');
+        var peers = client.getPeersForOrg(client.getMspid());
+        res.send(peers);
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Orderer by Channel Name
+app.get('/orderer/:channel', async function(req, res) {
+    logger.debug('==================== Testing ==================');
+    try {
+        var client = await helper.getClientForOrg(req.orgname);
+        var channel = client.getChannel(req.params.channel);
+        var orderer = await channel.getOrderers();
+        res.send(orderer);
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Channels on a Peer
+app.get('/channels/:peer', async function(req, res) {
+    logger.debug('==================== Get Channels on a Peer ==================');
+    var peerName = req.params.peer;
+    var args = peerName.split('.');
+    var cert = 'artifacts/channel/crypto-config/peerOrganizations/' + args[1] + '.example.com/peers/' + peerName + '/tls/ca.crt';
 
-// var buildPath = function(fileName) {
-//     const directoryPath = path.join(__dirname, '/artifacts/src/github.com/');
-//     fs.readdirSync(directoryPath, function(err, files) {
-//         //handling error
-//         if (err) {
-//             return console.log('Unable to scan directory: ' + err);
-//         }
-//         for (var i in files) {
-//             var name = directoryPath + files[i];
-//             if (fs.statSync(name).isDirectory()) {
-//                 let list = name.split('/');
-//                 let last_name = list[list.length - 1];
-//                 if (last_name === fileName) {
-//                     return name;
-//                 }
-//             }
-//         }
+    try {
+        var channelNames = [];
+        var client = await helper.getClientForOrg(req.orgname);
+        var peerUrl = client.getPeer(peerName).getUrl();
+        let data = fs.readFileSync(path.join(__dirname, cert));
+        var peer = client.newPeer(peerUrl, {
+            pem: Buffer.from(data).toString(),
+            'ssl-target-name-override': peerName
+        });
 
-//     });
-// };
+        return client.queryChannels(peer, true).then((response) => {
+                for (let i = 0; i < response.channels.length; i++) {
+                    channelNames.push('channel id: ' + response.channels[i].channel_id);
+                }
+                res.send(channelNames);
+            })
+            .catch((err) => {
+                res.send(new Error("Unable to fetch channel details"));
+            });
+
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});

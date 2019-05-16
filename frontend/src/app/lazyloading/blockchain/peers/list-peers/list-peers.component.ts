@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AddPeerComponent } from '../add-peer/add-peer.component';
+import { PeerService } from 'app/services/peer.service';
 
 export interface PeriodicElement {
   name: string;
@@ -9,27 +10,7 @@ export interface PeriodicElement {
   mspId: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    name: 'peer0.ims.com',
-    route: 'grpc://localhost:2030',
-    type: 'Peer(Member)',
-    mspId: 'Gov',
-  },
-  {
-    name: 'orderer.ims.com',
-    route: 'grpc://localhost:2130',
-    type: 'Orderer',
-    mspId: 'Gov',
-  },
-  {
-    name: 'govca.ims.com',
-    route: 'grpc://localhost:2131',
-    type: 'CA',
-    mspId: 'Gov',
-  },
 
-];
 @Component({
   selector: 'app-list-peers',
   templateUrl: './list-peers.component.html',
@@ -43,19 +24,32 @@ export class ListPeersComponent implements OnInit {
   type: string;
   mspId: string;
 
-  constructor(public dialog: MatDialog) { }
   displayedColumns: string[] = [
     'name',
     'route',
     'type',
     'mspId'
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
+  constructor(
+    private peerService:PeerService,
+    public dialog: MatDialog
+    ) { 
+    this.dataSource.sort = this.sort;
+    }
 
   @ViewChild(MatSort) sort: MatSort;
   blinker: boolean = true;
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.peerService.getPeers().subscribe(
+      res =>{
+        res.forEach(peer => {
+          this.dataSource.data.push(peer);
+          this.dataSource._renderChangesSubscription;
+        });
+      },
+      err=>{ console.log(err);}
+    );
   }
 
   applyFilter(filterValue: string) {

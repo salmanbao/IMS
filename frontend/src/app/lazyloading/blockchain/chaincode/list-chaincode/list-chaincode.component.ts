@@ -32,10 +32,11 @@ export class ListChaincodeComponent implements OnInit {
   selectedPath: string;
   // Initiate dialog box variables
   cc_title: string;
-  cc_name: string;
-  cc_version: string;
-  cc_function: string;
-  cc_arguments: Array<string>;
+  peers : Array<string>;
+  chaincodeName: string;
+  chaincodeVersion: string;
+  fcn: string;
+  args: Array<string>;
 
 
   selected: any;
@@ -82,10 +83,11 @@ export class ListChaincodeComponent implements OnInit {
       width: '50%',
       data: {
         cc_title: this.cc_title,
-        cc_name: this.cc_name,
-        cc_version: this.cc_version,
-        cc_function: this.cc_function,
-        cc_arguments: this.cc_arguments
+        peers: this.peers,
+        chaincodeName: this.chaincodeName,
+        chaincodeVersion: this.chaincodeVersion,
+        fcn: this.fcn,
+        args: this.args
       }
     });
 
