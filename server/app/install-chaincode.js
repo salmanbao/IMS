@@ -7,9 +7,8 @@ var helper = require('./helper.js');
 var logger = helper.getLogger('install-chaincode');
 var tx_id = null;
 
-var installChaincode = async function(peers, chaincodeName, chaincodePath,
+var installChaincode = async function (peers, chaincodeName, chaincodePath,
     chaincodeVersion, chaincodeType, username, org_name) {
-    helper.getPeers(org_name);
     logger.debug('\n\n============ Install chaincode on organizations ============\n');
     helper.setupChaincodeDeploy();
     let error_message = null;

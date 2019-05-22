@@ -15,7 +15,7 @@
  */
 var path = require('path');
 var fs = require('fs');
-``
+
 var util = require('util');
 var hfc = require('fabric-client');
 var Peer = require('fabric-client/lib/Peer.js');
@@ -110,7 +110,7 @@ var getBlockByNumber = function(peer, blockNumber, username, org, channelName) {
         logger.error('Failed to query with error:' + err.stack ? err.stack : err);
         return 'Failed to query with error:' + err.stack ? err.stack : err;
     });
-};
+}; 
 var getTransactionByID = function(peer, trxnID, username, org, channelName) {
     var target = buildTarget(peer, org);
     var channel = helper.getChannelForOrg(org, channelName);

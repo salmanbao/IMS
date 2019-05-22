@@ -8,9 +8,19 @@ import { Observable } from 'rxjs';
 export class PeerService {
 
   constructor(private http: HttpClient) { }
-  channel : string = 'mychannel';
-  getPeers():Observable<any>{
-    console.log("--------Peer Service--------------------");
-    return this.http.get('http://localhost:4000/peers/'+this.channel);
+  baseUrl = 'http://localhost:4000/';
+  channel: string = 'mychannel';
+
+  getPeers(): Observable<any> {
+    return this.http.get(this.baseUrl + 'peers/' + this.channel);
+  }
+
+  // tslint:disable-next-line: whitespace
+  getOrderers(): Observable<any> {
+    return this.http.get(this.baseUrl + 'orderer/' + this.channel);
+  }
+
+  joinChannel(peer: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'channels/' + this.channel + '/peers', peer);
   }
 }

@@ -5,18 +5,19 @@ logger.setLevel('DEBUG');
 
 var path = require('path');
 var util = require('util');
+var fs = require('fs');
 const crypto = require('crypto');
 
 var hfc = require('fabric-client');
 hfc.setLogger(logger);
 
-var sleep = async function(sleep_time_ms) {
+var sleep = async function (sleep_time_ms) {
     return new Promise(resolve => setTimeout(resolve, sleep_time_ms));
 }
 
 async function getClientForOrg(userorg, username) {
     logger.debug('getClientForOrg - ****** START %s %s', userorg, username)
-        // get a fabric client loaded with a connection profile for this org
+    // get a fabric client loaded with a connection profile for this org
     let config = '-connection-profile-path';
 
     // build a client context and load it with a connection profile
@@ -51,7 +52,7 @@ async function getClientForOrg(userorg, username) {
     return client;
 }
 
-var getRegisteredUser = async function(username, userOrg, isJson) {
+var getRegisteredUser = async function (username, userOrg, isJson) {
     try {
         var client = await getClientForOrg(userOrg);
         logger.debug('Successfully initialized the credential stores');
@@ -94,17 +95,17 @@ var getRegisteredUser = async function(username, userOrg, isJson) {
 };
 
 
-var setupChaincodeDeploy = function() {
+var setupChaincodeDeploy = function () {
     process.env.GOPATH = path.join(__dirname, hfc.getConfigSetting('CC_SRC_PATH'));
 };
 
-var getLogger = function(moduleName) {
+var getLogger = function (moduleName) {
     var logger = log4js.getLogger(moduleName);
     logger.setLevel('DEBUG');
     return logger;
 };
 
-var encrypt = function(text, masterkey) {
+var encrypt = function (text, masterkey) {
     // random initialization vector
     const iv = crypto.randomBytes(16);
 
@@ -128,7 +129,7 @@ var encrypt = function(text, masterkey) {
     return Buffer.concat([salt, iv, tag, encrypted]).toString('base64');
 };
 
-var decrypt = function(data, masterkey) {
+var decrypt = function (data, masterkey) {
     // base64 decoding
     const bData = new Buffer(data, 'base64');
 
@@ -154,10 +155,22 @@ var decrypt = function(data, masterkey) {
 const config = require('config');
 const moment = require('moment');
 
-var getTimestamp = function() {
+var getTimestamp = function () {
     return moment.utc().format(config.dateFormat);
 }
 
+var buildTarget = async function (peerName, orgname) {
+    var args = peerName.split('.');
+    var cert = '../artifacts/channel/crypto-config/peerOrganizations/' + args[1] + '.example.com/peers/' + peerName + '/tls/ca.crt';
+    var client = await getClientForOrg(orgname);
+    var peerUrl = client.getPeer(peerName).getUrl();
+    let data = fs.readFileSync(path.join(__dirname, cert));
+    var peer = client.newPeer(peerUrl, {
+        pem: Buffer.from(data).toString(),
+        'ssl-target-name-override': peerName
+    });
+    return peer;
+}
 
 exports.getClientForOrg = getClientForOrg;
 exports.getLogger = getLogger;
@@ -166,3 +179,4 @@ exports.getRegisteredUser = getRegisteredUser;
 exports.encrypt = encrypt;
 exports.decrypt = decrypt;
 exports.getTimestamp = getTimestamp;
+exports.buildTarget = buildTarget;

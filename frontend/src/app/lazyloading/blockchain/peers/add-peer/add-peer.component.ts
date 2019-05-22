@@ -18,19 +18,28 @@ export interface DialogData {
 export class AddPeerComponent implements OnInit {
 
   constructor(
-    private peerService:PeerService,
+    private peerService: PeerService,
     public dialogRef: MatDialogRef<AddPeerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    data.title = 'Add Node'
+    data.title = 'Join Channel'
   }
 
   ngOnInit() {
   }
 
-  joinPeer(){
-    let peerDetails = {
+  joinPeer() {
+    const peerDetails = {
       peers : [this.data.name]
     };
+    this.peerService.joinChannel(peerDetails).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
     console.log(peerDetails);
   }
 

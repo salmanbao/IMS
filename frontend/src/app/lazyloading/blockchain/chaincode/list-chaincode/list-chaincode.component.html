@@ -5,7 +5,7 @@
             <mat-label>Peers</mat-label>
             <mat-select [(value)]="selected">
               <mat-option>--</mat-option>
-              <mat-option value="fabric-peer-org1">fabric-peer-org1</mat-option>
+              <mat-option *ngFor="let peer of listPeers" [value]="peer">{{peer}}</mat-option>
             </mat-select>
           </mat-form-field>
    

@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full', 
+    pathMatch: 'full',
     canActivate: [AuthGuard]
   }, {
     path: '',
@@ -23,10 +23,10 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
-  { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' ,canActivate: [AuthGuard]},
-  { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule',canActivate: [AuthGuard] },
+  { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule' , canActivate: [AuthGuard]},
+  { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  
+
 ];
 
 @NgModule({

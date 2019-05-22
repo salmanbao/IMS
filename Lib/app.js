@@ -299,7 +299,7 @@ app.post('/channels/:channelName/chaincodes', function(req, res) {
 			res.send(message);
 		});
 	}
-});
+}); 
 // Invoke transaction on chaincode on target peers
 app.post('/channels/:channelName/chaincodes/:chaincodeName', function(req, res) {
 	logger.debug('==================== INVOKE ON CHAINCODE ==================');
@@ -369,7 +369,7 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', function(req, res) {
 		return;
 	}
 	args = args.replace(/'/g, '"');
-	args = JSON.parse(args);
+	args = JSON.parse(args); 
 	logger.debug(args);
 
 	query.queryChaincode(peer, channelName, chaincodeName, fcn, args, req.username, req.orgname)
