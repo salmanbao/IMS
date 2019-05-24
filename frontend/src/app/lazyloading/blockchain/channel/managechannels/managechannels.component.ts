@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog } from '@angular/material';
 import { AddChannelComponent } from '../add-channel/add-channel.component';
 import { RequestChannelComponent } from '../request-channel/request-channel.component';
+import { ChannelService } from 'app/services/channel.service';
 
 
 export interface PeriodicElement {
@@ -9,7 +10,7 @@ export interface PeriodicElement {
   timeCreated: string;
   blockHeight: Number;
   peers: Number;
-  permissions:Array<string>;
+  permissions: Array<string>;
   action: string;
 }
 
@@ -19,7 +20,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/2/2019',
     blockHeight: 20,
     peers: 6,
-    permissions:['Operator','Writer','Reader'],
+    permissions: ['Operator', 'Writer', 'Reader'],
     action: "block"
   },
   {
@@ -27,7 +28,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/4/2019',
     blockHeight: 34,
     peers: 3,
-    permissions:['Operator','Writer','Reader'],
+    permissions: ['Operator', 'Writer', 'Reader'],
     action: "unblock"
   },
   {
@@ -35,7 +36,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     timeCreated: '12/4/2019',
     blockHeight: 67,
     peers: 6,
-    permissions:['Operator','Writer','Reader'],
+    permissions: ['Operator', 'Writer', 'Reader'],
     action: "block"
   }
 
@@ -49,18 +50,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./managechannels.component.scss']
 })
 export class ManagechannelsComponent implements OnInit {
-  
+
   title: string;
   channelName: string;
-  channelFile:string;
-  peers:Array<string>;
+  channelFile: string;
+  peers: Array<string>;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   constructor(
+    private channelService: ChannelService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar
-    ) { }
+  ) { }
 
 
   displayedColumns: string[] = [
@@ -79,7 +81,6 @@ export class ManagechannelsComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
   }
-
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -87,12 +88,12 @@ export class ManagechannelsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddChannelComponent, {
       width: '50%',
-      data: {  
+      data: {
         title: this.title,
         channelName: this.channelName,
-        channelFile:this.channelFile
+        channelFile: this.channelFile
 
-       }
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -104,12 +105,12 @@ export class ManagechannelsComponent implements OnInit {
   openDialogRequestChannel(): void {
     const dialogRef = this.dialog.open(RequestChannelComponent, {
       width: '50%',
-      data: {  
+      data: {
         title: this.title,
         channelName: this.channelName,
-        peers:this.peers
+        peers: this.peers
 
-       }
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

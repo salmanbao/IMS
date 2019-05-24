@@ -25,7 +25,6 @@ export class ChaincodeService {
   }
 
   listChaincodes(): Observable<any> {
-    console.log('--------------- List Chaincode ----------------');
     return this.http.get(this.baseUrl + 'chaincodes/' + this.channel + '?peer=peer0.org1.example.com');
   }
 }

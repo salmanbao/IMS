@@ -11,7 +11,7 @@ var queryChannels = async function (orgname, peerName) {
     var channelNames = [];
     return client.queryChannels(peer, true).then((response) => {
         for (let i = 0; i < response.channels.length; i++) {
-            channelNames.push('channel id: ' + response.channels[i].channel_id);
+            channelNames.push({name: response.channels[i].channel_id});
         }
         return channelNames;
     })

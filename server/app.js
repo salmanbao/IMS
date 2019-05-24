@@ -514,9 +514,9 @@ app.get('/orderer/:channel', async function (req, res) {
     }
 });
 // Query Get Channels on a Peer
-app.get('/channels/:peer', async function (req, res) {
+app.get('/channels/', async function (req, res) {
     logger.debug('==================== Get Channels on a Peer ==================');
-    var peerName = req.params.peer;
+    var peerName = req.query.peer;
     try {
         channel.queryChannels(req.orgname, peerName)
             .then((channels) => {

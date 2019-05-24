@@ -20,7 +20,8 @@ export class PeerService {
     return this.http.get(this.baseUrl + 'orderer/' + this.channel);
   }
 
-  joinChannel(peer: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'channels/' + this.channel + '/peers', peer);
+  joinChannel(data: { peers: Array<string>, channel: string }): Observable<any> {
+    console.log(data)
+    return this.http.post(this.baseUrl + 'channels/' + data.channel + '/peers', { peers: data.peers });
   }
 }

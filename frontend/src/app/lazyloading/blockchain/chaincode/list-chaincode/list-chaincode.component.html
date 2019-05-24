@@ -1,55 +1,62 @@
-
 <div class="col-md-12">
-    <div class="col-md-12">
-        <mat-form-field>
-            <mat-label>Peers</mat-label>
-            <mat-select [(value)]="selected">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let peer of listPeers" [value]="peer">{{peer}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-   
-      <button mat-raised-button class="btn btn-danger" id="installCC" (click)="openInstallChaincodeDialog()">
-        <mat-icon svgIcon="cogs"></mat-icon> Install Chaincode</button>
-    </div>
-  
-  
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> CODE ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-  
-      <!-- Version Column -->
-      <ng-container matColumnDef="version">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> VERSION </th>
-        <td mat-cell *matCellDef="let element"> {{element.version}} </td>
-      </ng-container>
-  
-      <!-- action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions For Chaincode">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openInitiateChaincodeDialog()">
-                    <mat-icon svgIcon="rotate-3d"></mat-icon>
-                  <span>Initiate</span>
-                </button>
-                <button mat-menu-item>
-                  <mat-icon>settings_input_component</mat-icon>
-                  <span>View Channels</span>
-                </button>
-              </mat-menu>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
+  <div class="col-md-12">
+    <mat-form-field>
+      <mat-label>Peers</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let peer of listPeers" [value]="peer">{{peer}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-danger" id="installCC" (click)="listChaincode()">
+      <mat-icon svgIcon="cogs"></mat-icon> Refresh</button>
+    <button mat-raised-button class="btn btn-danger" id="installCC" (click)="openInstallChaincodeDialog()">
+      <mat-icon svgIcon="cogs"></mat-icon> Install Chaincode
+    </button>
   </div>
+
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CODE ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Version Column -->
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> VERSION </th>
+      <td mat-cell *matCellDef="let element"> {{element.version}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <!-- action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions For Chaincode">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openInitiateChaincodeDialog()">
+            <mat-icon svgIcon="rotate-3d"></mat-icon>
+            <span>Initiate</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings_input_component</mat-icon>
+            <span>View Channels</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

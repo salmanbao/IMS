@@ -36,10 +36,12 @@ var getInstalledChaincodes = async function (peer, org, channelName) {
                     // logger.debug('name: ' + response.installed.chaincodes[i].name + ', version: ' +
                     //     response.installed.chaincodes[i].version + ', path: ' + response.installed.chaincodes[i].path
                     // );
-                    installed.push({ name: response.installed.chaincodes[i].name,
-                         version: response.installed.chaincodes[i].version,
-                         path: response.installed.chaincodes[i].path
-                });
+                    installed.push({
+                        name: response.installed.chaincodes[i].name,
+                        version: response.installed.chaincodes[i].version,
+                        path: response.installed.chaincodes[i].path,
+                        status: 'Installed'
+                    });
                 }
                 return {
                     message: true,

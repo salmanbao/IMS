@@ -5,13 +5,6 @@ import { InitiateCCComponent } from '../initiate-cc/initiate-cc.component';
 import { PeerService } from 'app/services/peer.service';
 import { ChaincodeService } from 'app/services/chaincode.service';
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {
-//     id: 'identity',
-//     version: '1.0.0',
-//     action: ""
-//   }
-// ];
 
 @Component({
   selector: 'app-list-chaincode',
@@ -38,6 +31,7 @@ export class ListChaincodeComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'version',
+    'status',
     'action'
   ];
 
