@@ -1,35 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AddPeerComponent } from '../add-peer/add-peer.component';
+import { PeerService } from 'app/services/peer.service';
 
-export interface PeriodicElement {
-  name: string;
-  route: string;
-  type: string;
-  mspId: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    name: 'peer0.ims.com',
-    route: 'grpc://localhost:2030',
-    type: 'Peer(Member)',
-    mspId: 'Gov',
-  },
-  {
-    name: 'orderer.ims.com',
-    route: 'grpc://localhost:2130',
-    type: 'Orderer',
-    mspId: 'Gov',
-  },
-  {
-    name: 'govca.ims.com',
-    route: 'grpc://localhost:2131',
-    type: 'CA',
-    mspId: 'Gov',
-  },
-
-];
 @Component({
   selector: 'app-list-peers',
   templateUrl: './list-peers.component.html',
@@ -43,21 +16,56 @@ export class ListPeersComponent implements OnInit {
   type: string;
   mspId: string;
 
-  constructor(public dialog: MatDialog) { }
   displayedColumns: string[] = [
     'name',
     'route',
     'type',
     'mspId'
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  @ViewChild(MatSort) sort: MatSort;
-  blinker: boolean = true;
-  ngOnInit() {
+  dataSource = new MatTableDataSource();
+  constructor(
+    private peerService: PeerService,
+    public dialog: MatDialog
+  ) {
     this.dataSource.sort = this.sort;
   }
 
+  // tslint:disable-next-line: member-ordering
+  @ViewChild(MatSort) sort: MatSort;
+  blinker: boolean = true;
+  ngOnInit() {
+    this.getPeers();
+    this.getOrderers();
+  }
+
+  getOrderers() {
+    this.peerService.getOrderers().subscribe(
+      res => {
+        res.orderers.forEach(orderer => {
+          let or = this.buildOrderer(orderer, res.mspId);
+          this.dataSource.data.push(or);
+          this.dataSource._updateChangeSubscription();
+        });
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  getPeers() {
+    this.peerService.getPeers().subscribe(
+      res => {
+        res.forEach(peer => {
+          this.dataSource.data.push(peer);
+          this.dataSource._updateChangeSubscription();
+        });
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  buildOrderer(orderer, mspId): any {
+    return { name: orderer._name, route: orderer._url, mspId, type: 'Orderer' };
+  }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

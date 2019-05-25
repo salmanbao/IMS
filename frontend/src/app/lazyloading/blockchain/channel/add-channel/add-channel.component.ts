@@ -6,8 +6,8 @@ import { ChannelService } from 'app/services/channel.service';
 export interface DialogData {
   title: string;
   channelName: string;
-  channelFile:string;
-} 
+  channelFile: string;
+}
 
 @Component({
   selector: 'app-add-channel',
@@ -16,10 +16,10 @@ export interface DialogData {
 })
 export class AddChannelComponent implements OnInit {
 
-  channels:any;
+  channels: any;
   ngOnInit() {
     this.channelService.getChannelFiles().subscribe(
-      res=>{
+      res => {
         this.channels = res;
       }
     );
@@ -29,26 +29,27 @@ export class AddChannelComponent implements OnInit {
     private channelService: ChannelService,
     public dialogRef: MatDialogRef<ManagechannelsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-      data.title ='Add Channel'; 
-     }
-     
-  addChannel(){
+    data.title = 'Add Channel';
+  }
+
+  addChannel() {
+    this.channelService.setCurrentChannel(this.data.channelName);
     let channelDetails = {
-      channelName : this.data.channelName,
-      channelFile : this.data.channelFile
+      channelName: this.data.channelName,
+      channelFile: this.data.channelFile
     };
     this.channelService.addChannel(channelDetails).subscribe(
-      res=>{
-        if(res['success']){
+      res => {
+        if (res['success']) {
           this.onNoClick();
         }
-      } 
+      }
     );
   }
-    
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 }
- 
+

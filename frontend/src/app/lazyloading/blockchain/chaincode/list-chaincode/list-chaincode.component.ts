@@ -2,20 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { InstallChaincodeComponent } from '../install-chaincode/install-chaincode.component';
 import { InitiateCCComponent } from '../initiate-cc/initiate-cc.component';
+import { PeerService } from 'app/services/peer.service';
+import { ChaincodeService } from 'app/services/chaincode.service';
 
-export interface PeriodicElement {
-  id: string;
-  version: string;
-  action: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 'identity',
-    version: '1.0.0',
-    action: ""
-  }
-];
 
 @Component({
   selector: 'app-list-chaincode',
@@ -32,27 +21,61 @@ export class ListChaincodeComponent implements OnInit {
   selectedPath: string;
   // Initiate dialog box variables
   cc_title: string;
-  cc_name: string;
-  cc_version: string;
-  cc_function: string;
-  cc_arguments: Array<string>;
-
+  peers: Array<string>;
+  chaincodeName: string;
+  chaincodeVersion: string;
+  fcn: string;
+  args: Array<string>;
 
   selected: any;
-  constructor(
-    public dialog: MatDialog
-  ) { }
   displayedColumns: string[] = [
     'id',
     'version',
+    'status',
     'action'
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  listPeers: Array<string> = [];
+
+  constructor(
+    private peerService: PeerService,
+    private chaincodeService: ChaincodeService,
+    public dialog: MatDialog
+  ) { }
+
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.loadPeers();
+    this.listChaincode();
+  }
+
+  loadPeers() {
+    this.peerService.getPeers().subscribe(
+      res => {
+        res.forEach(peer => {
+          this.listPeers.push(peer.name);
+        });
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  listChaincode() {
+    this.chaincodeService.listChaincodes().subscribe(
+      res => {
+        const initiated = res.initiated;
+        const installed = res.installed;
+        const chaincodes = installed.concat(initiated);
+        this.dataSource.data = chaincodes;
+        console.log(chaincodes);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err); }
+    );
   }
 
   applyFilter(filterValue: string) {
@@ -82,10 +105,11 @@ export class ListChaincodeComponent implements OnInit {
       width: '50%',
       data: {
         cc_title: this.cc_title,
-        cc_name: this.cc_name,
-        cc_version: this.cc_version,
-        cc_function: this.cc_function,
-        cc_arguments: this.cc_arguments
+        peers: this.peers,
+        chaincodeName: this.chaincodeName,
+        chaincodeVersion: this.chaincodeVersion,
+        fcn: this.fcn,
+        args: this.args
       }
     });
 

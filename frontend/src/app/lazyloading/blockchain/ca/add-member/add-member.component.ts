@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { UserService } from 'app/services/user.service';
+import { User } from 'app/models/user';
 
 export interface DialogData {
   title: string;
-  name: string;
+  username: string;
   orgName: string;
 }
 
@@ -14,8 +16,9 @@ export interface DialogData {
 })
 export class AddMemberComponent implements OnInit {
 
-  organizations = ['Gov','Hec'];
+  organizations = ['Org1','Org2'];
   constructor(
+    private userService:UserService,
     public dialogRef: MatDialogRef<AddMemberComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     data.title = 'Add User'
@@ -23,6 +26,20 @@ export class AddMemberComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  register(){
+    let user :User = new User() ;
+    user.username = this.data.username;
+    user.orgName = this.data.orgName;
+    this.userService.register(user).subscribe(
+      res=> {
+        console.log(res);
+        this.onNoClick();
+      }
+      ,
+      err => {console.log(err);}
+    )
   }
   onNoClick(): void {
     this.dialogRef.close();

@@ -16,6 +16,10 @@ server/node_modules
 server/package-lock.json
 server/artifacts/src/github.com/nationalid/node_modules
 server/artifacts/src/github.com/birthcertificate/node_modules
+explorer/node_modules
+explorer/client/node_modules
+
+
 # IDEs and editors
 /.idea
 .project

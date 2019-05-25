@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { InitiateChaincode } from 'app/models/chaincode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChaincodeService {
+  baseUrl = 'http://localhost:4000/';
+  channel = 'mychannel';
 
   constructor(private http: HttpClient) { }
-  getChaincodeFiles(): Observable<any>{
-    console.log("--------Getting Data in Service--------------------");
-    return this.http.get('http://localhost:4000/chaincodefiles');
+
+  getChaincodeFiles(): Observable<any> {
+    return this.http.get(this.baseUrl + 'chaincodefiles');
   }
 
-  installChaincode(data):Observable<any>{
-    return this.http.post('http://localhost:4000/chaincodes',data);
+  installChaincode(data): Observable<any> {
+    return this.http.post(this.baseUrl + 'chaincodes', data);
+  }
+
+  initiateChaincode(data: InitiateChaincode): Observable<any> {
+    return this.http.post(this.baseUrl + 'channels/mychannel/chaincodes', data);
+  }
+
+  listChaincodes(): Observable<any> {
+    return this.http.get(this.baseUrl + 'chaincodes/' + this.channel + '?peer=peer0.org1.example.com');
   }
 }

@@ -19,6 +19,13 @@ import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake.backend';
+import { AuthenticationService } from './services/authentication.service';
+import { CertificateService } from './services/certificate.service';
+import { ChaincodeService } from './services/chaincode.service';
+import { ChannelService } from './services/channel.service';
+import { OrganizationService } from './services/organization.service';
+import { PeerService } from './services/peer.service';
+import { UserService } from './services/user.service';
 
 
 
@@ -52,6 +59,13 @@ import { fakeBackendProvider } from './helpers/fake.backend';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthenticationService,
+    CertificateService,
+    ChaincodeService,
+    ChannelService,
+    OrganizationService,
+    PeerService,
+    UserService,
     // provider used to create fake backend
     //fakeBackendProvider,
     FormBuilder

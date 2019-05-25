@@ -1,17 +1,24 @@
-##join peers
-http://localhost:4000/channels/mychannel/peers
+##Register User
+http://localhost:4000/users
+{
+	"username":"bao",
+	"orgName":"Org1"
+} 
+
+##Create Channel
+http://localhost:4000/channels
+{
+	"channelName":"mychannel",
+	"channelFile":"mychannel.tx"
+}
+ 
+##Join Channel
+http://localhost:4000/channels/:channelName/peers
 {
 	"peers": ["peer0.org1.example.com","peer1.org1.example.com"]
 }
 
-##create channel
-http://localhost:4000/channels
-{
-	"channelName":"mychannel",
-	"channelConfigPath":"../artifacts/channel/mychannel.tx"
-}
-
-##install chaincode
+##Install Chaincode
 http://localhost:4000/chaincodes
 {
 	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
@@ -21,15 +28,8 @@ http://localhost:4000/chaincodes
 	"chaincodeVersion":"v0"
 }
 
-##register user
-http://localhost:4000/users
-{
-	"username":"bao",
-	"orgName":"Org1"
-}
-
-##instantiate chaincode
-http://localhost:4000/channels/mychannel/chaincodes
+##Instantiate Chaincode
+http://localhost:4000/channels/:channelName/chaincodes
 {
 	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
 	"chaincodeName":"fabcar",
@@ -39,7 +39,6 @@ http://localhost:4000/channels/mychannel/chaincodes
 	"fcn":""
 }
 
-
 ##invoke chaincode function
 http://localhost:4000/channels/:channelName/chaincodes/:chaincodeName
 {
@@ -48,4 +47,69 @@ http://localhost:4000/channels/:channelName/chaincodes/:chaincodeName
 	"fcn":"initLedger"
 }
 
- 
+ ## Query on chaincode on target peers (args should be decoded to hex)
+ http://localhost:4000/channels/:channelName/chaincodes/:chaincodeName?peer=peer0.org1.example.com&args=[""]&fcn=initLedger
+ {}
+
+ ## Query Get Block by BlockNumber
+http://localhost:4000/channels/:channelName/blocks/:blockId?peer=peer0.org1.example.com
+{}
+
+## Query Get Channel Files .tx
+http://localhost:4000/channelfiles
+{}
+
+## Query Get Chaincode Files
+http://localhost:4000/chaincodefiles
+{}
+
+## Query Get Peers by Channel Name
+http://localhost:4000/peers/:channel
+{}
+##Query Get Peers Details by Channel Name
+http://localhost:4000/peersdetail/:channel
+{}
+
+## Query Get Peers Details by Channel Name
+http://localhost:4000/peersdetail/:channel
+{}
+
+## Query Get Current CA Service
+http://localhost:4000/caservice
+{}
+
+## Query Get All Configuration
+http://localhost:4000/allconfig
+{}
+
+## Query Get Peers Details by Org Name
+http://localhost:4000/peersdetail/:org
+{}
+
+## Query Get Orderer by Channel Name
+http://localhost:4000/orderer/:channel
+{}
+
+## Query Get Channels on a Peer
+http://localhost:4000/channels/:peer
+{}
+
+## Query Get Transaction By ID
+http://localhost:4000/channels/:channelName/transactions/:trxnId?peer=peer0.org1.example.com
+{}
+
+## Query Get Block by Hash
+http://localhost:4000/channels/:channelName/blocks?peer=peer0.org1.example.com&hash=87uh8i7g8778
+{}
+
+## Query for Channel Information
+http://localhost:4000/channelsinfo/:channelName?peer=peer0.org1.example.com
+{}
+
+## Query to fetch all Installed/instantiated chaincodes
+http://localhost:4000/chaincodes/:channel?peer=peer0.org1.example.com
+{}
+
+## Query to get BlockCount on a channel
+http://localhost:4000/channels/:channelName/height?peer=peer0.org1.example.com
+{}

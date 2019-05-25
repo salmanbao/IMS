@@ -8,13 +8,23 @@ import 'rxjs/add/operator/map';
 })
 export class ChannelService {
 
+  currentChannel: string;
+  baseUrl = 'http://localhost:4000/';
   constructor(private http: HttpClient) { }
-  addChannel(data) {
-    return this.http.post('http://localhost:4000/channels',data);
+  setCurrentChannel(channel: string) {
+    this.currentChannel = channel;
+  }
+  getCurrentChannel() {
+    return this.currentChannel;
+  }
+  addChannel(data): Observable<any> {
+    return this.http.post(this.baseUrl + 'channels', data);
+  }
+  getChannels(): Observable<any> {
+    return this.http.get(this.baseUrl + 'channels/?peer=peer0.org1.example.com');
   }
 
-  getChannelFiles(): Observable<any>{
-    console.log("--------Getting Data in Service--------------------");
-    return this.http.get('http://localhost:4000/channelfiles');
+  getChannelFiles(): Observable<any> {
+    return this.http.get(this.baseUrl + 'channelfiles');
   }
 }

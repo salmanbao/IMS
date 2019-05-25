@@ -4,8 +4,7 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
     <button mat-raised-button class="btn btn-danger" id="addNode" (click)="openDialog()">
-      <mat-icon>add_to_queue</mat-icon> Add Node
-    </button>
+      <mat-icon>add_to_queue</mat-icon> Join Channel</button>
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 

@@ -1,18 +1,3 @@
-/**
- * Copyright 2017 IBM All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 var path = require('path');
 var fs = require('fs');
 var util = require('util');
@@ -20,7 +5,7 @@ var hfc = require('fabric-client');
 var helper = require('./helper.js');
 var logger = helper.getLogger('Query');
 
-var queryChaincode = async function(peer, channelName, chaincodeName, args, fcn, username, org_name) {
+var queryChaincode = async function (peer, channelName, chaincodeName, args, fcn, username, org_name) {
     try {
         // first setup the client for this org
         var client = await helper.getClientForOrg(org_name, username);
@@ -53,4 +38,29 @@ var queryChaincode = async function(peer, channelName, chaincodeName, args, fcn,
     }
 };
 
+var getBlockByHash = function (peer, hash, username, org, channelName) {
+    var target = helper.buildTarget(peer, org);
+    var channel = client.getChannel(channelName);
+
+    return channel.queryBlockByHash(Buffer.from(hash), target)
+        .then((response_payloads) => {
+            if (response_payloads) {
+                logger.debug(response_payloads);
+                return response_payloads;
+            } else {
+                logger.error('response_payloads is null');
+                return 'response_payloads is null';
+            }
+        }, (err) => {
+            logger.error('Failed to send query due to error: ' + err.stack ? err.stack :
+                err);
+            return 'Failed to send query due to error: ' + err.stack ? err.stack : err;
+        }).catch((err) => {
+            logger.error('Failed to query with error:' + err.stack ? err.stack : err);
+            return 'Failed to query with error:' + err.stack ? err.stack : err;
+        });
+};
+
+
+exports.getBlockByHash = getBlockByHash;
 exports.queryChaincode = queryChaincode;

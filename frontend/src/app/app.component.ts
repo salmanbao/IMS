@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 
 
@@ -7,7 +7,11 @@ import { AuthenticationService } from './services/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-constructor(private auth : AuthenticationService){}
-isAuth:boolean = this.auth.isLogged();
+export class AppComponent implements OnInit {
+  constructor(private auth: AuthenticationService) { }
+  // tslint:disable-next-line: member-ordering
+  isAuth: boolean = this.auth.isLogged();
+  ngOnInit() {
+    console.log(this.isAuth);
+  }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PeerService } from 'app/services/peer.service';
+import { ChannelService } from 'app/services/channel.service';
 
 export interface DialogData {
   title: string;
   name: string;
-  // route: string;
   // type: string;
   // mspId: string;
 }
@@ -17,34 +17,61 @@ export interface DialogData {
 })
 export class AddPeerComponent implements OnInit {
 
-  // types = ['peer','ca','orderer'];
-  // msps = ['gov','school'];
   constructor(
-    private peerService:PeerService,
+    private peerService: PeerService,
+    private channelService: ChannelService,
     public dialogRef: MatDialogRef<AddPeerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    data.title = 'Add Node'
+    data.title = 'Join Channel'
   }
+  channel: string;
+  Channels: Array<string> = [];
+  Peers: Array<string> = [];
 
   ngOnInit() {
+    this.getPeers();
+    this.channel = this.channelService.getCurrentChannel();
+    console.log(this.channel);
   }
 
-  joinPeer(){
-    let peerDetails = {
-      peers : [this.data.name]
+  joinPeer() {
+    const peerDetails = {
+      peers: [this.data.name],
+      channel: this.channel
     };
-    console.log(peerDetails);
-    this.peerService.addPeer(peerDetails).subscribe(
-      res=>{
-        if(res['success']){
-          this.onNoClick();
-        }
-      } 
+    this.peerService.joinChannel(peerDetails).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getChannels() {
+    this.channelService.getChannels().subscribe(
+      res => {
+        res.forEach((channel) => {
+          this.Channels.push(channel.name);
+        });
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  getPeers() {
+    this.peerService.getPeers().subscribe(
+      res => {
+        res.forEach(peer => {
+          this.Peers.push(peer.name);
+        });
+      },
+      err => { console.log(err); }
     );
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
