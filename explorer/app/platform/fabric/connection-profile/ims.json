@@ -38,10 +38,10 @@
 				"ca-org1"
 			],
 			"adminPrivateKey": {
-				"path": "credentials/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/5890f0061619c06fb29dea8cb304edecc020fe63f41a6db109f1e227cc1cb2a8_sk"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/5890f0061619c06fb29dea8cb304edecc020fe63f41a6db109f1e227cc1cb2a8_sk"
 			},
 			"signedCert": {
-				"path": "credentials/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem"
 			}
 		},
 		"Org2": {
@@ -54,10 +54,10 @@
 				"ca-org2"
 			],
 			"adminPrivateKey": {
-				"path": "credentials/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/1995b11d6573ed3be52fcd7a5fa477bc0f183e1f5f398c8281d0ce7c2c75a076_sk"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/1995b11d6573ed3be52fcd7a5fa477bc0f183e1f5f398c8281d0ce7c2c75a076_sk"
 			},
 			"signedCert": {
-				"path": "credentials/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem"
 			}
 		}
 	},
@@ -68,7 +68,7 @@
 				"ssl-target-name-override": "orderer.example.com"
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
 			}
 		}
 	},
@@ -79,7 +79,7 @@
 				"ssl-target-name-override": "peer0.org1.example.com"
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
 			}
 		},
 		"peer1.org1.example.com": {
@@ -88,7 +88,7 @@
 				"ssl-target-name-override": "peer1.org1.example.com"
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt"
 			}
 		},
 		"peer0.org2.example.com": {
@@ -97,7 +97,7 @@
 				"ssl-target-name-override": "peer0.org2.example.com"
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"
 			}
 		},
 		"peer1.org2.example.com": {
@@ -106,7 +106,7 @@
 				"ssl-target-name-override": "peer1.org2.example.com"
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt"
 			}
 		}
 	},
@@ -117,7 +117,7 @@
 				"verify": false
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"
 			},
 			"registrar": [
 				{
@@ -133,7 +133,7 @@
 				"verify": false
 			},
 			"tlsCACerts": {
-				"path": "credentials/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem"
+				"path": "/home/salman/ims/server/artifacts/channel/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem"
 			},
 			"registrar": [
 				{

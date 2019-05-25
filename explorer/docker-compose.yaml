@@ -41,8 +41,8 @@ services:
       - DISCOVERY_AS_LOCALHOST=false
     volumes:
       - ./credentials/ims/config.json:/opt/explorer/app/platform/fabric/config.json
-      - ./credentials/connection-profile:/opt/explorer/app/platform/fabric/connection-profile
-      - ./credentials/ims/crypto-config:/tmp/crypto
+      - ./credentials/ims/connection-profile:/opt/explorer/app/platform/fabric/connection-profile
+      - ./credentials/ims/crypto:/tmp/crypto
       - walletstore:/opt/wallet
     command: sh -c "sleep 16&& node /opt/explorer/main.js && tail -f /dev/null"
     ports:
