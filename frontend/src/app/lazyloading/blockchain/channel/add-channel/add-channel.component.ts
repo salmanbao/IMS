@@ -40,15 +40,16 @@ export class AddChannelComponent implements OnInit {
     };
     this.channelService.addChannel(channelDetails).subscribe(
       res => {
-        if (res['success']) {
-          this.onNoClick();
-        }
+          this.onNoClick(res);
+      },
+      err => {
+        this.onNoClick('fail');
       }
     );
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(result): void {
+    this.dialogRef.close(result);
   }
 
 }

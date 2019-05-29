@@ -43,11 +43,16 @@ var createChannel = async function(channelName, channelConfigPath, username, org
         } else {
             logger.error('\n!!!!!!!!! Failed to create the channel \'' + channelName +
                 '\' !!!!!!!!!\n\n');
-            throw new Error('Failed to create the channel \'' + channelName + '\'');
+            if(response.info.includes('applying config update to existing channel')){
+                return {success:false , message: 'Channel already exist!'};
+            }
+            //throw new Error('Failed to create the channel \'' + channelName + '\'');
         }
     } catch (err) {
         logger.error('Failed to initialize the channel: ' + err.stack ? err.stack : err);
-        throw new Error('Failed to initialize the channel: ' + err.toString());
+        return {success:false , message: 'Incorrect Channel Configurations.'};
+        //throw new Error('Failed to initialize the channel: ' + err.toString());
+        
     }
 };
 

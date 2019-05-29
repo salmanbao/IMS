@@ -1,48 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatSort,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+  MatSnackBar,
+  MatDialog
+} from '@angular/material';
 import { AddChannelComponent } from '../add-channel/add-channel.component';
 import { RequestChannelComponent } from '../request-channel/request-channel.component';
 import { ChannelService } from 'app/services/channel.service';
-
-
-export interface PeriodicElement {
-  id: string;
-  timeCreated: string;
-  blockHeight: Number;
-  peers: Number;
-  permissions: Array<string>;
-  action: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 'gov',
-    timeCreated: '12/2/2019',
-    blockHeight: 20,
-    peers: 6,
-    permissions: ['Operator', 'Writer', 'Reader'],
-    action: "block"
-  },
-  {
-    id: 'univeristy',
-    timeCreated: '12/4/2019',
-    blockHeight: 34,
-    peers: 3,
-    permissions: ['Operator', 'Writer', 'Reader'],
-    action: "unblock"
-  },
-  {
-    id: 'School',
-    timeCreated: '12/4/2019',
-    blockHeight: 67,
-    peers: 6,
-    permissions: ['Operator', 'Writer', 'Reader'],
-    action: "block"
-  }
-
-];
-
-
 
 @Component({
   selector: 'app-managechannels',
@@ -51,6 +18,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManagechannelsComponent implements OnInit {
 
+  displayedColumns: string[] = [
+    'id',
+    'blockHeight',
+    'peers',
+    'action'
+  ];
+  dataSource = new MatTableDataSource();
   title: string;
   channelName: string;
   channelFile: string;
@@ -65,24 +39,28 @@ export class ManagechannelsComponent implements OnInit {
   ) { }
 
 
-  displayedColumns: string[] = [
-    'id',
-    'timeCreated',
-    'blockHeight',
-    'peers',
-    'permissions',
-    'action'
-  ];
-
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.getChannelInfo()
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getChannelInfo() {
+    this.channelService.getChannelInfo().subscribe(
+      res => {
+        console.log(res);
+        this.dataSource.data = res;
+        this.dataSource._updateChangeSubscription();
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   openDialog(): void {
@@ -97,8 +75,12 @@ export class ManagechannelsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (result.message) {
+        this.openSnackBar(result.message);
+      } else if (result === 'fail') {
+        this.openSnackBar('Unhandled exception might be occured');
+      }
+
     });
   }
 
@@ -119,8 +101,10 @@ export class ManagechannelsComponent implements OnInit {
     });
   }
 
-  openSnackBarSyncCertificate() {
-    this.snackBar.open('Certificates has been synchronized', 'Close', {
+
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
       duration: 1000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

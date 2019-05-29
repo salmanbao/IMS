@@ -3,53 +3,29 @@
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Channel">
     </mat-form-field>
+    <button mat-raised-button class="btn btn-danger" id="addChannel" (click)="getChannelInfo()">
+      <mat-icon svgIcon="account-clock"></mat-icon> Refresh</button>
     <button mat-raised-button class="btn btn-danger" id="addChannel" (click)="openDialog()">
-      <mat-icon svgIcon="account-clock"></mat-icon> Add Channel
-    </button>
-    <button mat-raised-button class="btn btn-danger" id="addChannel" (click)="openDialogRequestChannel()">
-      <mat-icon svgIcon="account-clock"></mat-icon> Request Channel
-    </button>
+      <mat-icon svgIcon="account-clock"></mat-icon> Add Channel</button>
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- Time Created Column -->
-    <ng-container matColumnDef="timeCreated">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> TIME CREATED </th>
-      <td mat-cell *matCellDef="let element"> {{element.timeCreated}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <!-- Block HeightColumn -->
     <ng-container matColumnDef="blockHeight">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> BLOCK HEIGHT </th>
-      <td mat-cell *matCellDef="let element"> {{element.blockHeight}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.height}} </td>
     </ng-container>
 
     <!-- Peers Column -->
     <ng-container matColumnDef="peers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> PEERS </th>
       <td mat-cell *matCellDef="let element"> {{element.peers}} </td>
-    </ng-container>
-
-    <!-- Permissions Column -->
-    <ng-container matColumnDef="permissions">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> PERMISSIONS </th>
-      <td mat-cell *matCellDef="let element">
-        <p style="margin-bottom:0px;">
-          {{element.permissions[0]}}
-        </p>
-        <p style="margin-bottom:0px;">
-          {{element.permissions[1]}}
-        </p>
-        <p style="margin-bottom:0px;">
-          {{element.permissions[2]}}
-        </p>
-      </td>
     </ng-container>
 
     <!-- action Column -->
@@ -64,7 +40,7 @@
             <mat-icon svgIcon="square-edit-outline"></mat-icon>
             <span>Edit Channel</span>
           </button>
-          <button mat-menu-item (click)="openSnackBarSyncCertificate()">
+          <button mat-menu-item (click)="openSnackBar()">
             <mat-icon svgIcon="sync"></mat-icon>
             <span>Sync Certificates</span>
           </button>

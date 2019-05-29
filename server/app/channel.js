@@ -6,20 +6,23 @@ var helper = require('./helper.js');
 var logger = helper.getLogger('Channel');
 
 var queryChannels = async function (orgname, peerName) {
+    logger.debug("==================== Org & Peer "+orgname +" "+peerName);
     var client = await helper.getClientForOrg(orgname);
     var peer = await helper.buildTarget(peerName, orgname);
     var channelNames = [];
     return client.queryChannels(peer, true).then((response) => {
+        if(response.channels.length > 0 ){
         for (let i = 0; i < response.channels.length; i++) {
-            channelNames.push({name: response.channels[i].channel_id});
+            channelNames.push({ name: response.channels[i].channel_id });
         }
+    }
         return channelNames;
     })
         .catch((err) => {
             return new Error("Unable to fetch channel details");
         });
 };
-
+ 
 var getChannelInfo = async function (peer, org, channelName) {
     var client = await helper.getClientForOrg(org);
     var target = await helper.buildTarget(peer, org);
@@ -57,6 +60,21 @@ var getChannelHeight = function (peer, org, channelName) {
             }
         });
 };
+
+var getChannelPeers = async function(org , channelName){
+    var PEERS = [];
+    var client = await helper.getClientForOrg(org);
+    var channel = client.getChannel(channelName);
+    var response = await channel.getChannelPeers();
+    var peersMap = response[0]._channel._channel_peers;
+
+    for (var key of peersMap.keys()) {
+        PEERS.push(key);
+      }
+    return PEERS;
+};
+
 exports.queryChannels = queryChannels;
 exports.getChannelInfo = getChannelInfo;
 exports.getChannelHeight = getChannelHeight;
+exports.getChannelPeers = getChannelPeers;

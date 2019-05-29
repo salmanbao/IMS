@@ -10,6 +10,7 @@ export class ChannelService {
 
   currentChannel: string;
   baseUrl = 'http://localhost:4000/';
+
   constructor(private http: HttpClient) { }
   setCurrentChannel(channel: string) {
     this.currentChannel = channel;
@@ -22,8 +23,11 @@ export class ChannelService {
   }
   getChannels(): Observable<any> {
     return this.http.get(this.baseUrl + 'channels/?peer=peer0.org1.example.com');
+    //return this.http.get(this.baseUrl + 'channelsinfo/mychannel')
   }
-
+  getChannelInfo(): Observable<any> {
+    return this.http.get(this.baseUrl + 'channelsinfo/?peer=peer0.org1.example.com');
+  }
   getChannelFiles(): Observable<any> {
     return this.http.get(this.baseUrl + 'channelfiles');
   }

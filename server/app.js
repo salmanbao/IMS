@@ -120,8 +120,6 @@ app.post('/users', async function (req, res) {
         logger.debug('Successfully registered the username %s for organization %s', username, orgName);
         response.token = token;
         res.status(200).json(response);
-        //res.json({ success: true, message: response });
-        //res.json(response);
     } else {
         logger.debug('Failed to register the username %s for organization %s with::%s', username, orgName, response);
         res.json({ success: false, message: response });
@@ -180,13 +178,13 @@ app.post('/chaincodes', async function (req, res) {
     var chaincodePath = req.body.chaincodePath;
     var chaincodeVersion = req.body.chaincodeVersion;
     var chaincodeType = req.body.chaincodeType;
-    
+
     logger.debug('peers : ' + peers); // target peers list
     logger.debug('chaincodeName : ' + chaincodeName);
     logger.debug('chaincodePath  : ' + chaincodePath);
     logger.debug('chaincodeVersion  : ' + chaincodeVersion);
     logger.debug('chaincodeType  : ' + chaincodeType);
-    
+
     if (!peers || peers.length == 0) {
         res.json(getErrorMessage('\'peers\''));
         return;
@@ -382,6 +380,94 @@ app.get('/channelfiles', function (req, res) {
         res.send(filesList);
     });
 });
+// Query Get Channels on a Peer
+app.get('/channels/', async function (req, res) {
+    logger.debug('==================== Get Channels on a Peer ==================');
+    var peerName = req.query.peer;
+    logger.debug('Peer name : ' + peerName);
+    logger.debug('Org name  : ' + req.orgname);
+    try {
+        channel.queryChannels(req.orgname, peerName)
+            .then((channels) => {
+                    res.send(channels);
+            });
+
+    } catch (error) {
+        logger.error('Failed to get all config: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+});
+// Query Get Transaction By ID
+app.get('/channels/:channelName/transactions/:trxnId', async function (req, res) {
+    logger.debug(
+        '================ GET TRANSACTION BY TRANSACTION_ID ======================'
+    );
+    let peer = req.query.peer;
+    let trxnId = req.params.trxnId;
+    let channelName = req.params.channelName;
+    logger.debug('channelName : ' + channelName);
+    if (!trxnId) {
+        res.json(getErrorMessage('\'trxnId\''));
+        return;
+    }
+    transaction.getTransactionByID(peer, trxnId, req.username, req.orgname, channelName)
+        .then(function (message) {
+            res.send(message);
+        });
+});
+// Query Get Block by Hash
+app.get('/channels/:channelName/blocks', function (req, res) {
+    logger.debug('================ GET BLOCK BY HASH ======================');
+
+    let hash = req.query.hash;
+    let peer = req.query.peer;
+    let channelName = req.params.channelName;
+    logger.debug('channelName : ' + channelName);
+    if (!hash) {
+        res.json(getErrorMessage('\'hash\''));
+        return;
+    }
+
+    query.getBlockByHash(peer, hash, req.username, req.orgname, channelName).then(
+        function (message) {
+            res.send(message);
+        });
+});
+//Query for Channel Information
+app.get('/channelsinfo/', async function (req, res) {
+    logger.debug(
+        '================ GETTING CHANNEL INFORMATION ======================');
+    let peer = req.query.peer;
+    var _channels = [];
+    var channelsObj = [];
+    logger.debug("Peer : " + peer);
+    // Get all channels
+    _channels = await channel.queryChannels(req.orgname, peer);
+    // Get channels height and previous block hash
+    for (var i = 0; i < _channels.length; i++) {
+        let chainInfo = await channel.getChannelInfo(peer, req.orgname, _channels[i].name);
+        let peers = await channel.getChannelPeers(req.orgname, _channels[i].name);
+        channelsObj.push({
+            name: _channels[i].name,
+            height: chainInfo.height.low,
+            peers: peers.length
+        });
+    }
+    res.send(channelsObj);
+
+});
+// Query to get BlockCount on a channel
+app.get('/channels/:channelName/height', function (req, res) {
+    logger.debug('================ GET BLOCK HEIGHT OF CHANNEL ======================');
+    let peer = req.query.peer;
+    let channelName = req.params.channelName;
+    logger.debug('channelName : ' + channelName);
+
+    channel.getChannelHeight(peer, req.orgname, channelName).then(
+        (message) => {
+            res.send(message);
+        });
+});
 // Query Get Chaincode Files
 app.get('/chaincodefiles', function (req, res) {
     logger.debug('==================== GET Chaincode Files ==================');
@@ -507,78 +593,13 @@ app.get('/orderer/:channel', async function (req, res) {
         var channel = client.getChannel(req.params.channel);
         var mspId = client.getMspid();
         var orderer = await channel.getOrderers();
-        res.send({orderers: orderer, mspId: mspId});
+        res.send({ orderers: orderer, mspId: mspId });
     } catch (error) {
         logger.error('Failed to get Orderer by Channel Name: %s with error: %s', error.toString());
         res.send({ error: 'failed ' + error.toString() });
     }
 });
-// Query Get Channels on a Peer
-app.get('/channels/', async function (req, res) {
-    logger.debug('==================== Get Channels on a Peer ==================');
-    var peerName = req.query.peer;
-    try {
-        channel.queryChannels(req.orgname, peerName)
-            .then((channels) => {
-                if (channels.length > 0) {
-                    res.send(channels);
-                }
-            });
 
-    } catch (error) {
-        logger.error('Failed to get all config: %s with error: %s', error.toString());
-        res.send({ error: 'failed ' + error.toString() });
-    }
-});
-// Query Get Transaction By ID
-app.get('/channels/:channelName/transactions/:trxnId', async function (req, res) {
-    logger.debug(
-        '================ GET TRANSACTION BY TRANSACTION_ID ======================'
-    );
-    let peer = req.query.peer;
-    let trxnId = req.params.trxnId;
-    let channelName = req.params.channelName;
-    logger.debug('channelName : ' + channelName);
-    if (!trxnId) {
-        res.json(getErrorMessage('\'trxnId\''));
-        return;
-    }
-    transaction.getTransactionByID(peer, trxnId, req.username, req.orgname, channelName)
-        .then(function (message) {
-            res.send(message);
-        });
-});
-// Query Get Block by Hash
-app.get('/channels/:channelName/blocks', function (req, res) {
-    logger.debug('================ GET BLOCK BY HASH ======================');
-
-    let hash = req.query.hash;
-    let peer = req.query.peer;
-    let channelName = req.params.channelName;
-    logger.debug('channelName : ' + channelName);
-    if (!hash) {
-        res.json(getErrorMessage('\'hash\''));
-        return;
-    }
-
-    query.getBlockByHash(peer, hash, req.username, req.orgname, channelName).then(
-        function (message) {
-            res.send(message);
-        });
-});
-//Query for Channel Information
-app.get('/channelsinfo/:channelName', function (req, res) {
-    logger.debug(
-        '================ GET CHANNEL INFORMATION ======================');
-    let peer = req.query.peer;
-    let channelName = req.params.channelName;
-    console.log("Peer :", peer);
-    console.log("Channel :", channelName);
-    channel.getChannelInfo(peer, req.orgname, channelName).then(
-        function (message) {
-            res.send(message);
-        });
-});
 // Query to fetch all Installed/instantiated chaincodes
 app.get('/chaincodes/:channel', function (req, res) {
     logger.debug(
@@ -590,24 +611,16 @@ app.get('/chaincodes/:channel', function (req, res) {
             res.send(message);
         });
 });
-// Query to get BlockCount on a channel
-app.get('/channels/:channelName/height', function (req, res) {
-    logger.debug('================ GET BLOCK HEIGHT OF CHANNEL ======================');
-    let peer = req.query.peer;
-    let channelName = req.params.channelName;
-    logger.debug('channelName : ' + channelName);
-
-    channel.getChannelHeight(peer, req.orgname, channelName).then(
-        (message) => {
-            res.send(message);
-        });
-});
-
 app.get('/test', async function (req, res) {
     var client = await helper.getClientForOrg(req.orgname)
-    var channel = client.getChannel();
+    var channel = client.getChannel('mychannel');
     //var peer = await helper.buildTarget('peer0.org1.example.com', req.orgname);
-    var response = await channel.getChannelConfigFromOrderer();
+    var response = await channel.getChannelPeers();
+    var myMap = response[0]._channel._channel_peers;
+
+    for (var key of myMap.keys()) {
+        console.log(key);
+    }
     //console.log(response);
     res.send(response);
 });
