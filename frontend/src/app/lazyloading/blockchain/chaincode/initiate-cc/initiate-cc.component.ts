@@ -10,7 +10,7 @@ export interface DialogData {
   chaincodeName: string;
   chaincodeVersion: string;
   chaincodeType: string;
-  fcn: string ;
+  fcn: string;
   args: Array<string>;
 }
 
@@ -20,29 +20,29 @@ export interface DialogData {
   styleUrls: ['./initiate-cc.component.scss']
 })
 export class InitiateCCComponent implements OnInit {
-  peers = new FormControl('',Validators.required);
-  peersList = ["peer0.org1.example.com","peer1.org1.example.com"];
+  peers = new FormControl('', Validators.required);
+  peersList = [ 'peer0.org1.example.com' , 'peer1.org1.example.com' ];
   languages = ['golang', 'node'];
   constructor(
-    private chaincodeService:ChaincodeService,
+    private chaincodeService: ChaincodeService,
     public dialogRef: MatDialogRef<InitiateCCComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     data.cc_title = 'Initiate chaincode';
-    data.fcn = "";
-    data.args = [""];
+    data.fcn = '';
+    data.args = [''];
   }
 
   ngOnInit() {
 
   }
-  initiateChaincode(){
-    let chaincodeConfig :InitiateChaincode = new InitiateChaincode(this.data);
+  initiateChaincode() {
+    const chaincodeConfig: InitiateChaincode = new InitiateChaincode(this.data);
     this.chaincodeService.initiateChaincode(chaincodeConfig).subscribe(
-      res => {console.log(res);}
-    );  
+      res => { console.log(res); },
+      err => { console.log(err); }
+    );
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
- 

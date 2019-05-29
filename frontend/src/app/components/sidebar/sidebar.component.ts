@@ -1,26 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-
 declare const $: any;
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/certificates', title: 'Certificates',  icon: 'card_giftcard', class: '' },
-    //{ path: '/users', title: 'Users',  icon: 'supervisor_account', class: '' },
-    { path: '/blockchain', title: 'Blockchain',  icon: 'view_week', class: '' },
-    { path: '/reports', title: 'Reports',  icon: 'assignment', class: '' },
-
-
-   // { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-   // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-   // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    //{ path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    //{ path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
-    //{ path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' }
+  { path: '/dashboard', title: 'Dashboard', icon: 'view-dashboard', class: '' },
+  { path: '/certificates', title: 'Certificates', icon: 'certificate', class: '' },
+  { path: '/blockchain', title: 'Blockchain', icon: 'view-comfy', class: '' },
+  { path: '/reports', title: 'Reports', icon: 'chart-arc', class: '' },
+  { path: '/explorer' , title: 'Explorer', icon: 'buddhism', class: '' },
 ];
 
 @Component({
@@ -37,9 +28,9 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
+    if ($(window).width() > 991) {
+      return false;
+    }
+    return true;
   };
 }

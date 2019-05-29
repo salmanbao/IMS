@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { InitiateChaincode } from 'app/models/chaincode';
+import { InitiateChaincode, InstallChaincode } from 'app/models/chaincode';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class ChaincodeService {
     return this.http.get(this.baseUrl + 'chaincodefiles');
   }
 
-  installChaincode(data): Observable<any> {
+  installChaincode(data: InstallChaincode): Observable<any> {
     return this.http.post(this.baseUrl + 'chaincodes', data);
   }
 

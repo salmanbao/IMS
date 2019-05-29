@@ -26,6 +26,7 @@ import { ChannelService } from './services/channel.service';
 import { OrganizationService } from './services/organization.service';
 import { PeerService } from './services/peer.service';
 import { UserService } from './services/user.service';
+import { RedirectGuard } from './guards/redirect.guard';
 
 
 
@@ -66,6 +67,7 @@ import { UserService } from './services/user.service';
     OrganizationService,
     PeerService,
     UserService,
+    RedirectGuard,
     // provider used to create fake backend
     //fakeBackendProvider,
     FormBuilder

@@ -45,14 +45,13 @@ export class InstallChaincodeComponent implements OnInit {
     const chaincodeConfig: InstallChaincode = new InstallChaincode(this.data);
     this.chaincodeService.installChaincode(chaincodeConfig).subscribe(
       res => {
-        console.log(res);
-        this.onNoClick();
+        this.onNoClick(res);
       },
       err => { console.log(err); }
     );
   }
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(result): void {
+    this.dialogRef.close(result);
   }
 
 }

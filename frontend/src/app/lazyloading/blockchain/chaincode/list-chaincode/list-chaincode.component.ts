@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { InstallChaincodeComponent } from '../install-chaincode/install-chaincode.component';
 import { InitiateCCComponent } from '../initiate-cc/initiate-cc.component';
 import { PeerService } from 'app/services/peer.service';
@@ -37,10 +37,14 @@ export class ListChaincodeComponent implements OnInit {
 
   listPeers: Array<string> = [];
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   constructor(
     private peerService: PeerService,
     private chaincodeService: ChaincodeService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   dataSource = new MatTableDataSource();
@@ -70,8 +74,8 @@ export class ListChaincodeComponent implements OnInit {
         const initiated = res.initiated;
         const installed = res.installed;
         const chaincodes = installed.concat(initiated);
+        console.log(chaincodes)
         this.dataSource.data = chaincodes;
-        console.log(chaincodes);
         this.dataSource._updateChangeSubscription();
       },
       err => { console.log(err); }
@@ -95,19 +99,19 @@ export class ListChaincodeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log(result);
+      this.openSnackBar(result.message);
     });
   }
 
-  openInitiateChaincodeDialog(): void {
+  openInitiateChaincodeDialog(CCname: string, CCversion: string): void {
     const dialogRef = this.dialog.open(InitiateCCComponent, {
       width: '50%',
       data: {
         cc_title: this.cc_title,
         peers: this.peers,
-        chaincodeName: this.chaincodeName,
-        chaincodeVersion: this.chaincodeVersion,
+        chaincodeName: CCname,
+        chaincodeVersion: CCversion,
         fcn: this.fcn,
         args: this.args
       }
@@ -116,6 +120,14 @@ export class ListChaincodeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
     });
   }
 

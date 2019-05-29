@@ -53,7 +53,6 @@ export class ManagechannelsComponent implements OnInit {
   getChannelInfo() {
     this.channelService.getChannelInfo().subscribe(
       res => {
-        console.log(res);
         this.dataSource.data = res;
         this.dataSource._updateChangeSubscription();
       },

@@ -43,11 +43,11 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openInitiateChaincodeDialog()">
+          <button mat-menu-item *ngIf = "element.status == 'Installed'" (click)="openInitiateChaincodeDialog(element.name,element.version)">
             <mat-icon svgIcon="rotate-3d"></mat-icon>
             <span>Initiate</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item >
             <mat-icon>settings_input_component</mat-icon>
             <span>View Channels</span>
           </button>
