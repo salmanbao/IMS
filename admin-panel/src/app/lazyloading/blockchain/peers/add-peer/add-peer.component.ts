@@ -41,10 +41,10 @@ export class AddPeerComponent implements OnInit {
     };
     this.peerService.joinChannel(peerDetails).subscribe(
       res => {
-        console.log(res);
+        this.onNoClick(res);
       },
       err => {
-        console.log(err);
+        this.onNoClick(err);
       }
     );
   }
@@ -71,7 +71,7 @@ export class AddPeerComponent implements OnInit {
     );
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(result): void {
+    this.dialogRef.close(result);
   }
 }

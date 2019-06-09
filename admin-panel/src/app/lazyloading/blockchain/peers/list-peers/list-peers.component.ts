@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { AddPeerComponent } from '../add-peer/add-peer.component';
 import { PeerService } from 'app/services/peer.service';
 
@@ -22,10 +22,13 @@ export class ListPeersComponent implements OnInit {
     'type',
     'mspId'
   ];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom'
   dataSource = new MatTableDataSource();
   constructor(
     private peerService: PeerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.dataSource.sort = this.sort;
   }
@@ -82,9 +85,20 @@ export class ListPeersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (result.message) {
+        this.openSnackBar(result.message);
+      } else if (result === 'fail') {
+        this.openSnackBar('Unhandled exception might be occured');
+      }
     });
   }
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+ 
 }
