@@ -1,0 +1,27 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-md-6 offset-sm-6 offset-lg-5 col-lg-3 col-md-6 col-sm-6">
+                <form>
+                    <h5>Select Your Certificate</h5>
+                    <mat-form-field>
+                        <mat-label>Certificates</mat-label>
+                        <mat-select [(ngModel)]="selectedValue" name="certificate">
+                            <mat-option *ngFor="let certificate of certificates" [value]="certificate.title">
+                                {{certificate.title}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <app-add-birth *ngIf='selectedValue == "Birth Certificate"'></app-add-birth>
+                <app-nationalid *ngIf='selectedValue == "National ID"'></app-nationalid>
+                <app-add-marriage *ngIf='selectedValue == "Marriage Certificate"'></app-add-marriage>
+            </div>
+
+        </div>
+    </div>
+</div>

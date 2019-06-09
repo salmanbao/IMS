@@ -1,0 +1,43 @@
+<div class="col-md-12">
+  <div class="col-md-12">
+      <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Member">
+      </mat-form-field>
+      <button mat-raised-button class="btn btn-danger" id="addUser" (click)="openAddUserDialog()"><mat-icon svgIcon="account-plus-outline"></mat-icon> Add User</button>
+  </div>
+
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+
+      <!-- Affiliation Column -->
+      <ng-container matColumnDef="affiliation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> AFFILIATION </th>
+          <td mat-cell *matCellDef="let element"> {{element.affiliation}} </td>
+      </ng-container>
+
+      <!-- action Column -->
+      <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+          <td mat-cell *matCellDef="let element">
+              <button *ngIf="element.id == 'admin'" mat-button (click)="checkClick()">
+        <mat-icon matTooltip="Generate Certificate">input</mat-icon></button>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

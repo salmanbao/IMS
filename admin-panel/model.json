@@ -1,0 +1,32 @@
+{
+    "did":"string",
+    "picture":"string",
+    "name":{
+        "fname":"string",
+        "lname":"string"
+    },
+    "father":"string",
+    "mother":"string",
+    "dob":"string",
+    "familyNumber":"string",
+    "religion":"string",
+    "profession":"string",
+    "education":"string",
+    "address":{
+        "street":"string",
+        "province":"string",
+        "division":"string",
+        "district":"string",
+        "tehsile":"string"
+    },
+    "relations":{
+        "mother":"string",
+        "father":"string",
+        "spouse":{
+            "certificates":["string"],
+            "spouses":["string"]
+        },
+        "sons":["string"],
+        "daughters":["string"]
+    }
+}

@@ -29,6 +29,7 @@ var invoke = require('./app/invoke-transaction.js');
 var query = require('./app/query.js');
 var channel = require('./app/channel.js');
 var chaincode = require('./app/chaincode.js');
+var users = require('./app/users.js')
 var host = process.env.HOST || hfc.getConfigSetting('host');
 var port = process.env.PORT || hfc.getConfigSetting('port');
 ///////////////////////////////////////////////////////////////////////////////
@@ -124,7 +125,6 @@ app.post('/users', async function (req, res) {
         logger.debug('Failed to register the username %s for organization %s with::%s', username, orgName, response);
         res.json({ success: false, message: response });
     }
-
 });
 // Create Channel
 app.post('/channels', async function (req, res) {
@@ -389,7 +389,7 @@ app.get('/channels/', async function (req, res) {
     try {
         channel.queryChannels(req.orgname, peerName)
             .then((channels) => {
-                    res.send(channels);
+                res.send(channels);
             });
 
     } catch (error) {
@@ -587,7 +587,7 @@ app.get('/peersdetail/:org', async function (req, res) {
 });
 // Query Get Orderer by Channel Name
 app.get('/orderer/:channel', async function (req, res) {
-    logger.debug('==================== Testing ==================');
+    logger.debug('==================== Getting Orderers By Channel Name ==================');
     try {
         var client = await helper.getClientForOrg(req.orgname);
         var channel = client.getChannel(req.params.channel);
@@ -611,16 +611,85 @@ app.get('/chaincodes/:channel', function (req, res) {
             res.send(message);
         });
 });
-app.get('/test', async function (req, res) {
-    var client = await helper.getClientForOrg(req.orgname)
-    var channel = client.getChannel('mychannel');
-    //var peer = await helper.buildTarget('peer0.org1.example.com', req.orgname);
-    var response = await channel.getChannelPeers();
-    var myMap = response[0]._channel._channel_peers;
-
-    for (var key of myMap.keys()) {
-        console.log(key);
+app.get('/getAllUsers', async function (req, res) {
+    logger.debug('==================== Getting Users ==================');
+    if (!req.orgname) {
+        res.json(getErrorMessage('\'org name\''));
+        return;
     }
-    //console.log(response);
-    res.send(response);
+    try {
+        const result = await users.getAllUsers(req.orgname);
+        res.send(result);
+
+    } catch (error) {
+        logger.error('Failed to get Users: %s with error: %s', error.toString());
+        res.send({ error: 'failed ' + error.toString() });
+    }
+
+});
+
+app.post('/addAffiliation', async function (req, res) {
+    var affiliation = req.body.affiliation;
+    var client = await helper.getClientForOrg(orgname);
+    let caClient = client.getCertificateAuthority();
+    //Step # 1
+    var admins = hfc.getConfigSetting('admins');
+    let adminUserObj = await client.setUserContext({ username: admins[0].username, password: admins[0].secret });
+    var aff = await caClient.newAffiliationService().create({
+        name: affiliation,
+        caname: caClient.getCaName(),
+        force: true
+    }, adminUserObj);
+
+});
+
+app.post('/test', async function (req, res) {
+    var username = req.body.username;
+    var orgname = req.body.orgName;
+    var password = req.body.password;
+    var role = req.body.role;
+    var affiliation = req.body.affiliation;
+    var isJson = true;
+
+    var client = await helper.getClientForOrg(orgname);
+    let caClient = client.getCertificateAuthority();
+    //Step # 1
+    var admins = hfc.getConfigSetting('admins');
+    let adminUserObj = await client.setUserContext({ username: admins[0].username, password: admins[0].secret });
+    //step # 2
+    let secret = await caClient.register({
+        enrollmentID: username,
+        enrollmentSecret: password,
+        affiliation: affiliation,
+        attrs: [{ name: 'role', value: role }]
+    }, adminUserObj);
+    //Step # 3
+    var enrollment = await caClient.enroll({ enrollmentID: username, enrollmentSecret: secret });
+    var user = await client.createUser(
+        {
+            username: username,
+            mspid: client.getMspid(),
+            cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate },
+            skipPersistence: false
+        });
+    user.setRoles(['user', 'admin']);
+    user.setAffiliation('ims' );
+    user._enrollmentSecret = secret;
+        //client.setUserContext(user);
+    if (user && user.isEnrolled) {
+        if (isJson && isJson === true) {
+            var response = {
+                success: true,
+                secret: user._enrollmentSecret,
+                message: username + ' enrolled Successfully',
+            };
+            user = await client.saveUserToStateStore();
+            console.log(user);
+            res.send(response);
+        }
+    } else {
+        throw new Error('User was not enrolled ');
+    }
+
+
 });
