@@ -11,22 +11,22 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> NAME </th>
       <td mat-cell *matCellDef="let element">
-        <span class="name">{{element.name.type}}</span>
+        <span class="name">{{element.title}}</span>
         <p class="message">
-          {{element.name.message}}
+          did: {{element.did}}
         </p>
       </td>
     </ng-container>
 
     <!-- Time Updated Column -->
-    <ng-container matColumnDef="timeUpdated">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> TIME UPDATED </th>
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TIME REQUESTED </th>
       <td mat-cell *matCellDef="let element">
-         <span class="name">{{element.timeUpdated.by}}</span>
-         <p class="message">
-           {{element.timeUpdated.date}} {{element.timeUpdated.time}}
-         </p> 
-        </td>
+        <span class="name">username: {{element.username}}</span>
+        <p class="message">
+          {{element.date}}
+        </p>
+      </td>
     </ng-container>
 
     <!-- Block Status -->
@@ -41,7 +41,14 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color='warn' (click)="checkClick()">Reveiw Request</button>
+        <button mat-icon-button color='primary' (click)="approveRequest(element.username)" matTooltip="Approve"
+        *ngIf='element.status == "pending" ||  element.status == "reject" '>
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-icon-button color='warn' (click)="rejectRequest(element.username)" matTooltip="Reject"
+          *ngIf='element.status == "pending" || element.status == "approve" '>
+          <mat-icon>clear</mat-icon>
+        </button>
       </td>
     </ng-container>
 

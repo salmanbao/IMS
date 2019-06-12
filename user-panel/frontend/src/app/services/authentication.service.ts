@@ -46,4 +46,8 @@ export class AuthenticationService {
         this.user = null;
         localStorage.clear();
     }
+    getUser(){
+        let username = JSON.parse(localStorage.getItem('user'));
+        return username.username;
+    }
 }

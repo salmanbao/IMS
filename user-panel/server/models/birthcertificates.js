@@ -4,9 +4,17 @@ const config = require('../config/database');
 
 // User Schema
 const BirthCertificateSchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
   did: {
     type: String,
-    required:false
+    required: false
   },
   fname: {
     type: String,
@@ -40,12 +48,20 @@ const BirthCertificateSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
+  dob: {
     type: Date,
     required: true
   },
   religion: {
     type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    required: false
+  },
+  date: {
+    type: Date,
     required: true
   }
 });
@@ -56,14 +72,21 @@ module.exports.getById = function (id, callback) {
   BirthCertificate.findById(id, callback);
 }
 
-module.exports.getCertByname = function (username, callback) {
+module.exports.getCertBydid = function (did, callback) {
+  const query = { did: did }
+  BirthCertificate.findOne(query, callback);
+}
+
+module.exports.getCertByname = function (fname, callback) {
   const query = { fname: fname }
   BirthCertificate.findOne(query, callback);
 }
 
 module.exports.addCert = function (newCert, callback) {
   newCert.save(callback);
-
-
 }
-
+module.exports.getCertByUsername = function (username, callback) {
+  const query = { username: username }
+  console.log(query);
+  BirthCertificate.findOne(query, callback);
+}

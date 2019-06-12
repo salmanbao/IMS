@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 
 @Component({
@@ -6,9 +6,14 @@ import { AuthenticationService } from './services/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  constructor(private auth: AuthenticationService) { }
-  ngOnInit() {
-   
+export class AppComponent implements AfterViewChecked {
+  islogged;
+  constructor(
+    private auth: AuthenticationService,
+    private cdRef: ChangeDetectorRef
+  ) { }
+  ngAfterViewChecked() {
+    this.islogged = this.auth.isLogged();
+    this.cdRef.detectChanges();
   }
 }

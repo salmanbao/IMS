@@ -12,7 +12,7 @@ export class AppComponent implements AfterViewChecked {
   constructor(private auth: AuthenticationService, private cdRef: ChangeDetectorRef) { }
 
   ngAfterViewChecked() {
-     this.islogged = this.auth.loggedIn();
-      this.cdRef.detectChanges();
+    this.islogged = this.auth.loggedIn();
+    this.cdRef.detectChanges();
   }
 }

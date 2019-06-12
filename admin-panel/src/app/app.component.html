@@ -1,4 +1,4 @@
-<app-sidebar *ngIf='auth.isLogged();'>
+<app-sidebar *ngIf='islogged'>
     <router-outlet></router-outlet>
 </app-sidebar>
-<router-outlet *ngIf='!auth.isLogged();'></router-outlet>
+<router-outlet *ngIf='!auth.isLogged()'></router-outlet>

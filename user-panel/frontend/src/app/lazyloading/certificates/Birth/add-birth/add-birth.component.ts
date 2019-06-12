@@ -4,6 +4,7 @@ import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { CertificateService } from 'app/services/certificate.service';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AddBirthComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
+    private auth: AuthenticationService,
     private certificateService: CertificateService
   ) { }
 
@@ -47,9 +49,13 @@ export class AddBirthComponent implements OnInit {
     })
   }
   addBirthCertificate() {
-    var cont = new FormControl(this._country,Validators.required);
-    this.addBirthForm.setControl('country' , cont);
-    console.log(this.addBirthForm.value);
+    let username = this.auth.getUser();
+    this.addControl(username, 'username');
+    let date = new Date();
+    this.addControl(date.toUTCString() , 'date');
+    var cont = new FormControl(this._country, Validators.required);
+    this.addBirthForm.setControl('country', cont);
+    console.log(this.addBirthForm);
     this.certificateService.addBirth(this.addBirthForm.value)
       .subscribe(
         data => {
@@ -60,7 +66,12 @@ export class AddBirthComponent implements OnInit {
         });
   }
 
+  addControl(name: string, controlname) {
+    this.addBirthForm.addControl(controlname, new FormControl(name, Validators.required));
+  }
+
   onCity(event: any) {
+    console.log(event)
     this._province = event.admin;
     this._country = event.country;
   }

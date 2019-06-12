@@ -10,8 +10,10 @@ chaincode/node_modules
 chaincode/package-lock.json
 admin-panel/node_modules
 admin-panel/package-lock.json
-user-panel/node_modules
-user-panel/package-lock.json
+user-panel/frontend/node_modules
+user-panel/frontend/package-lock.json
+user-panel/server/node_modules
+user-panel/server/package-lock.json
 university-panel/
 hec-panel/
 Lib/node_modules
