@@ -43,7 +43,7 @@ export class PendingNotificationsComponent implements OnInit {
   }
 
   getAllCertificates() {
-    this.certificateService.getAll().subscribe(
+    this.certificateService.getBirthAll().subscribe(
       res => {
         this.dataSource.data = res.docs.filter((doc) => {
           if (doc.status === 'pending') {

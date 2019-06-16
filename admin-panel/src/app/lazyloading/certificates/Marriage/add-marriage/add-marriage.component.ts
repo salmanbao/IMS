@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { CertificateService } from 'app/services/certificate.service';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -12,20 +13,24 @@ import { CertificateService } from 'app/services/certificate.service';
 })
 export class AddMarriageComponent implements OnInit {
 
-  value: string = '';
+  value: string ;
   minDate = new Date(1950, 0, 1);
   addBirthForm: FormGroup;
   maxDate = new Date();
   genders: Array<string> = ['Male', 'Female'];
   regionInfo: City = new City();
   cities: any = this.regionInfo.cities;
-  _province: string = '';
-  _country: string = '';
+  _province: string ;
+  _country: string ;
   religions: any = this.regionInfo.religions;
   professions: Array<string> = new BasicInfo().professions;
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   constructor(
     private _formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
     private certificateService: CertificateService
   ) { }
 
@@ -46,30 +51,32 @@ export class AddMarriageComponent implements OnInit {
       witnessTwo: ['', Validators.required],
       witnessThird: ['', Validators.required],
       MarriageDate: ['', Validators.required],
-    })
+    });
   }
 
-  //### Create citizen ######
-  registerUser() {
-    console.log(this.addBirthForm);
-    console.log(JSON.stringify(this.addBirthForm.value))
-
-    this.certificateService.add(this.addBirthForm.value)
+  AddMarriageCert() {
+    this.certificateService.addMarriage(this.addBirthForm.value)
       .subscribe(
         data => {
-          console.log(data);
+          if (data['success']) {
+            this.openSnackBar('Successfully Added');
+          }
         },
         error => {
-          console.log(error);
+          this.openSnackBar(error);
         });
   }
 
   getData() {
-    //send request to server for generating DID and return
-    console.log("generate Family Number");
-    this.addBirthForm.controls['familyNumber'].setValue("LHR1234");
+    this.addBirthForm.controls['familyNumber'].setValue('LHR1234');
   }
 
- 
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
 }

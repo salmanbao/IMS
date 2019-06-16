@@ -21,7 +21,7 @@ export interface DialogData {
 export class InstallChaincodeComponent implements OnInit {
   peers = new FormControl('', Validators.required);
   languages = ['golang', 'node'];
-  peersList = ["peer0.org1.example.com", "peer1.org1.example.com"];
+  peersList = ['peer0.org1.example.com', 'peer1.org1.example.com'];
   paths: Array<string>;
   chaincodeFilesObj = {};
   constructor(

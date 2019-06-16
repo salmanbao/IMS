@@ -12,49 +12,57 @@ const BirthCertificateSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  did: {
-    type: String,
-    required: false
-  },
-  fname: {
-    type: String,
-    required: true
-  },
-  lname: {
-    type: String,
-    required: true
-  },
-  fatherDID: {
-    type: String,
-    required: true
-  },
-  motherDID: {
-    type: String,
-    required: true
-  },
-  familyNumber: {
-    type: String,
-    required: true
-  },
-  address: {
-    type: String,
-    required: true
-  },
-  gender: {
-    type: String,
-    required: true
-  },
-  country: {
-    type: String,
-    required: true
-  },
-  dob: {
-    type: Date,
-    required: true
-  },
-  religion: {
-    type: String,
-    required: true
+  info: {
+    did: {
+      type: String,
+      required: false,
+    },
+    fname: {
+      type: String,
+      required: true
+    },
+    lname: {
+      type: String,
+      required: true
+    },
+    fatherDID: {
+      type: String,
+      required: true
+    },
+    motherDID: {
+      type: String,
+      required: true
+    },
+    familyNumber: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    },
+
+    gender: {
+      type: String,
+      required: true
+    },
+
+    dob: {
+      type: Date,
+      required: true
+    },
+    religion: {
+      type: String,
+      required: true
+    },
   },
   status: {
     type: String,
@@ -87,6 +95,5 @@ module.exports.addCert = function (newCert, callback) {
 }
 module.exports.getCertByUsername = function (username, callback) {
   const query = { username: username }
-  console.log(query);
   BirthCertificate.findOne(query, callback);
 }

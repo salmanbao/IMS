@@ -7,22 +7,25 @@ router.post('/add', (req, res, next) => {
     let newCert = new BirthCertificate({
         title: 'Birth Certificate',
         username: req.body.username,
-        did: req.body.did,
-        fname: req.body.fname,
-        lname: req.body.lname,
-        fatherDID: req.body.fatherDID,
-        motherDID: req.body.motherDID,
-        familyNumber: req.body.familyNumber,
-        address: req.body.address,
-        city: req.body.city.city,
-        country: req.body.city.country,
-        gender: req.body.gender,
-        country: req.body.country,
-        dob: req.body.dob,
-        religion: req.body.religion,
+        info: {
+            did: req.body.did,
+            fname: req.body.fname,
+            lname: req.body.lname,
+            fatherDID: req.body.fatherDID,
+            motherDID: req.body.motherDID,
+            familyNumber: req.body.familyNumber,
+            address: req.body.address,
+            city: req.body.city,
+            country: req.body.country,
+            gender: req.body.gender,
+            country: req.body.country,
+            dob: req.body.dob,
+            religion: req.body.religion
+        },
         date: req.body.date,
         status: 'pending'
     });
+    console.log(newCert)
     BirthCertificate.addCert(newCert, (err, cert) => {
         if (err) {
             res.json({ success: false, msg: 'Failed to register user' });
@@ -46,8 +49,8 @@ router.get('/getall', (req, res, next) => {
 
 // Get Birth Certificates by id
 router.get('/getbyid', (req, res, next) => {
-
-    BirthCertificate.getById(req.body.id, (err, docs) => {
+    console.log(req.query.id);
+    BirthCertificate.getById(req.query.id, (err, docs) => {
         if (err) {
             res.json({ success: false, msg: 'Failed to get certificate' });
         } else {

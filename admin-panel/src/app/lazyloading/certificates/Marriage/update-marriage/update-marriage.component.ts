@@ -53,7 +53,7 @@ export class UpdateMarriageComponent implements OnInit {
     console.log(this.addBirthForm);
     console.log(JSON.stringify(this.addBirthForm.value))
 
-    this.certificateService.add(this.addBirthForm.value)
+    this.certificateService.addBirth(this.addBirthForm.value)
       .subscribe(
         data => {
           console.log(data);

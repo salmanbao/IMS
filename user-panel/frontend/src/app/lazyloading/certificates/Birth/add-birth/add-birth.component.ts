@@ -49,14 +49,23 @@ export class AddBirthComponent implements OnInit {
     })
   }
   addBirthCertificate() {
-    let username = this.auth.getUser();
-    this.addControl(username, 'username');
-    let date = new Date();
-    this.addControl(date.toUTCString() , 'date');
-    var cont = new FormControl(this._country, Validators.required);
-    this.addBirthForm.setControl('country', cont);
-    console.log(this.addBirthForm);
-    this.certificateService.addBirth(this.addBirthForm.value)
+    const cert = {
+      did: this.addBirthForm.get('did').value,
+      fname: this.addBirthForm.get('fname').value,
+      lname: this.addBirthForm.get('lname').value,
+      fatherDID: this.addBirthForm.get('fatherDID').value,
+      motherDID: this.addBirthForm.get('motherDID').value,
+      dob: this.addBirthForm.get('dob').value,
+      gender: this.addBirthForm.get('gender').value,
+      religion: this.addBirthForm.get('religion').value,
+      familyNumber: this.addBirthForm.get('familyNumber').value,
+      address: this.addBirthForm.get('address').value,
+      city: this.addBirthForm.get('city').value.city,
+      country: this._country,
+      date: new Date().toUTCString(),
+      username: this.auth.getUser()
+    }
+    this.certificateService.addBirth(cert)
       .subscribe(
         data => {
           this.openSnackBar(data['msg']);
@@ -64,10 +73,6 @@ export class AddBirthComponent implements OnInit {
         error => {
           this.openSnackBar(error);
         });
-  }
-
-  addControl(name: string, controlname) {
-    this.addBirthForm.addControl(controlname, new FormControl(name, Validators.required));
   }
 
   onCity(event: any) {

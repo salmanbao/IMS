@@ -20,8 +20,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     did: 'G45YY56H76UI78I78',
     fname: 'Muhammad Salman',
     lname: 'Muhammad Saleem',
-    fatherDID: "HG45Y54Y6UU67II7I78",
-    motherDID: "TYJH6J56U7I978OI87O87",
+    fatherDID: 'HG45Y54Y6UU67II7I78',
+    motherDID: 'TYJH6J56U7I978OI87O87',
     city: 'Lahore',
     age: 21,
     gender: 'male',
@@ -38,9 +38,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 export class ListnationalidComponent implements OnInit {
-
-  constructor() { }
-
   displayedColumns: string[] = [
     'did',
     'fname',
@@ -53,9 +50,12 @@ export class ListnationalidComponent implements OnInit {
     'city',
     'familyNumber'
   ];
+
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
+  constructor() { }
+
 
   ngOnInit() {
     this.dataSource.sort = this.sort;

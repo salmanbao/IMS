@@ -17,12 +17,36 @@
 var util = require('util');
 var helper = require('./helper.js');
 var logger = helper.getLogger('invoke-chaincode');
+String.prototype.escapeJSON = function() {
+    var result = "";
+    for (var i = 0; i < this.length; i++)
+    {
+        var ch = this[i];
+        switch (ch)
+        {
+            case "\\": ch = "\\\\"; break;
+            case "\'": ch = "\\'"; break;
+            case "\"": ch = '\\"'; break;
+            case "\&": ch = "\\&"; break;
+            case "\t": ch = "\\t"; break;
+            case "\n": ch = "\\n"; break;
+            case "\r": ch = "\\r"; break;
+            case "\b": ch = "\\b"; break;
+            case "\f": ch = "\\f"; break;
+            case "\v": ch = "\\v"; break;
+            default: break;
+        }
 
+        result += ch;
+    }
+
+    return result;
+};
 var invokeChaincode = async function(peerNames, channelName, chaincodeName, args, fcn, username, org_name) {
     logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
     var error_message = null;
     var tx_id_string = null;
-	console.log("function name:",fcn);
+    var stringify_array = [];
     try {
         // first setup the client for this org
         var client = await helper.getClientForOrg(org_name, username);
@@ -36,19 +60,22 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, args
         var tx_id = client.newTransactionID();
         // will need the transaction ID string for the event registration later
         tx_id_string = tx_id.getTransactionID();
-
+        var arg_str = new String(JSON.stringify(args[1]));
+        //console.log(args_string.escapeJSON());
+        //console.log(args_string.escapeJSON());
         // send proposal to endorser
+        stringify_array.push(args[0]);
+        stringify_array.push(arg_str.valueOf());
         var request = {
             targets: peerNames,
             chaincodeId: chaincodeName,
             fcn: fcn,
-            args: args,
+            args: stringify_array,
             chainId: channelName,
             txId: tx_id
         };
 
         let results = await channel.sendTransactionProposal(request);
-        console.log("result:", results);
         // the returned object has both the endorsement results
         // and the actual proposal, the proposal will be needed
         // later when we send a transaction to the orderer
@@ -164,7 +191,8 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, args
             'Successfully invoked the chaincode %s to the channel \'%s\' for transaction ID: %s',
             org_name, channelName, tx_id_string);
         logger.info(message);
-        return proposalResponses[0].response.payload;
+        logger.info(proposalResponses[0].response.payload.toString());
+        return {success:true , payload:proposalResponses[0].response.payload};
     } else {
         let message = util.format('Failed to invoke chaincode. cause:%s', error_message);
         logger.error(message);

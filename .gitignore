@@ -16,6 +16,7 @@ user-panel/server/node_modules
 user-panel/server/package-lock.json
 university-panel/
 hec-panel/
+/chaincodes
 Lib/node_modules
 Lib/package-lock.json
 server/node_modules

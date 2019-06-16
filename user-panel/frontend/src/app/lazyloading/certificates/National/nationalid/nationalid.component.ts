@@ -39,7 +39,7 @@ export class NationalidComponent implements OnInit {
 
   ngOnInit() {
     this.addForm = this._formBuilder.group({
-      did: ['', Validators.required],
+      did: [{ value: '1212', disabled: true }, Validators.required],
       username: ['', Validators.required],
       phone: ['', Validators.required],
       fname: ['', Validators.required],
@@ -55,19 +55,17 @@ export class NationalidComponent implements OnInit {
       division: ['', Validators.required],
       district: ['', Validators.required],
       tehsile: ['', Validators.required],
-      date: ['', null],
+      dob: ['', null],
       religion: ['', null],
-      profession: ['', null]
+      profession: ['', null],
+      date: [{ value: new Date().toUTCString() }, Validators.required]
     })
     this._provincesArray.forEach(element => {
       this.provinces = this.provinces.concat(Object.keys(element));
     });
   }
 
-  registerUser() {
-    var cont = new FormControl('did', Validators.required);
-    this.addForm.setControl('did', cont);
-    console.log(this.addForm.value);
+  addNationalId() {
     this.certificateService.addNationalID(this.addForm.value)
       .subscribe(
         data => {
@@ -79,8 +77,7 @@ export class NationalidComponent implements OnInit {
   }
 
   generateID() {
-    //send request to server for generating DID and return
-    console.log("generate ID");
+    console.log('Generate ID');
   }
 
   checkProvinces = prov => (element) => {
@@ -95,7 +92,7 @@ export class NationalidComponent implements OnInit {
     this.divisions = [];
     this.districts = [];
     this.tehsiles = [];
-    if (event != "invalid") {
+    if (event !== 'invalid') {
       this.divisions = [];
       let tempProvince = this.getProvinces(event);
       tempProvince[event].forEach(element => {
@@ -125,11 +122,6 @@ export class NationalidComponent implements OnInit {
       console.log("Invalid choice")
   }
 
-  // checkDistricts(dist){
-  //   let dis = this.addForm.get('district').value;
-  //   return dist[dis].tehsile;
-  // }
-
   onDistrict(event: any) {
     this.tehsiles = [];
     let dis = this.addForm.get('district').value;
@@ -141,9 +133,9 @@ export class NationalidComponent implements OnInit {
         }
       });
       this.tehsiles = _teh[0].tehsil;
+    } else {
+      console.log('Invalid choice');
     }
-    else
-      console.log("Invalid choice")
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {

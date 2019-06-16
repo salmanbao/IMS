@@ -282,9 +282,9 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req
         res.json(getErrorMessage('\'args\''));
         return;
     }
-    console.log("function name is :", fcn);
     invoke.invokeChaincode(peers, channelName, chaincodeName, args, fcn, req.username, req.orgname)
         .then(function (message) {
+            console.log("Message"+message)
             res.send(message);
         });
 });

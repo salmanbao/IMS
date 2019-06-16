@@ -4,6 +4,10 @@ const config = require('../config/database');
 
 // User Schema
 const NationalIdSchema = mongoose.Schema({
+    title:{
+        type: String,
+        required: true
+    },
     did: {
         type: String
     },
@@ -78,6 +82,14 @@ const NationalIdSchema = mongoose.Schema({
     profession: {
         type: String,
         required: true
+    },
+    date:{
+        type: Date,
+        required: true
+    },
+    status:{
+        type: String,
+        required: true
     }
 });
 
@@ -94,6 +106,9 @@ module.exports.getCertByname = function (username, callback) {
 
 module.exports.addCert = function (newCert, callback) {
     newCert.save(callback);
-
-
 }
+
+module.exports.getCertByUsername = function (username, callback) {
+    const query = { username: username }
+    NationalIdCertificate.findOne(query, callback);
+  }

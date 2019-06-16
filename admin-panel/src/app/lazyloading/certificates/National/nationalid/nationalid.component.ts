@@ -4,6 +4,7 @@ import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { Area } from 'app/modules/area.module';
 import { CertificateService } from 'app/services/certificate.service';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-nationalid',
@@ -24,13 +25,15 @@ export class NationalidComponent implements OnInit {
   districts: Array<string> = []; //array of all districts
   tehsiles: Array<string> = []; //array of all tehsiles
   _districts: any;
-  _country: string = '';
+  _country: string;
   religions: any = this.regionInfo.religions;
   professions: Array<string> = new BasicInfo().professions;
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
-
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   constructor(
     private _formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
     private certificateService: CertificateService
   ) { }
 
@@ -44,11 +47,9 @@ export class NationalidComponent implements OnInit {
       motherDID: ['', Validators.required],
       familyNumber: ['', Validators.required],
       address: ['', Validators.required],
-      city: ['', Validators.required],
       gender: ['', Validators.required],
       martialStatus: ['', Validators.required],
-      country: ['', Validators.required],
-      description: ['', Validators.required],
+      country: ['Pakistan', Validators.required],
       province: ['', Validators.required],
       division: ['', Validators.required],
       district: ['', Validators.required],
@@ -62,95 +63,86 @@ export class NationalidComponent implements OnInit {
     });
   }
 
-  //### Create citizen ######
-  registerUser() {
-    console.log(this.addForm);
-    console.log(JSON.stringify(this.addForm.value))
-
-    this.certificateService.add(this.addForm.value)
+  addNationalId() {
+    this.certificateService.addNationalId(this.addForm.value)
       .subscribe(
         data => {
-          console.log(data);
+          if (data['success']) {
+            this.openSnackBar('Successfully Added');
+          }
         },
         error => {
-          console.log(error);
+          this.openSnackBar(error);
         });
   }
 
-  generateID() {
-    //send request to server for generating DID and return
-    console.log("generate ID");
-  }
-
-  onCity(event: any) {
-    console.log(event);
-  }
-
   checkProvinces = prov => (element) => {
-    if (Object.keys(element)[0] == prov)
+    if (Object.keys(element)[0] === prov) {
       return element;
+    }
   }
-
-
 
   getProvinces(event) {
     return this._provincesArray.filter(this.checkProvinces(event))[0]
   }
 
-
   onProvince(event: any) {
     this.divisions = [];
     this.districts = [];
     this.tehsiles = [];
-    if (event != "invalid") {
+    if (event !== 'invalid') {
       this.divisions = [];
-      let tempProvince = this.getProvinces(event);
+      const tempProvince = this.getProvinces(event);
       tempProvince[event].forEach(element => {
         this.divisions.push(element.division);
       });
+    } else {
+      this.openSnackBar('Invalid choice')
     }
-    else
-      console.log("Invalid choice");
   }
 
   onDivision(event: any) {
     this.districts = [];
     this.tehsiles = [];
-    let prov = this.addForm.get('province').value;
-    if (event != "invalid") {
+    const prov = this.addForm.get('province').value;
+    if (event !== 'invalid') {
       this._districts = [];
       this.districts = [];
-      let tempProvince = this.getProvinces(prov);
+      const tempProvince = this.getProvinces(prov);
       tempProvince[prov].forEach(element => {
         this._districts[element.division] = element.district;
       });
       this._districts[this.addForm.get('division').value].forEach(element => {
         this.districts.push(Object.keys(element)[0]);
       });
+    } else {
+      this.openSnackBar('Invalid choice')
     }
-    else
-      console.log("Invalid choice")
-  }
 
-  // checkDistricts(dist){
-  //   let dis = this.addForm.get('district').value;
-  //   return dist[dis].tehsile;
-  // }
+  }
 
   onDistrict(event: any) {
     this.tehsiles = [];
-    let dis = this.addForm.get('district').value;
-    if (event != "invalid") {
+    const dis = this.addForm.get('district').value;
+    if (event !== 'invalid') {
       let _teh;
       this._districts[this.addForm.get('division').value].forEach(element => {
-        if (element[dis] != undefined) {
+        if (element[dis] !== undefined) {
           _teh = element[dis];
         }
       });
       this.tehsiles = _teh[0].tehsil;
+    } else {
+      console.log('Invalid choice')
     }
-    else
-      console.log("Invalid choice")
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 
 }

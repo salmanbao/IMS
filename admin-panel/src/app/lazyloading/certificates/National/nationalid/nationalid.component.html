@@ -14,9 +14,9 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-1">
-                        <button mat-icon-button matTooltip="Generate DID" (click)="generateID()">
-              <mat-icon aria-label="generate did">fingerprint</mat-icon>
-            </button>
+                        <button mat-icon-button matTooltip="Generate DID" >
+                            <mat-icon aria-label="generate did">fingerprint</mat-icon>
+                        </button>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field class="example-full-width">
@@ -26,7 +26,8 @@
                     <div class="col-md-4">
                         <mat-form-field class="example-full-width">
                             <span matPrefix>+92 &nbsp;</span>
-                            <input type="text" mask="(000) 000 00 00" matInput placeholder="Telephone" formControlName="phone">
+                            <input type="text" mask="(000) 000 00 00" matInput placeholder="Telephone"
+                                formControlName="phone">
                             <mat-icon matSuffix>phone</mat-icon>
                         </mat-form-field>
                     </div>
@@ -45,7 +46,8 @@
                     </div>
                     <div class="col-md-2">
                         <mat-form-field class="example-full-width">
-                            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="DOB" formControlName="date">
+                            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="DOB"
+                                formControlName="date">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker disabled="false"></mat-datepicker>
                         </mat-form-field>
@@ -81,7 +83,7 @@
                     <div class="col-md-2">
                         <mat-form-field>
                             <mat-label>Gender</mat-label>
-                            <mat-select formControlName="gender" (ngModelChange)="onCity($event)">
+                            <mat-select formControlName="gender">
                                 <mat-option>--</mat-option>
                                 <mat-option *ngFor="let gender of genders" [value]="gender">
                                     {{gender}}
@@ -130,7 +132,8 @@
 
                     <div class="col-md-3">
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Country" type="text" formControlName="country" [value]="_country">
+                            <input matInput placeholder="Country" type="text" formControlName="country"
+                                [value]="_country">
                         </mat-form-field>
                     </div>
                 </div>
@@ -186,8 +189,8 @@
                 <!-- Sixth Row -->
 
 
-                <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="registerUser()">Save
-          Profile</button>
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="addNationalId()">Save
+                    Profile</button>
                 <div class="clearfix"></div>
             </form>
         </div>

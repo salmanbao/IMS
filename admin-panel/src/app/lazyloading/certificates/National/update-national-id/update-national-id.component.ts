@@ -65,7 +65,7 @@ export class UpdateNationalIdComponent implements OnInit {
     console.log(this.addForm);
     console.log(JSON.stringify(this.addForm.value))
 
-    this.certificateService.add(this.addForm.value)
+    this.certificateService.addNationalId(this.addForm.value)
       .subscribe(
         data => {
           console.log(data);
