@@ -1,60 +1,60 @@
 export class Area{
     provinces = [
         {
-            "Punjab": [
+            'Punjab': [
                 {
-                    "division": "Rawalpindi",
-                    "district": [
+                    'division': 'Rawalpindi',
+                    'district': [
                         {
-                            "Attock": [
+                            'Attock': [
                                 {
-                                    "tehsil": [
-                                        "ATTOCK",
-                                        "FATEH JANG",
-                                        "HASSANABDAL",
-                                        "HAZRO",
-                                        "JAND",
-                                        "PINDI GHEB"
+                                    'tehsil': [
+                                        'ATTOCK',
+                                        'FATEH JANG',
+                                        'HASSANABDAL',
+                                        'HAZRO',
+                                        'JAND',
+                                        'PINDI GHEB'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "Rawalpindi": [
+                            'Rawalpindi': [
                                 {
-                                    "tehsil": [
-                                        "GUJAR KHAN",
-                                        "KAHUTA",
-                                        "KALLAR SAYYEDAN",
-                                        "KOTLI SATTIAN",
-                                        "MURREE",
-                                        "RAWALPINDI",
-                                        "TAXIL"
+                                    'tehsil': [
+                                        'GUJAR KHAN',
+                                        'KAHUTA',
+                                        'KALLAR SAYYEDAN',
+                                        'KOTLI SATTIAN',
+                                        'MURREE',
+                                        'RAWALPINDI',
+                                        'TAXIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "Jhelum": [
+                            'Jhelum': [
                                 {
-                                    "tehsil": [
-                                        "DINA",
-                                        "JHELUM",
-                                        "PIND DADAN KHAN",
-                                        "SOHAWA"
+                                    'tehsil': [
+                                        'DINA',
+                                        'JHELUM',
+                                        'PIND DADAN KHAN',
+                                        'SOHAWA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "Chakwal": [
+                            'Chakwal': [
                                 {
-                                    "tehsil": [
-                                        "CHAKWAL",
-                                        "CHOA SAIDAN SHAH",
-                                        "KALLAR KAHAR",
-                                        "LAWA",
-                                        "TALAGANG"
+                                    'tehsil': [
+                                        'CHAKWAL',
+                                        'CHOA SAIDAN SHAH',
+                                        'KALLAR KAHAR',
+                                        'LAWA',
+                                        'TALAGANG'
                                     ]
                                 }
                             ]
@@ -62,54 +62,54 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "Sargoda",
-                    "district": [
+                    'division': 'Sargoda',
+                    'district': [
                         {
-                            "Sargoda": [
+                            'Sargoda': [
                                 {
-                                    "tehsil": [
-                                        "BHALWAL",
-                                        "BHERA",
-                                        "KOT MOMIN",
-                                        "SAHIWAL",
-                                        "SARGODHA",
-                                        "SHAHPUR",
-                                        "SILLANWALI"
+                                    'tehsil': [
+                                        'BHALWAL',
+                                        'BHERA',
+                                        'KOT MOMIN',
+                                        'SAHIWAL',
+                                        'SARGODHA',
+                                        'SHAHPUR',
+                                        'SILLANWALI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BHAKKAR": [
+                            'BHAKKAR': [
                                 {
-                                    "tehsil": [
-                                        "BHAKKAR",
-                                        "DARYA KHAN",
-                                        "KALUR KOT",
-                                        "MANKERA"
+                                    'tehsil': [
+                                        'BHAKKAR',
+                                        'DARYA KHAN',
+                                        'KALUR KOT',
+                                        'MANKERA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHUSHAB": [
+                            'KHUSHAB': [
                                 {
-                                    "tehsil": [
-                                        "KHUSHAB",
-                                        "NAUSHEHRA",
-                                        "NURPUR",
-                                        "QUAIDABAD"
+                                    'tehsil': [
+                                        'KHUSHAB',
+                                        'NAUSHEHRA',
+                                        'NURPUR',
+                                        'QUAIDABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MIANWALI": [
+                            'MIANWALI': [
                                 {
-                                    "tehsil": [
-                                        "ISA KHEL",
-                                        "MIANWALI",
-                                        "PIPLA"
+                                    'tehsil': [
+                                        'ISA KHEL',
+                                        'MIANWALI',
+                                        'PIPLA'
                                     ]
                                 }
                             ]
@@ -117,53 +117,53 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "Faisalabad",
-                    "district": [
+                    'division': 'Faisalabad',
+                    'district': [
                         {
-                            "FAISALABAD": [
+                            'FAISALABAD': [
                                 {
-                                    "tehsil": [
-                                        "CHAK JHUMRA",
-                                        "FAISALABAD CITY",
-                                        "FAISALABAD SADDAR",
-                                        "JARANWALA",
-                                        "SAMMUNDRI",
-                                        "TANDLIANWALA"
+                                    'tehsil': [
+                                        'CHAK JHUMRA',
+                                        'FAISALABAD CITY',
+                                        'FAISALABAD SADDAR',
+                                        'JARANWALA',
+                                        'SAMMUNDRI',
+                                        'TANDLIANWALA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "JHANG": [
+                            'JHANG': [
                                 {
-                                    "tehsil": [
-                                        "18-HAZARI",
-                                        "AHMEDPUR SIAL",
-                                        "JHANG",
-                                        "SHORKOT"
+                                    'tehsil': [
+                                        '18-HAZARI',
+                                        'AHMEDPUR SIAL',
+                                        'JHANG',
+                                        'SHORKOT'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "CHINIOT": [
+                            'CHINIOT': [
                                 {
-                                    "tehsil": [
-                                        "BHAWANA",
-                                        "CHINIOT",
-                                        "LALIAN"
+                                    'tehsil': [
+                                        'BHAWANA',
+                                        'CHINIOT',
+                                        'LALIAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "TOBA TEK SINGH": [
+                            'TOBA TEK SINGH': [
                                 {
-                                    "tehsil": [
-                                        "GOJRA",
-                                        "KAMALIA",
-                                        "PIR MAHAL",
-                                        "TOBA TEK SINGH"
+                                    'tehsil': [
+                                        'GOJRA',
+                                        'KAMALIA',
+                                        'PIR MAHAL',
+                                        'TOBA TEK SINGH'
                                     ]
                                 }
                             ]
@@ -171,72 +171,72 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "GUJRANWALA",
-                    "district": [
+                    'division': 'GUJRANWALA',
+                    'district': [
                         {
-                            "GUJRANWALA": [
+                            'GUJRANWALA': [
                                 {
-                                    "tehsil": [
-                                        "GUJRANWALA CITY",
-                                        "GUJRANWALA SADDAR",
-                                        "KAMOKE",
-                                        "NOWSHERA VIRKAN",
-                                        "WAZIRABAD"
+                                    'tehsil': [
+                                        'GUJRANWALA CITY',
+                                        'GUJRANWALA SADDAR',
+                                        'KAMOKE',
+                                        'NOWSHERA VIRKAN',
+                                        'WAZIRABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HAFIZABAD": [
+                            'HAFIZABAD': [
                                 {
-                                    "tehsil": [
-                                        "HAFIZABAD",
-                                        "PINDI BHATTIAN"
+                                    'tehsil': [
+                                        'HAFIZABAD',
+                                        'PINDI BHATTIAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MANDI BAHAUDDIN": [
+                            'MANDI BAHAUDDIN': [
                                 {
-                                    "tehsil": [
-                                        "MALIKWAL",
-                                        "MANDI BAHAUDDIN",
-                                        "PHALIA "
+                                    'tehsil': [
+                                        'MALIKWAL',
+                                        'MANDI BAHAUDDIN',
+                                        'PHALIA '
                                     ]
                                 }
                             ]
                         },
                         {
-                            "GUJRAT": [
+                            'GUJRAT': [
                                 {
-                                    "tehsil": [
-                                        "GUJRAT",
-                                        "KHARIAN",
-                                        "SARAI ALAMGIR"
+                                    'tehsil': [
+                                        'GUJRAT',
+                                        'KHARIAN',
+                                        'SARAI ALAMGIR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SIALKOT": [
+                            'SIALKOT': [
                                 {
-                                    "tehsil": [
-                                        "DASKA",
-                                        "PASRUR",
-                                        "SAMBRIAL",
-                                        "SIALKOT"
+                                    'tehsil': [
+                                        'DASKA',
+                                        'PASRUR',
+                                        'SAMBRIAL',
+                                        'SIALKOT'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NAROWAL": [
+                            'NAROWAL': [
                                 {
-                                    "tehsil": [
-                                        "NAROWAL",
-                                        "SHAKARGARH",
-                                        "ZAFARWAL"
+                                    'tehsil': [
+                                        'NAROWAL',
+                                        'SHAKARGARH',
+                                        'ZAFARWAL'
                                     ]
                                 }
                             ]
@@ -244,53 +244,53 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "LAHORE",
-                    "district": [
+                    'division': 'LAHORE',
+                    'district': [
                         {
-                            "LAHORE": [
+                            'LAHORE': [
                                 {
-                                    "tehsil": [
-                                        "LAHORE CANTT.",
-                                        "LAHORE CITY",
-                                        "MODEL TOWN",
-                                        "RAIWIND",
-                                        "SHALIMAR"
+                                    'tehsil': [
+                                        'LAHORE CANTT.',
+                                        'LAHORE CITY',
+                                        'MODEL TOWN',
+                                        'RAIWIND',
+                                        'SHALIMAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KASUR": [
+                            'KASUR': [
                                 {
-                                    "tehsil": [
-                                        "CHUNIAN",
-                                        "KASUR",
-                                        "KOT RADHA KISHAN",
-                                        "PATTOKI"
+                                    'tehsil': [
+                                        'CHUNIAN',
+                                        'KASUR',
+                                        'KOT RADHA KISHAN',
+                                        'PATTOKI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHEIKHUPURA": [
+                            'SHEIKHUPURA': [
                                 {
-                                    "tehsil": [
-                                        "FEROZEWALA",
-                                        "MURIDKAY",
-                                        "SAFDARABAD",
-                                        "SHARAQPUR",
-                                        "SHEIKHUPURA"
+                                    'tehsil': [
+                                        'FEROZEWALA',
+                                        'MURIDKAY',
+                                        'SAFDARABAD',
+                                        'SHARAQPUR',
+                                        'SHEIKHUPURA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NANKANA SAHIB": [
+                            'NANKANA SAHIB': [
                                 {
-                                    "tehsil": [
-                                        "NANKANA SAHIB",
-                                        "SANGLA HILL",
-                                        "SHAHKOT"
+                                    'tehsil': [
+                                        'NANKANA SAHIB',
+                                        'SANGLA HILL',
+                                        'SHAHKOT'
                                     ]
                                 }
                             ]
@@ -298,35 +298,35 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "SAHIWAL",
-                    "district": [
+                    'division': 'SAHIWAL',
+                    'district': [
                         {
-                            "SAHIWAL": [
+                            'SAHIWAL': [
                                 {
-                                    "tehsil": [
-                                        "CHICHAWATNI",
-                                        "SAHIWAL"
+                                    'tehsil': [
+                                        'CHICHAWATNI',
+                                        'SAHIWAL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "OKARA": [
+                            'OKARA': [
                                 {
-                                    "tehsil": [
-                                        "DEPALPUR",
-                                        "OKARA",
-                                        "RENALA KHURD"
+                                    'tehsil': [
+                                        'DEPALPUR',
+                                        'OKARA',
+                                        'RENALA KHURD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "PAKPATTAN": [
+                            'PAKPATTAN': [
                                 {
-                                    "tehsil": [
-                                        "ARIFWALA",
-                                        "PAKPATTAN"
+                                    'tehsil': [
+                                        'ARIFWALA',
+                                        'PAKPATTAN'
                                     ]
                                 }
                             ]
@@ -334,50 +334,50 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "MULTAN",
-                    "district": [
+                    'division': 'MULTAN',
+                    'district': [
                         {
-                            "VEHARI": [
+                            'VEHARI': [
                                 {
-                                    "tehsil": [
-                                        "BUREWALA",
-                                        "MAILSI",
-                                        "VEHARI"
+                                    'tehsil': [
+                                        'BUREWALA',
+                                        'MAILSI',
+                                        'VEHARI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MULTAN": [
+                            'MULTAN': [
                                 {
-                                    "tehsil": [
-                                        "JALALPUR PIRWALA",
-                                        "MULTAN CITY",
-                                        "MULTAN SADDAR",
-                                        "SHUJABAD"
+                                    'tehsil': [
+                                        'JALALPUR PIRWALA',
+                                        'MULTAN CITY',
+                                        'MULTAN SADDAR',
+                                        'SHUJABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LODHRAN": [
+                            'LODHRAN': [
                                 {
-                                    "tehsil": [
-                                        "DUNYAPUR",
-                                        "KAHROR PACCA",
-                                        "LODHRAN"
+                                    'tehsil': [
+                                        'DUNYAPUR',
+                                        'KAHROR PACCA',
+                                        'LODHRAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHANEWAL": [
+                            'KHANEWAL': [
                                 {
-                                    "tehsil": [
-                                        "JEHANIAN",
-                                        "KABIRWALA",
-                                        "KHANEWAL",
-                                        "MIAN CHANNU"
+                                    'tehsil': [
+                                        'JEHANIAN',
+                                        'KABIRWALA',
+                                        'KHANEWAL',
+                                        'MIAN CHANNU'
                                     ]
                                 }
                             ]
@@ -385,51 +385,51 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "DERA GHAZI KHAN",
-                    "district": [
+                    'division': 'DERA GHAZI KHAN',
+                    'district': [
                         {
-                            "DERA GHAZI KHAN": [
+                            'DERA GHAZI KHAN': [
                                 {
-                                    "tehsil": [
-                                        "DE-EX.AREA OF D.G.KHAN",
-                                        "DERA GHAZI KHAN",
-                                        "TAUNSA",
-                                        "KOT CHUTTA"
+                                    'tehsil': [
+                                        'DE-EX.AREA OF D.G.KHAN',
+                                        'DERA GHAZI KHAN',
+                                        'TAUNSA',
+                                        'KOT CHUTTA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "RAJANPUR": [
+                            'RAJANPUR': [
                                 {
-                                    "tehsil": [
-                                        "DE-EX.AREA OF RAJANPUR",
-                                        "JAMPUR",
-                                        "RAJANPUR",
-                                        "ROJHAN"
+                                    'tehsil': [
+                                        'DE-EX.AREA OF RAJANPUR',
+                                        'JAMPUR',
+                                        'RAJANPUR',
+                                        'ROJHAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LAYYAH": [
+                            'LAYYAH': [
                                 {
-                                    "tehsil": [
-                                        "CHAUBARA",
-                                        "KAROR LAL ESAN",
-                                        "LAYYAH"
+                                    'tehsil': [
+                                        'CHAUBARA',
+                                        'KAROR LAL ESAN',
+                                        'LAYYAH'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MUZAFFARGARH": [
+                            'MUZAFFARGARH': [
                                 {
-                                    "tehsil": [
-                                        "ALIPUR",
-                                        "JATOI",
-                                        "KOT ADDU",
-                                        "MUZAFFARGARH"
+                                    'tehsil': [
+                                        'ALIPUR',
+                                        'JATOI',
+                                        'KOT ADDU',
+                                        'MUZAFFARGARH'
                                     ]
                                 }
                             ]
@@ -437,43 +437,43 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "BAHAWALPUR",
-                    "district": [
+                    'division': 'BAHAWALPUR',
+                    'district': [
                         {
-                            "BAHAWALPUR": [
+                            'BAHAWALPUR': [
                                 {
-                                    "tehsil": [
-                                        "AHMADPUR EAST",
-                                        "BAHAWALPUR CITY",
-                                        "BAHAWALPUR SADDAR",
-                                        "HASILPUR",
-                                        "KHAIRPUR TAMEWALI",
-                                        "YAZMAN "
+                                    'tehsil': [
+                                        'AHMADPUR EAST',
+                                        'BAHAWALPUR CITY',
+                                        'BAHAWALPUR SADDAR',
+                                        'HASILPUR',
+                                        'KHAIRPUR TAMEWALI',
+                                        'YAZMAN '
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BAHAWALNAGAR": [
+                            'BAHAWALNAGAR': [
                                 {
-                                    "tehsil": [
-                                        "BAHAWALNAGAR",
-                                        "CHISHTIAN",
-                                        "FORT ABBAS",
-                                        "HAROONABAD",
-                                        "MINCHINABAD"
+                                    'tehsil': [
+                                        'BAHAWALNAGAR',
+                                        'CHISHTIAN',
+                                        'FORT ABBAS',
+                                        'HAROONABAD',
+                                        'MINCHINABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "RAHIM YAR KHAN": [
+                            'RAHIM YAR KHAN': [
                                 {
-                                    "tehsil": [
-                                        "KHANPUR",
-                                        "LIAQUATPUR",
-                                        "RAHIM YAR KHAN",
-                                        "SADIQABAD"
+                                    'tehsil': [
+                                        'KHANPUR',
+                                        'LIAQUATPUR',
+                                        'RAHIM YAR KHAN',
+                                        'SADIQABAD'
                                     ]
                                 }
                             ]
@@ -483,55 +483,55 @@ export class Area{
             ]
         },
         {
-            "SINDH": [
+            'SINDH': [
                 {
-                    "division": "LARKANA",
-                    "district": [
+                    'division': 'LARKANA',
+                    'district': [
                         {
-                            "JACOBABAD": [
+                            'JACOBABAD': [
                                 {
-                                    "tehsil": [
-                                        "KANDHKOT",
-                                        "KASHMORE"
+                                    'tehsil': [
+                                        'KANDHKOT',
+                                        'KASHMORE'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHIKARPUR": [
+                            'SHIKARPUR': [
                                 {
-                                    "tehsil": [
-                                        "GARHI YASIN",
-                                        "KHANPUR",
-                                        "LAKHI",
-                                        "SHIKARPUR"
+                                    'tehsil': [
+                                        'GARHI YASIN',
+                                        'KHANPUR',
+                                        'LAKHI',
+                                        'SHIKARPUR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LARKANA": [
+                            'LARKANA': [
                                 {
-                                    "tehsil": [
-                                        "BAKRANI",
-                                        "DOKRI",
-                                        "LARKANA",
-                                        "RATO DERO"
+                                    'tehsil': [
+                                        'BAKRANI',
+                                        'DOKRI',
+                                        'LARKANA',
+                                        'RATO DERO'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KAMBAR SHAHDADKOT": [
+                            'KAMBAR SHAHDADKOT': [
                                 {
-                                    "tehsil": [
-                                        "KAMBAR",
-                                        "KUBO SAEED KHAN",
-                                        "MIRO KHAN",
-                                        "NASIRABAD",
-                                        "SHAHDADKOT",
-                                        "SUJAWAL JUNEJO",
-                                        "WARAH"
+                                    'tehsil': [
+                                        'KAMBAR',
+                                        'KUBO SAEED KHAN',
+                                        'MIRO KHAN',
+                                        'NASIRABAD',
+                                        'SHAHDADKOT',
+                                        'SUJAWAL JUNEJO',
+                                        'WARAH'
                                     ]
                                 }
                             ]
@@ -539,46 +539,46 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "SUKKUR",
-                    "district": [
+                    'division': 'SUKKUR',
+                    'district': [
                         {
-                            "SUKKUR": [
+                            'SUKKUR': [
                                 {
-                                    "tehsil": [
-                                        "NEW SUKKUR",
-                                        "PANO AQIL",
-                                        "ROHRI",
-                                        "SALEHPAT",
-                                        "SUKKUR"
+                                    'tehsil': [
+                                        'NEW SUKKUR',
+                                        'PANO AQIL',
+                                        'ROHRI',
+                                        'SALEHPAT',
+                                        'SUKKUR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "GHOTKI (AT MIRPUR MATHELO)": [
+                            'GHOTKI (AT MIRPUR MATHELO)': [
                                 {
-                                    "tehsil": [
-                                        "DAHARKI",
-                                        "GHOTKI",
-                                        "KHANGARH (KHANPUR)",
-                                        "MIRPUR MATHELO",
-                                        "UBAURO"
+                                    'tehsil': [
+                                        'DAHARKI',
+                                        'GHOTKI',
+                                        'KHANGARH (KHANPUR)',
+                                        'MIRPUR MATHELO',
+                                        'UBAURO'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHAIRPUR": [
+                            'KHAIRPUR': [
                                 {
-                                    "tehsil": [
-                                        "FAIZ GANJ",
-                                        "GAMBAT",
-                                        "KHAIRPUR",
-                                        "KINGRI",
-                                        "KOT DIJI",
-                                        "MIRWAH",
-                                        "NARA",
-                                        "SOBHODERO"
+                                    'tehsil': [
+                                        'FAIZ GANJ',
+                                        'GAMBAT',
+                                        'KHAIRPUR',
+                                        'KINGRI',
+                                        'KOT DIJI',
+                                        'MIRWAH',
+                                        'NARA',
+                                        'SOBHODERO'
                                     ]
                                 }
                             ]
@@ -586,43 +586,43 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "SHAHEED BENAZIRABAD",
-                    "district": [
+                    'division': 'SHAHEED BENAZIRABAD',
+                    'district': [
                         {
-                            "NAUSHAHRO FEROZE": [
+                            'NAUSHAHRO FEROZE': [
                                 {
-                                    "tehsil": [
-                                        " BHIRIA",
-                                        " KANDIORO",
-                                        " MEHRABPUR",
-                                        " MORO",
-                                        " NAUSHAHRO FEROZE"
+                                    'tehsil': [
+                                        ' BHIRIA',
+                                        ' KANDIORO',
+                                        ' MEHRABPUR',
+                                        ' MORO',
+                                        ' NAUSHAHRO FEROZE'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHAHEED BENAZIRABAD": [
+                            'SHAHEED BENAZIRABAD': [
                                 {
-                                    "tehsil": [
-                                        "DAUR",
-                                        "NAWAB SHAH",
-                                        "QAZI AHMED",
-                                        "SAKRAND"
+                                    'tehsil': [
+                                        'DAUR',
+                                        'NAWAB SHAH',
+                                        'QAZI AHMED',
+                                        'SAKRAND'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SANGHAR": [
+                            'SANGHAR': [
                                 {
-                                    "tehsil": [
-                                        "JAM NAWAZ ALI",
-                                        "KHIPRO",
-                                        "SANGHAR",
-                                        "SHAHDADPUR",
-                                        "SINJHORO",
-                                        "TANDO ADAM"
+                                    'tehsil': [
+                                        'JAM NAWAZ ALI',
+                                        'KHIPRO',
+                                        'SANGHAR',
+                                        'SHAHDADPUR',
+                                        'SINJHORO',
+                                        'TANDO ADAM'
                                     ]
                                 }
                             ]
@@ -630,111 +630,111 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "HYDERABAD",
-                    "district": [
+                    'division': 'HYDERABAD',
+                    'district': [
                         {
-                            "DADU": [
+                            'DADU': [
                                 {
-                                    "tehsil": [
-                                        "DADU",
-                                        "JOHI",
-                                        "KHAIRPUR NATHAN SHAH",
-                                        "MEHAR"
+                                    'tehsil': [
+                                        'DADU',
+                                        'JOHI',
+                                        'KHAIRPUR NATHAN SHAH',
+                                        'MEHAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "JAMSHORO": [
+                            'JAMSHORO': [
                                 {
-                                    "tehsil": [
-                                        "KOTRI",
-                                        "MANJHAND",
-                                        "SEHWAN",
-                                        "THANO BULA KHAN"
+                                    'tehsil': [
+                                        'KOTRI',
+                                        'MANJHAND',
+                                        'SEHWAN',
+                                        'THANO BULA KHAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HYDERABAD": [
+                            'HYDERABAD': [
                                 {
-                                    "tehsil": [
-                                        "CITY HYDERABAD",
-                                        "HYDERABAD",
-                                        "LATIFABAD",
-                                        "QASIMABAD"
+                                    'tehsil': [
+                                        'CITY HYDERABAD',
+                                        'HYDERABAD',
+                                        'LATIFABAD',
+                                        'QASIMABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MATIARI": [
+                            'MATIARI': [
                                 {
-                                    "tehsil": [
-                                        "HALA",
-                                        "MATIARI",
-                                        "SAEEDABAD"
+                                    'tehsil': [
+                                        'HALA',
+                                        'MATIARI',
+                                        'SAEEDABAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "TANDO ALLAHYAR": [
+                            'TANDO ALLAHYAR': [
                                 {
-                                    "tehsil": [
-                                        "CHAMBER",
-                                        "JHANDO MARI",
-                                        "TANDO ALLAHYAR"
+                                    'tehsil': [
+                                        'CHAMBER',
+                                        'JHANDO MARI',
+                                        'TANDO ALLAHYAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "TANDO MOHAMMAD KHAN": [
+                            'TANDO MOHAMMAD KHAN': [
                                 {
-                                    "tehsil": [
-                                        "BULRI SHAH KARIM",
-                                        "TANDO GHULAM HYDER",
-                                        "TANDO MOHAMMAD KHAN"
+                                    'tehsil': [
+                                        'BULRI SHAH KARIM',
+                                        'TANDO GHULAM HYDER',
+                                        'TANDO MOHAMMAD KHAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BADIN": [
+                            'BADIN': [
                                 {
-                                    "tehsil": [
-                                        "BADIN",
-                                        "MATLI",
-                                        "SHAHEED FAZAL RAHU",
-                                        "TALHAR",
-                                        "TANDO BAGO"
+                                    'tehsil': [
+                                        'BADIN',
+                                        'MATLI',
+                                        'SHAHEED FAZAL RAHU',
+                                        'TALHAR',
+                                        'TANDO BAGO'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "THATTA": [
+                            'THATTA': [
                                 {
-                                    "tehsil": [
-                                        "GHORABARI",
-                                        "KETI BUNDER",
-                                        "MIRPUR SAKRO",
-                                        "THATTA"
+                                    'tehsil': [
+                                        'GHORABARI',
+                                        'KETI BUNDER',
+                                        'MIRPUR SAKRO',
+                                        'THATTA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SUJAWAL": [
+                            'SUJAWAL': [
                                 {
-                                    "tehsil": [
-                                        "JATI",
-                                        "KHARO CHAN",
-                                        "MIRPUR BATHORO",
-                                        "SHAH BUNDER",
-                                        "SUJAWAL"
+                                    'tehsil': [
+                                        'JATI',
+                                        'KHARO CHAN',
+                                        'MIRPUR BATHORO',
+                                        'SHAH BUNDER',
+                                        'SUJAWAL'
                                     ]
                                 }
                             ]
@@ -742,46 +742,46 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "MIRPUR KHAS",
-                    "district": [
+                    'division': 'MIRPUR KHAS',
+                    'district': [
                         {
-                            "MIRPUR KHAS": [
+                            'MIRPUR KHAS': [
                                 {
-                                    "tehsil": [
-                                        "DIGRI",
-                                        "HUSSAIN BUX MARRI",
-                                        "JHUDDO",
-                                        "KOT GHULAM MOHAMMAD",
-                                        "MIRPUR KHAS",
-                                        "SHUJABAD",
-                                        "SINDHRI"
+                                    'tehsil': [
+                                        'DIGRI',
+                                        'HUSSAIN BUX MARRI',
+                                        'JHUDDO',
+                                        'KOT GHULAM MOHAMMAD',
+                                        'MIRPUR KHAS',
+                                        'SHUJABAD',
+                                        'SINDHRI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "THARPARKAR": [
+                            'THARPARKAR': [
                                 {
-                                    "tehsil": [
-                                        "CHACHRO",
-                                        "DHALI",
-                                        "DIPLO",
-                                        "ISLAMKOT",
-                                        "KALOI",
-                                        "MITHI",
-                                        "NAGAR PARKAR"
+                                    'tehsil': [
+                                        'CHACHRO',
+                                        'DHALI',
+                                        'DIPLO',
+                                        'ISLAMKOT',
+                                        'KALOI',
+                                        'MITHI',
+                                        'NAGAR PARKAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "UMERKOT": [
+                            'UMERKOT': [
                                 {
-                                    "tehsil": [
-                                        "KUNRI",
-                                        "PITHORO",
-                                        "SAMARO",
-                                        "UMERKOT"
+                                    'tehsil': [
+                                        'KUNRI',
+                                        'PITHORO',
+                                        'SAMARO',
+                                        'UMERKOT'
                                     ]
                                 }
                             ]
@@ -789,83 +789,83 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "KARACHI",
-                    "district": [
+                    'division': 'KARACHI',
+                    'district': [
                         {
-                            "KARACHI EAST": [
+                            'KARACHI EAST': [
                                 {
-                                    "tehsil": [
-                                        " FEROZABAD SUB-DIVISION",
-                                        " GULSHAN-E-IQBAL SUB-DIVISION",
-                                        " GULZAR-E-HIJRI SUB-DIVISION",
-                                        " JAMSHED QUARTER SUB-DIVISION"
+                                    'tehsil': [
+                                        ' FEROZABAD SUB-DIVISION',
+                                        ' GULSHAN-E-IQBAL SUB-DIVISION',
+                                        ' GULZAR-E-HIJRI SUB-DIVISION',
+                                        ' JAMSHED QUARTER SUB-DIVISION'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KARACHI WEST": [
+                            'KARACHI WEST': [
                                 {
-                                    "tehsil": [
-                                        "MAURIPUR SUB-DIVISION",
-                                        "HARBOUR SUB-DIVISION",
-                                        "ORANGI SUB-DIVISION",
-                                        "MOMINABAD SUB-DIVISION",
-                                        "SITE SUB-DIVISION",
-                                        "BALDIA SUB-DIVISION",
-                                        "MANGHOPIR SUB-DIVISION"
+                                    'tehsil': [
+                                        'MAURIPUR SUB-DIVISION',
+                                        'HARBOUR SUB-DIVISION',
+                                        'ORANGI SUB-DIVISION',
+                                        'MOMINABAD SUB-DIVISION',
+                                        'SITE SUB-DIVISION',
+                                        'BALDIA SUB-DIVISION',
+                                        'MANGHOPIR SUB-DIVISION'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KARACHI SOUTH": [
+                            'KARACHI SOUTH': [
                                 {
-                                    "tehsil": [
-                                        "ARAM BAHG SUB-DIVISION",
-                                        "CIVIL LINE SUB-DIVISION",
-                                        "GARDEN SUB-DIVISION",
-                                        "LYARI SUB-DIVISION",
-                                        "SADDAR SUB-DIVISION"
+                                    'tehsil': [
+                                        'ARAM BAHG SUB-DIVISION',
+                                        'CIVIL LINE SUB-DIVISION',
+                                        'GARDEN SUB-DIVISION',
+                                        'LYARI SUB-DIVISION',
+                                        'SADDAR SUB-DIVISION'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KARACHI CENTRAL": [
+                            'KARACHI CENTRAL': [
                                 {
-                                    "tehsil": [
-                                        "GULBERG SUB-DIVISION",
-                                        "LIAQUATABAD SUB-DIVISION",
-                                        "NAZIMABAD SUB-DIVISION",
-                                        "NEW KARACHI SUB-DIVISION",
-                                        "NORTH NAZIMABAD SUB-DIVISION"
+                                    'tehsil': [
+                                        'GULBERG SUB-DIVISION',
+                                        'LIAQUATABAD SUB-DIVISION',
+                                        'NAZIMABAD SUB-DIVISION',
+                                        'NEW KARACHI SUB-DIVISION',
+                                        'NORTH NAZIMABAD SUB-DIVISION'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MALIR": [
+                            'MALIR': [
                                 {
-                                    "tehsil": [
-                                        "AIRPORT SUB-DIVISION",
-                                        "BIN QASIM SUB-DIVISION",
-                                        "GADAB SUB-DIVISION",
-                                        "IBRAHIM HYDERI SUB-DIVISION",
-                                        "MURAD MEMON SUB-DIVISION",
-                                        "SHAH MURAD SUB-DIVISION"
+                                    'tehsil': [
+                                        'AIRPORT SUB-DIVISION',
+                                        'BIN QASIM SUB-DIVISION',
+                                        'GADAB SUB-DIVISION',
+                                        'IBRAHIM HYDERI SUB-DIVISION',
+                                        'MURAD MEMON SUB-DIVISION',
+                                        'SHAH MURAD SUB-DIVISION'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KORANGI": [
+                            'KORANGI': [
                                 {
-                                    "tehsil": [
-                                        "KORANGI SUB-DIVISION",
-                                        "LANDHI SUB-DIVISION",
-                                        "MADOL COLONY SUB-DIVISION",
-                                        "SHAH FAISAL SUB-DIVISION"
+                                    'tehsil': [
+                                        'KORANGI SUB-DIVISION',
+                                        'LANDHI SUB-DIVISION',
+                                        'MADOL COLONY SUB-DIVISION',
+                                        'SHAH FAISAL SUB-DIVISION'
                                     ]
                                 }
                             ]
@@ -875,87 +875,87 @@ export class Area{
             ]
         },
         {
-            "KHYBER PAKHTUNKHWA": [
+            'KHYBER PAKHTUNKHWA': [
                 {
-                    "division": "MALAKAND",
-                    "district": [
+                    'division': 'MALAKAND',
+                    'district': [
                         {
-                            "CHITRAL": [
+                            'CHITRAL': [
                                 {
-                                    "tehsil": [
-                                        "CHITRAL",
-                                        "MASTUJ"
+                                    'tehsil': [
+                                        'CHITRAL',
+                                        'MASTUJ'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "UPPER DIR (AT DIR)": [
+                            'UPPER DIR (AT DIR)': [
                                 {
-                                    "tehsil": [
-                                        "DIR",
-                                        "SHARINGAL",
-                                        "WARI"
+                                    'tehsil': [
+                                        'DIR',
+                                        'SHARINGAL',
+                                        'WARI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LOWER DIR (AT TEMERGARA)": [
+                            'LOWER DIR (AT TEMERGARA)': [
                                 {
-                                    "tehsil": [
-                                        "ADENZAI",
-                                        "LAL QILA",
-                                        "SAMARBAGH(BARWA)",
-                                        "TEMERGARA"
+                                    'tehsil': [
+                                        'ADENZAI',
+                                        'LAL QILA',
+                                        'SAMARBAGH(BARWA)',
+                                        'TEMERGARA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SWAT (AT MINGORA)": [
+                            'SWAT (AT MINGORA)': [
                                 {
-                                    "tehsil": [
-                                        "BABUZAI(SWAT)",
-                                        "BARIKOT",
-                                        "BEHRAIN",
-                                        "CHARBAGH",
-                                        "KABAL",
-                                        "KHWAZA KHELA",
-                                        "MATTA SHAMZAI"
+                                    'tehsil': [
+                                        'BABUZAI(SWAT)',
+                                        'BARIKOT',
+                                        'BEHRAIN',
+                                        'CHARBAGH',
+                                        'KABAL',
+                                        'KHWAZA KHELA',
+                                        'MATTA SHAMZAI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHANGLA (AT ALPURI)": [
+                            'SHANGLA (AT ALPURI)': [
                                 {
-                                    "tehsil": [
-                                        "ALPURI",
-                                        "BESHAM",
-                                        "PURAN"
+                                    'tehsil': [
+                                        'ALPURI',
+                                        'BESHAM',
+                                        'PURAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BUNER": [
+                            'BUNER': [
                                 {
-                                    "tehsil": [
-                                        "DAGGAR/BUNER",
-                                        "GAGRA",
-                                        "KHADOKHAIL",
-                                        "MANDAR"
+                                    'tehsil': [
+                                        'DAGGAR/BUNER',
+                                        'GAGRA',
+                                        'KHADOKHAIL',
+                                        'MANDAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MALAKAND P.A.": [
+                            'MALAKAND P.A.': [
                                 {
-                                    "tehsil": [
-                                        "SAM RANIZAI",
-                                        "SWAT RANIZAI"
+                                    'tehsil': [
+                                        'SAM RANIZAI',
+                                        'SWAT RANIZAI'
                                     ]
                                 }
                             ]
@@ -963,67 +963,67 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "HAZARA",
-                    "district": [
+                    'division': 'HAZARA',
+                    'district': [
                         {
-                            "KOHISTAN": [
+                            'KOHISTAN': [
                                 {
-                                    "tehsil": [
-                                        "PALAS",
-                                        "PATTAN",
-                                        "DASSU",
-                                        "KANDIA"
+                                    'tehsil': [
+                                        'PALAS',
+                                        'PATTAN',
+                                        'DASSU',
+                                        'KANDIA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MANSEHRA": [
+                            'MANSEHRA': [
                                 {
-                                    "tehsil": [
-                                        "BALAKOT",
-                                        "MANSEHRA",
-                                        "OGHI"
+                                    'tehsil': [
+                                        'BALAKOT',
+                                        'MANSEHRA',
+                                        'OGHI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "TORGHAR (AT OGHI)": [
+                            'TORGHAR (AT OGHI)': [
                                 {
-                                    "tehsil": [
-                                        "JUDBA TEHSIL",
-                                        "KHANDER TEHSIL"
+                                    'tehsil': [
+                                        'JUDBA TEHSIL',
+                                        'KHANDER TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BATAGRAM (AT BANA)": [
+                            'BATAGRAM (AT BANA)': [
                                 {
-                                    "tehsil": [
-                                        "BATAGRAM (BANNA)",
-                                        "ALLAI"
+                                    'tehsil': [
+                                        'BATAGRAM (BANNA)',
+                                        'ALLAI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "ABBOTTABAD": [
+                            'ABBOTTABAD': [
                                 {
-                                    "tehsil": [
-                                        "ABBOTTABAD",
-                                        "HAVELIAN"
+                                    'tehsil': [
+                                        'ABBOTTABAD',
+                                        'HAVELIAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HARIPUR": [
+                            'HARIPUR': [
                                 {
-                                    "tehsil": [
-                                        "GHAZI",
-                                        "HARIPUR"
+                                    'tehsil': [
+                                        'GHAZI',
+                                        'HARIPUR'
                                     ]
                                 }
                             ]
@@ -1031,27 +1031,27 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "MARDAN",
-                    "district": [
+                    'division': 'MARDAN',
+                    'district': [
                         {
-                            "MARDAN": [
+                            'MARDAN': [
                                 {
-                                    "tehsil": [
-                                        "KATLANG",
-                                        "MARDAN",
-                                        "TAKHT BHAI"
+                                    'tehsil': [
+                                        'KATLANG',
+                                        'MARDAN',
+                                        'TAKHT BHAI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SWABI": [
+                            'SWABI': [
                                 {
-                                    "tehsil": [
-                                        "LAHOR",
-                                        "RAZAR",
-                                        "SWABI",
-                                        "TOPI"
+                                    'tehsil': [
+                                        'LAHOR',
+                                        'RAZAR',
+                                        'SWABI',
+                                        'TOPI'
                                     ]
                                 }
                             ]
@@ -1059,35 +1059,35 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "PESHAWAR",
-                    "district": [
+                    'division': 'PESHAWAR',
+                    'district': [
                         {
-                            "CHARSADDA": [
+                            'CHARSADDA': [
                                 {
-                                    "tehsil": [
-                                        "CHARSADDA",
-                                        "SHABQADAR",
-                                        "TANGI"
+                                    'tehsil': [
+                                        'CHARSADDA',
+                                        'SHABQADAR',
+                                        'TANGI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "PESHAWAR": [
+                            'PESHAWAR': [
                                 {
-                                    "tehsil": [
-                                        "PESHAWAR"
+                                    'tehsil': [
+                                        'PESHAWAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NOWSHERA": [
+                            'NOWSHERA': [
                                 {
-                                    "tehsil": [
-                                        "JAHANGIRA",
-                                        "NOWSHERA",
-                                        "PABBI"
+                                    'tehsil': [
+                                        'JAHANGIRA',
+                                        'NOWSHERA',
+                                        'PABBI'
                                     ]
                                 }
                             ]
@@ -1095,35 +1095,35 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "KOHAT",
-                    "district": [
+                    'division': 'KOHAT',
+                    'district': [
                         {
-                            "KOHAT": [
+                            'KOHAT': [
                                 {
-                                    "tehsil": [
-                                        "KOHAT",
-                                        "LACHI"
+                                    'tehsil': [
+                                        'KOHAT',
+                                        'LACHI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HANGU": [
+                            'HANGU': [
                                 {
-                                    "tehsil": [
-                                        "HANGU",
-                                        "TALL"
+                                    'tehsil': [
+                                        'HANGU',
+                                        'TALL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KARAK": [
+                            'KARAK': [
                                 {
-                                    "tehsil": [
-                                        "BANDA DAUD SHAH",
-                                        "KARAK",
-                                        "TAKHT-E-NASRATI"
+                                    'tehsil': [
+                                        'BANDA DAUD SHAH',
+                                        'KARAK',
+                                        'TAKHT-E-NASRATI'
                                     ]
                                 }
                             ]
@@ -1131,24 +1131,24 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "BANNU",
-                    "district": [
+                    'division': 'BANNU',
+                    'district': [
                         {
-                            "BANNU": [
+                            'BANNU': [
                                 {
-                                    "tehsil": [
-                                        "BANNU",
-                                        "DOMEL"
+                                    'tehsil': [
+                                        'BANNU',
+                                        'DOMEL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LAKKI MARWAT": [
+                            'LAKKI MARWAT': [
                                 {
-                                    "tehsil": [
-                                        "LAKKI MARWAT",
-                                        "NAURANG"
+                                    'tehsil': [
+                                        'LAKKI MARWAT',
+                                        'NAURANG'
                                     ]
                                 }
                             ]
@@ -1156,26 +1156,26 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "D.I.KHAN",
-                    "district": [
+                    'division': 'D.I.KHAN',
+                    'district': [
                         {
-                            "DERA ISMAIL KHAN": [
+                            'DERA ISMAIL KHAN': [
                                 {
-                                    "tehsil": [
-                                        "DERA ISMAIL KHAN",
-                                        "DARABAN",
-                                        "PAHARPUR",
-                                        "KULACHI",
-                                        "PAROA"
+                                    'tehsil': [
+                                        'DERA ISMAIL KHAN',
+                                        'DARABAN',
+                                        'PAHARPUR',
+                                        'KULACHI',
+                                        'PAROA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "TANK ": [
+                            'TANK ': [
                                 {
-                                    "tehsil": [
-                                        "TANK"
+                                    'tehsil': [
+                                        'TANK'
                                     ]
                                 }
                             ]
@@ -1185,48 +1185,48 @@ export class Area{
             ]
         },
         {
-            "GILGIT BALTISTAN": [
+            'GILGIT BALTISTAN': [
                 {
-                    "division": "GILGIT",
-                    "district": [
+                    'division': 'GILGIT',
+                    'district': [
                         {
-                            "GILGIT": [
+                            'GILGIT': [
                                 {
-                                    "tehsil": [
-                                        "GILGIT"
+                                    'tehsil': [
+                                        'GILGIT'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "GHIZER (AT GAKUCH)": [
+                            'GHIZER (AT GAKUCH)': [
                                 {
-                                    "tehsil": [
-                                        "GAHKOCH",
-                                        "GUPIS",
-                                        "ISHKOMAN",
-                                        "PUNIAL",
-                                        "YASIN"
+                                    'tehsil': [
+                                        'GAHKOCH',
+                                        'GUPIS',
+                                        'ISHKOMAN',
+                                        'PUNIAL',
+                                        'YASIN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HUNZA": [
+                            'HUNZA': [
                                 {
-                                    "tehsil": [
-                                        "ALI ABAD",
-                                        "GOJAL"
+                                    'tehsil': [
+                                        'ALI ABAD',
+                                        'GOJAL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NAGAR": [
+                            'NAGAR': [
                                 {
-                                    "tehsil": [
-                                        "NAGAR-I",
-                                        "NAGAR-II"
+                                    'tehsil': [
+                                        'NAGAR-I',
+                                        'NAGAR-II'
                                     ]
                                 }
                             ]
@@ -1234,43 +1234,43 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "BALTISTAN",
-                    "district": [
+                    'division': 'BALTISTAN',
+                    'district': [
                         {
-                            "BALTISTAN (AT SKARDU)": [
+                            'BALTISTAN (AT SKARDU)': [
                                 {
-                                    "tehsil": [
-                                        "GULTARI",
-                                        "RONDU",
-                                        "SKARDU"
+                                    'tehsil': [
+                                        'GULTARI',
+                                        'RONDU',
+                                        'SKARDU'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHARMANG": [
+                            'KHARMANG': [
                                 {
-                                    "tehsil": [
-                                        "KHARMANG"
+                                    'tehsil': [
+                                        'KHARMANG'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHIGAR": [
+                            'SHIGAR': [
                                 {
-                                    "tehsil": [
-                                        "SHIGAR"
+                                    'tehsil': [
+                                        'SHIGAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "GHANCHE (AT KHAPLU)": [
+                            'GHANCHE (AT KHAPLU)': [
                                 {
-                                    "tehsil": [
-                                        "KHAPLU",
-                                        "MASHABRUM"
+                                    'tehsil': [
+                                        'KHAPLU',
+                                        'MASHABRUM'
                                     ]
                                 }
                             ]
@@ -1278,26 +1278,26 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "ASTORE",
-                    "district": [
+                    'division': 'ASTORE',
+                    'district': [
                         {
-                            "DIAMIR (AT CHILAS) ": [
+                            'DIAMIR (AT CHILAS) ': [
                                 {
-                                    "tehsil": [
-                                        "BABU SAR",
-                                        "CHILAS",
-                                        "DAREL",
-                                        "TANGIR"
+                                    'tehsil': [
+                                        'BABU SAR',
+                                        'CHILAS',
+                                        'DAREL',
+                                        'TANGIR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "ASTORE": [
+                            'ASTORE': [
                                 {
-                                    "tehsil": [
-                                        "ASTORE",
-                                        "SHOUNTER"
+                                    'tehsil': [
+                                        'ASTORE',
+                                        'SHOUNTER'
                                     ]
                                 }
                             ]
@@ -1307,147 +1307,147 @@ export class Area{
             ]
         },
         {
-            "FATA": [
+            'FATA': [
                 {
-                    "division": "NA",
-                    "district": [
+                    'division': 'NA',
+                    'district': [
                         {
-                            "BAJAUR (AT KHAR BAJAUR)": [
+                            'BAJAUR (AT KHAR BAJAUR)': [
                                 {
-                                    "tehsil": [
-                                        "BARANG",
-                                        "CHARMANG",
-                                        "KHAR BAJAUR",
-                                        "MAMUND",
-                                        "NAWAGAI",
-                                        "SALARZAI",
-                                        "UTMANKHEL(QZAFI)"
+                                    'tehsil': [
+                                        'BARANG',
+                                        'CHARMANG',
+                                        'KHAR BAJAUR',
+                                        'MAMUND',
+                                        'NAWAGAI',
+                                        'SALARZAI',
+                                        'UTMANKHEL(QZAFI)'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHYBER (AT PESHAWAR)": [
+                            'KHYBER (AT PESHAWAR)': [
                                 {
-                                    "tehsil": [
-                                        "BARA",
-                                        "JAMRUD",
-                                        "LANDI KOTAL",
-                                        "MULA GHORI"
+                                    'tehsil': [
+                                        'BARA',
+                                        'JAMRUD',
+                                        'LANDI KOTAL',
+                                        'MULA GHORI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KURRAM (AT PARACHINAR)": [
+                            'KURRAM (AT PARACHINAR)': [
                                 {
-                                    "tehsil": [
-                                        "KURRAM F.R.",
-                                        "LOWER KURRAM",
-                                        "UPPER KURRAM"
+                                    'tehsil': [
+                                        'KURRAM F.R.',
+                                        'LOWER KURRAM',
+                                        'UPPER KURRAM'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MOHMAND (AT GHALLANAY)": [
+                            'MOHMAND (AT GHALLANAY)': [
                                 {
-                                    "tehsil": [
-                                        "HALIMZAI",
-                                        "PINDIALI",
-                                        "PRINGHAR",
-                                        "SAFI",
-                                        "UPPER MOHMAND",
-                                        "UTMAN KHEL(AMBAR)",
-                                        "YAKE GHUND"
+                                    'tehsil': [
+                                        'HALIMZAI',
+                                        'PINDIALI',
+                                        'PRINGHAR',
+                                        'SAFI',
+                                        'UPPER MOHMAND',
+                                        'UTMAN KHEL(AMBAR)',
+                                        'YAKE GHUND'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "N.WAZIRISTAN (AT MIRAN SHAH)": [
+                            'N.WAZIRISTAN (AT MIRAN SHAH)': [
                                 {
-                                    "tehsil": [
-                                        "DATTA KHEL",
-                                        "DOSSALI",
-                                        "GARYUM",
-                                        "GHULAM KHAN",
-                                        "MIR ALI",
-                                        "MIRAN SHAH",
-                                        "RAZMAK",
-                                        "SHEWA",
-                                        "SPINWAM"
+                                    'tehsil': [
+                                        'DATTA KHEL',
+                                        'DOSSALI',
+                                        'GARYUM',
+                                        'GHULAM KHAN',
+                                        'MIR ALI',
+                                        'MIRAN SHAH',
+                                        'RAZMAK',
+                                        'SHEWA',
+                                        'SPINWAM'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "ORAKZAI (AT KALAYA)": [
+                            'ORAKZAI (AT KALAYA)': [
                                 {
-                                    "tehsil": [
-                                        "CENTRAL",
-                                        "ISMAILZAI",
-                                        "LOWER",
-                                        "UPPER"
+                                    'tehsil': [
+                                        'CENTRAL',
+                                        'ISMAILZAI',
+                                        'LOWER',
+                                        'UPPER'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "S.WAZIRISTAN (AT WANA)": [
+                            'S.WAZIRISTAN (AT WANA)': [
                                 {
-                                    "tehsil": [
-                                        "BIRMAL",
-                                        "LADHA",
-                                        "MAKIN(CHARLAI)",
-                                        "SARAROGHA",
-                                        "SARWEKAI",
-                                        "TIARZA",
-                                        "TOI KHULLAH",
-                                        "WANA"
+                                    'tehsil': [
+                                        'BIRMAL',
+                                        'LADHA',
+                                        'MAKIN(CHARLAI)',
+                                        'SARAROGHA',
+                                        'SARWEKAI',
+                                        'TIARZA',
+                                        'TOI KHULLAH',
+                                        'WANA'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "F.R. BANNU DISTRICT": [
+                            'F.R. BANNU DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         },
                         {
-                            "F.R. D.I.KHAN DISTRICT": [
+                            'F.R. D.I.KHAN DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         },
                         {
-                            "F.R. KOHAT DISTRICT": [
+                            'F.R. KOHAT DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         },
                         {
-                            "F.R. LAKKI MARWAT DISTRICT": [
+                            'F.R. LAKKI MARWAT DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         },
                         {
-                            "F.R. PESHAWAR DISTRICT": [
+                            'F.R. PESHAWAR DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         },
                         {
-                            "F.R. TANK DISTRICT": [
+                            'F.R. TANK DISTRICT': [
                                 {
-                                    "tehsil": []
+                                    'tehsil': []
                                 }
                             ]
                         }
@@ -1456,64 +1456,64 @@ export class Area{
             ]
         },
         {
-            "Balochistan": [
+            'Balochistan': [
                 {
-                    "division": "QUETTA",
-                    "district": [
+                    'division': 'QUETTA',
+                    'district': [
                         {
-                            "QUETTA": [
+                            'QUETTA': [
                                 {
-                                    "tehsil": [
-                                        "PANJPAI SUB-TEHSIL",
-                                        "QUETTA CITY",
-                                        "QUETTA SADDAR"
+                                    'tehsil': [
+                                        'PANJPAI SUB-TEHSIL',
+                                        'QUETTA CITY',
+                                        'QUETTA SADDAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "PISHIN": [
+                            'PISHIN': [
                                 {
-                                    "tehsil": [
-                                        "BARSHORE SUB-TEHSIL",
-                                        "HURRAMZAI",
-                                        "KAREZAT",
-                                        "PISHIN",
-                                        "SARANAN"
+                                    'tehsil': [
+                                        'BARSHORE SUB-TEHSIL',
+                                        'HURRAMZAI',
+                                        'KAREZAT',
+                                        'PISHIN',
+                                        'SARANAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KILLA ABDULLAH": [
+                            'KILLA ABDULLAH': [
                                 {
-                                    "tehsil": [
-                                        "CHAMAN",
-                                        "DOBANDI SUB-TEHSIL",
-                                        "GULISTAN",
-                                        "KILLA ABDULLAH"
+                                    'tehsil': [
+                                        'CHAMAN',
+                                        'DOBANDI SUB-TEHSIL',
+                                        'GULISTAN',
+                                        'KILLA ABDULLAH'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "CHAGAI (AT DALBANDIN)": [
+                            'CHAGAI (AT DALBANDIN)': [
                                 {
-                                    "tehsil": [
-                                        "CHAGAI SUB-TEHSIL",
-                                        "DALBANDIN",
-                                        "NOKUNDI",
-                                        "TAFTAN"
+                                    'tehsil': [
+                                        'CHAGAI SUB-TEHSIL',
+                                        'DALBANDIN',
+                                        'NOKUNDI',
+                                        'TAFTAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NUSHKI": [
+                            'NUSHKI': [
                                 {
-                                    "tehsil": [
-                                        "DAK SUB-TEHSIL",
-                                        "NUSHKI"
+                                    'tehsil': [
+                                        'DAK SUB-TEHSIL',
+                                        'NUSHKI'
                                     ]
                                 }
                             ]
@@ -1521,71 +1521,71 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "ZHOB",
-                    "district": [
+                    'division': 'ZHOB',
+                    'district': [
                         {
-                            "LORALAI": [
+                            'LORALAI': [
                                 {
-                                    "tehsil": [
-                                        "DUKI",
-                                        "LORALAI",
-                                        "MEKHTAR"
+                                    'tehsil': [
+                                        'DUKI',
+                                        'LORALAI',
+                                        'MEKHTAR'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "BARKHAN": [
+                            'BARKHAN': [
                                 {
-                                    "tehsil": [
-                                        "BARKHAN"
+                                    'tehsil': [
+                                        'BARKHAN'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MUSAKHEL": [
+                            'MUSAKHEL': [
                                 {
-                                    "tehsil": [
-                                        "DRUG",
-                                        "KINGRI",
-                                        "MUSAKHEL"
+                                    'tehsil': [
+                                        'DRUG',
+                                        'KINGRI',
+                                        'MUSAKHEL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KILLA SAIFULLAH": [
+                            'KILLA SAIFULLAH': [
                                 {
-                                    "tehsil": [
-                                        "BADINI SUB-TEHSIL",
-                                        "KANMETHARZAI SUB-TEHSIL",
-                                        "KILLA SAIFULLAH",
-                                        "LOIBAND",
-                                        "MUSLIM BAGH",
-                                        "SHINKI SUB-TEHSIL"
+                                    'tehsil': [
+                                        'BADINI SUB-TEHSIL',
+                                        'KANMETHARZAI SUB-TEHSIL',
+                                        'KILLA SAIFULLAH',
+                                        'LOIBAND',
+                                        'MUSLIM BAGH',
+                                        'SHINKI SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "ZHOB": [
+                            'ZHOB': [
                                 {
-                                    "tehsil": [
-                                        "ASHWAT SUB-TEHSIL",
-                                        "KASHATU SUB-TEHSIL",
-                                        "QAMAR DIN KAREZ",
-                                        "SAMBAZA SUB-TEHSIL",
-                                        "ZHOB"
+                                    'tehsil': [
+                                        'ASHWAT SUB-TEHSIL',
+                                        'KASHATU SUB-TEHSIL',
+                                        'QAMAR DIN KAREZ',
+                                        'SAMBAZA SUB-TEHSIL',
+                                        'ZHOB'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SHEERANI": [
+                            'SHEERANI': [
                                 {
-                                    "tehsil": [
-                                        "SHEERANI SUB-TEHSIL"
+                                    'tehsil': [
+                                        'SHEERANI SUB-TEHSIL'
                                     ]
                                 }
                             ]
@@ -1593,75 +1593,75 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "SIBI",
-                    "district": [
+                    'division': 'SIBI',
+                    'district': [
                         {
-                            "SIBI": [
+                            'SIBI': [
                                 {
-                                    "tehsil": [
-                                        "KUTMANDAI SUB-TEHSIL",
-                                        "SANGAN SUB-TEHSIL",
-                                        "SIBI"
+                                    'tehsil': [
+                                        'KUTMANDAI SUB-TEHSIL',
+                                        'SANGAN SUB-TEHSIL',
+                                        'SIBI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LEHRI": [
+                            'LEHRI': [
                                 {
-                                    "tehsil": [
-                                        "BHAG",
-                                        "LEHRI"
+                                    'tehsil': [
+                                        'BHAG',
+                                        'LEHRI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "HARNAI": [
+                            'HARNAI': [
                                 {
-                                    "tehsil": [
-                                        "HARNAI",
-                                        "KHOAST SUB-TEHSIL",
-                                        "SHARIGH"
+                                    'tehsil': [
+                                        'HARNAI',
+                                        'KHOAST SUB-TEHSIL',
+                                        'SHARIGH'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "ZIARAT": [
+                            'ZIARAT': [
                                 {
-                                    "tehsil": [
-                                        "SINJAWI SUB-TEHSIL",
-                                        "ZIARAT"
+                                    'tehsil': [
+                                        'SINJAWI SUB-TEHSIL',
+                                        'ZIARAT'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KOHLU": [
+                            'KOHLU': [
                                 {
-                                    "tehsil": [
-                                        "GRISINI SUB-TEHSIL",
-                                        "KAHAN",
-                                        "KOHLU",
-                                        "MAWAND",
-                                        "TAMBOO"
+                                    'tehsil': [
+                                        'GRISINI SUB-TEHSIL',
+                                        'KAHAN',
+                                        'KOHLU',
+                                        'MAWAND',
+                                        'TAMBOO'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "DERA BUGTI": [
+                            'DERA BUGTI': [
                                 {
-                                    "tehsil": [
-                                        "BAIKER SUB-TEHSIL",
-                                        "DERA BUGTI",
-                                        "LOTI SUB-TEHSIL",
-                                        "MALAM SUB-TEHSIL",
-                                        "PHELAWAGH",
-                                        "PIR KOH SUB-TEHSIL",
-                                        "SANGSILLAH SUB-TEHSIL",
-                                        "SUI"
+                                    'tehsil': [
+                                        'BAIKER SUB-TEHSIL',
+                                        'DERA BUGTI',
+                                        'LOTI SUB-TEHSIL',
+                                        'MALAM SUB-TEHSIL',
+                                        'PHELAWAGH',
+                                        'PIR KOH SUB-TEHSIL',
+                                        'SANGSILLAH SUB-TEHSIL',
+                                        'SUI'
                                     ]
                                 }
                             ]
@@ -1669,62 +1669,62 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "NASIRABAD",
-                    "district": [
+                    'division': 'NASIRABAD',
+                    'district': [
                         {
-                            "JAFFARABAD": [
+                            'JAFFARABAD': [
                                 {
-                                    "tehsil": [
-                                        "GANDAKHA",
-                                        "JHAT PAT",
-                                        "USTA MOHAMMAD"
+                                    'tehsil': [
+                                        'GANDAKHA',
+                                        'JHAT PAT',
+                                        'USTA MOHAMMAD'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "NASIRABAD (AT D.M.JAMALI)": [
+                            'NASIRABAD (AT D.M.JAMALI)': [
                                 {
-                                    "tehsil": [
-                                        "BABA KOT",
-                                        "CHATTAR SUB-TEHSIL",
-                                        "DERA MURAD JAMALI",
-                                        "TAMBOO"
+                                    'tehsil': [
+                                        'BABA KOT',
+                                        'CHATTAR SUB-TEHSIL',
+                                        'DERA MURAD JAMALI',
+                                        'TAMBOO'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KACHHI (BOLAN) (AT DHADAR)": [
+                            'KACHHI (BOLAN) (AT DHADAR)': [
                                 {
-                                    "tehsil": [
-                                        "BALANARI SUB-TEHSIL",
-                                        "DHADAR",
-                                        "KHATTAN SUB-TEHSIL",
-                                        "MACH SUB-TEHSIL",
-                                        "SANNI SUB-TEHSIL"
+                                    'tehsil': [
+                                        'BALANARI SUB-TEHSIL',
+                                        'DHADAR',
+                                        'KHATTAN SUB-TEHSIL',
+                                        'MACH SUB-TEHSIL',
+                                        'SANNI SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "JHAL MAGSI (AT GANDAWA)": [
+                            'JHAL MAGSI (AT GANDAWA)': [
                                 {
-                                    "tehsil": [
-                                        "GANDAWA",
-                                        "JHAL MAGSI",
-                                        "MIRPUR SUB-TEHSIL"
+                                    'tehsil': [
+                                        'GANDAWA',
+                                        'JHAL MAGSI',
+                                        'MIRPUR SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "SOHBATPUR": [
+                            'SOHBATPUR': [
                                 {
-                                    "tehsil": [
-                                        "SOHBATPUR",
-                                        "FARIDABAD",
-                                        "SANHRI"
+                                    'tehsil': [
+                                        'SOHBATPUR',
+                                        'FARIDABAD',
+                                        'SANHRI'
                                     ]
                                 }
                             ]
@@ -1732,102 +1732,102 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "KALAT",
-                    "district": [
+                    'division': 'KALAT',
+                    'district': [
                         {
-                            "KALAT": [
+                            'KALAT': [
                                 {
-                                    "tehsil": [
-                                        "GAZG SUB-TEHSIL",
-                                        "JOHAN SUB-TEHSIL",
-                                        "KALAT",
-                                        "MANGOCHAR",
-                                        "SURAB"
+                                    'tehsil': [
+                                        'GAZG SUB-TEHSIL',
+                                        'JOHAN SUB-TEHSIL',
+                                        'KALAT',
+                                        'MANGOCHAR',
+                                        'SURAB'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "MASTUNG": [
+                            'MASTUNG': [
                                 {
-                                    "tehsil": [
-                                        "DASHT",
-                                        "KHAD KOOCHA SUB-TEHSIL",
-                                        "KIRDGAP SUB-TEHSIL",
-                                        "MASTUNG"
+                                    'tehsil': [
+                                        'DASHT',
+                                        'KHAD KOOCHA SUB-TEHSIL',
+                                        'KIRDGAP SUB-TEHSIL',
+                                        'MASTUNG'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHUZDAR": [
+                            'KHUZDAR': [
                                 {
-                                    "tehsil": [
-                                        "ARANJI SUB-TEHSIL",
-                                        "GRESHEK SUB-TEHSIL",
-                                        "GRASHA SUB-TEHSIL",
-                                        "KARAKH SUB-TEHSIL",
-                                        "KHUZDAR",
-                                        "MOOLA SUB-TEHSIL",
-                                        "NAL TEHSIL",
-                                        "ORNACH SUB-TEHSIL",
-                                        "SAROONA SUB-TEHSIL",
-                                        "WADH",
-                                        "ZEHRI"
+                                    'tehsil': [
+                                        'ARANJI SUB-TEHSIL',
+                                        'GRESHEK SUB-TEHSIL',
+                                        'GRASHA SUB-TEHSIL',
+                                        'KARAKH SUB-TEHSIL',
+                                        'KHUZDAR',
+                                        'MOOLA SUB-TEHSIL',
+                                        'NAL TEHSIL',
+                                        'ORNACH SUB-TEHSIL',
+                                        'SAROONA SUB-TEHSIL',
+                                        'WADH',
+                                        'ZEHRI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "AWARAN": [
+                            'AWARAN': [
                                 {
-                                    "tehsil": [
-                                        "AWARAN",
-                                        "GISHKORE",
-                                        "JHAL JAO",
-                                        "KORAK JAHOO",
-                                        "MASHKAI"
+                                    'tehsil': [
+                                        'AWARAN',
+                                        'GISHKORE',
+                                        'JHAL JAO',
+                                        'KORAK JAHOO',
+                                        'MASHKAI'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "KHARAN": [
+                            'KHARAN': [
                                 {
-                                    "tehsil": [
-                                        "KHARAN",
-                                        "SAR-KHARAN",
-                                        "TOHUMULK SUB-TEHSIL"
+                                    'tehsil': [
+                                        'KHARAN',
+                                        'SAR-KHARAN',
+                                        'TOHUMULK SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "WASHUK": [
+                            'WASHUK': [
                                 {
-                                    "tehsil": [
-                                        "BESIMA",
-                                        "MASHKHEL",
-                                        "NAG SUB-TEHSIL",
-                                        "SHAHGORI SUB-TEHSIL",
-                                        "WASHUK"
+                                    'tehsil': [
+                                        'BESIMA',
+                                        'MASHKHEL',
+                                        'NAG SUB-TEHSIL',
+                                        'SHAHGORI SUB-TEHSIL',
+                                        'WASHUK'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "LASBELA (AT UTHAL)": [
+                            'LASBELA (AT UTHAL)': [
                                 {
-                                    "tehsil": [
-                                        "BELA",
-                                        "DUREJI",
-                                        "GADDANI",
-                                        "HUB",
-                                        "KANRAJ ",
-                                        "LAKHRA",
-                                        "LIARI SUB-TEHSIL",
-                                        "SONMIANI/WINDER",
-                                        "UTHAL"
+                                    'tehsil': [
+                                        'BELA',
+                                        'DUREJI',
+                                        'GADDANI',
+                                        'HUB',
+                                        'KANRAJ ',
+                                        'LAKHRA',
+                                        'LIARI SUB-TEHSIL',
+                                        'SONMIANI/WINDER',
+                                        'UTHAL'
                                     ]
                                 }
                             ]
@@ -1835,45 +1835,45 @@ export class Area{
                     ]
                 },
                 {
-                    "division": "MEKRAN",
-                    "district": [
+                    'division': 'MEKRAN',
+                    'district': [
                         {
-                            "KECH (AT TURBAT)": [
+                            'KECH (AT TURBAT)': [
                                 {
-                                    "tehsil": [
-                                        "BALNIGOR SUB-TEHSIL",
-                                        "BULEDA SUB-TEHSIL",
-                                        "DASHT SUB-TEHSIL",
-                                        "HOSHAB SUB-TEHSIL",
-                                        "MAND",
-                                        "TUMP",
-                                        "TURBAT",
-                                        "ZAMURAN SUB-TEHSIL"
+                                    'tehsil': [
+                                        'BALNIGOR SUB-TEHSIL',
+                                        'BULEDA SUB-TEHSIL',
+                                        'DASHT SUB-TEHSIL',
+                                        'HOSHAB SUB-TEHSIL',
+                                        'MAND',
+                                        'TUMP',
+                                        'TURBAT',
+                                        'ZAMURAN SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "GWADAR": [
+                            'GWADAR': [
                                 {
-                                    "tehsil": [
-                                        "GWADAR",
-                                        "JIWANI",
-                                        "ORMARA",
-                                        "PASNI",
-                                        "SUNTSAR SUB-TEHSIL"
+                                    'tehsil': [
+                                        'GWADAR',
+                                        'JIWANI',
+                                        'ORMARA',
+                                        'PASNI',
+                                        'SUNTSAR SUB-TEHSIL'
                                     ]
                                 }
                             ]
                         },
                         {
-                            "PANJGUR": [
+                            'PANJGUR': [
                                 {
-                                    "tehsil": [
-                                        "GICHK SUB-TEHSIL",
-                                        "GOWARGO",
-                                        "PANJGUR",
-                                        "PAROME"
+                                    'tehsil': [
+                                        'GICHK SUB-TEHSIL',
+                                        'GOWARGO',
+                                        'PANJGUR',
+                                        'PAROME'
                                     ]
                                 }
                             ]

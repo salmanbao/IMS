@@ -9,6 +9,7 @@ const config = require('./config/database');
 
 const users = require('./routes/users');
 const birthcertificates = require('./routes/birthcertificates');
+const marriagecertificates = require('./routes/marriagecertificates');
 const nationalidcertificates = require('./routes/nationalidcertificates');
 // Connect To Database (NEW) But not working!!!!!!!!!! (because of secret in db.js!!!!!)
 //const db = require('./config/database');
@@ -64,6 +65,7 @@ require('./config/passport')(passport);
 app.use('/users', users);
 app.use('/birth', birthcertificates);
 app.use('/nationalid', nationalidcertificates);
+app.use('/marriage', marriagecertificates);
 // Index Route
 app.get('/', (req, res) => {
   res.send('invaild endpoint');

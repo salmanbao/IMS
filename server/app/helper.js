@@ -67,7 +67,7 @@ var getRegisteredUser = async function (username, userOrg, isJson) {
             var admins = hfc.getConfigSetting('admins');
             let adminUserObj = await client.setUserContext({ username: admins[0].username, password: admins[0].secret });
             let caClient = client.getCertificateAuthority();
-            
+
             let secret = await caClient.register({
                 enrollmentID: username,
                 affiliation: userOrg.toLowerCase() + '.department1'
@@ -173,6 +173,12 @@ var buildTarget = async function (peerName, orgname) {
     return peer;
 }
 
+var parseError = function (error) {
+    let l = error.message.indexOf('[');
+    let err = error.message.slice(l, error.message.length);
+    let e = JSON.parse(err);
+    return e[0][0];
+}
 exports.getClientForOrg = getClientForOrg;
 exports.getLogger = getLogger;
 exports.setupChaincodeDeploy = setupChaincodeDeploy;
@@ -181,3 +187,4 @@ exports.encrypt = encrypt;
 exports.decrypt = decrypt;
 exports.getTimestamp = getTimestamp;
 exports.buildTarget = buildTarget;
+exports.parseError = parseError;

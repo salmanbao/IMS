@@ -1,34 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { CertificateService } from 'app/services/certificate.service';
+import { FormControl, Validators } from '@angular/forms';
 
-export interface PeriodicElement {
-  did: string;
-  fname: string;
-  lname: string;
-  fatherDID: string;
-  motherDID: string;
-  city: string;
-  age: Number;
-  gender: string;
-  religion: string;
-  issueanceDate: String;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    did: 'G45YY56H76UI78I78',
-    fname: 'Muhammad Salman',
-    lname: 'Muhammad Saleem',
-    fatherDID: "HG45Y54Y6UU67II7I78",
-    motherDID: "TYJH6J56U7I978OI87O87",
-    city: 'Lahore',
-    age: 21,
-    gender: 'male',
-    religion: 'Islam',
-    issueanceDate: '22-02-2017'
-  }
-];
 
 @Component({
   selector: 'app-list-birth',
@@ -37,31 +11,35 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListBirthComponent implements OnInit {
 
-  constructor(private certificateService: CertificateService) { }
-
   displayedColumns: string[] = [
-    'did',
     'fname',
     'lname',
-    'fatherDID',
-    'motherDID',
-    'age',
+    'father',
+    'mother',
+    'dob',
     'gender',
     'religion',
-    'city',
-    'issueanceDate'
+    'city'
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
+  did = new FormControl('', Validators.required);
 
   @ViewChild(MatSort) sort: MatSort;
-
+  constructor(private certificateService: CertificateService) { }
   ngOnInit() {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  getBirth(did) {
+    console.log(did);
+    this.certificateService.getBirth(did).subscribe(
+      res => {
+        const payload = JSON.parse(res['payload']);
+        this.dataSource.data.push(payload);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err) }
+    );
+
   }
-
-
 }

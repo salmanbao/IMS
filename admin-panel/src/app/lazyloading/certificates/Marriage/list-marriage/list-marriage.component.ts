@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import { CertificateService } from 'app/services/certificate.service';
 
 export interface PeriodicElement {
   did: string;
@@ -32,28 +33,33 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListMarriageComponent implements OnInit {
 
-  constructor() { }
-
   displayedColumns: string[] = [
-    'did',
     'husband',
-    'wife',
-    'husbandDID',
-    'wifeDID',
+    'lname',
+    'husbandDOB',
+    'wifeDOB',
     'date',
     'familyNumber',
-    'issueanceDate'
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
+  constructor(private certificateService: CertificateService) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  getMarriage(did) {
+    this.certificateService.getMarriage(did).subscribe(
+      res => {
+        const payload = JSON.parse(res['payload']);
+        this.dataSource.data.push(payload);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err) }
+    );
+
   }
 
 }

@@ -50,15 +50,15 @@ export class NationalidComponent implements OnInit {
       address: ['', Validators.required],
       gender: ['', Validators.required],
       martialStatus: ['', Validators.required],
-      country: ['', Validators.required],
+      country: [{ value: 'Pakistan' }, Validators.required],
       province: ['', Validators.required],
       division: ['', Validators.required],
       district: ['', Validators.required],
       tehsile: ['', Validators.required],
-      dob: ['', null],
+      dob: ['', Validators.required],
       religion: ['', null],
       profession: ['', null],
-      date: [{ value: new Date().toUTCString() }, Validators.required]
+      date: [new Date().toUTCString() , Validators.required]
     })
     this._provincesArray.forEach(element => {
       this.provinces = this.provinces.concat(Object.keys(element));

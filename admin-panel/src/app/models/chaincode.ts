@@ -3,9 +3,9 @@ export class InitiateChaincode {
   chaincodeName: string;
   chaincodeVersion: string;
   chaincodeType: string;
-  fcn: string ;
+  fcn: string;
   args: Array<string>;
-  constructor(config){
+  constructor(config) {
     this.peers = config.peers;
     this.chaincodeName = config.chaincodeName;
     this.chaincodeVersion = config.chaincodeVersion;
@@ -15,14 +15,14 @@ export class InitiateChaincode {
   }
 }
 
-export class InstallChaincode{
+export class InstallChaincode {
   peers: Array<string>;
   chaincodeName: string;
   chaincodeVersion: string;
-  chaincodePath:string;
+  chaincodePath: string;
   chaincodeType: string;
 
-  constructor(_config){
+  constructor(_config) {
     this.peers = _config.peers;
     this.chaincodeName = _config.chaincodeName;
     this.chaincodeType = _config.chaincodeType;

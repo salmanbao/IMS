@@ -43,9 +43,10 @@ export class CompletedNotificationsComponent implements OnInit {
   }
 
   getAllCertificates() {
+
     this.certificateService.getBirthAll().subscribe(
       res => {
-        this.dataSource.data = res.docs.filter((doc) => {
+        this.dataSource.data = res['docs'].filter((doc) => {
           if (doc.status === 'approve') {
             return doc;
           }
@@ -54,6 +55,34 @@ export class CompletedNotificationsComponent implements OnInit {
       },
       err => { console.log(err); }
     );
-  }
 
+
+    this.certificateService.getNationAll().subscribe(
+      resp => {
+        const filtered = resp.docs.filter((doc) => {
+          if (doc.status === 'approve') {
+            return doc;
+          }
+          console.log(doc)
+        });
+        this.dataSource.data = this.dataSource.data.concat(filtered);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err); }
+    );
+
+
+    this.certificateService.getMarriageAll().subscribe(
+      response => {
+        const filtered = response.docs.filter((doc) => {
+          if (doc.status === 'approve') {
+            return doc;
+          }
+        });
+        this.dataSource.data = this.dataSource.data.concat(filtered);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err); }
+    );
+  }
 }

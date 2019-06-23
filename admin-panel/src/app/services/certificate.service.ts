@@ -7,14 +7,13 @@ import { Observable } from 'rxjs';
 })
 
 export class CertificateService {
-
   invokeUrl = 'http://localhost:4000/channels/mychannel/chaincodes/';
-  deleteBirthUrl = 'http://localhost:4000/channels/mychannel/chaincodes/birth:id';
+  Url = 'http://localhost:4000/channels/mychannel/chaincodes/';
   userPanelUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
   addBirth(info: any) {
-    let data: Object = {};
+    const data: Object = {};
     const peers = ['peer0.org1.example.com'];
     data['peers'] = peers;
     data['fcn'] = 'createBirthMyAsset';
@@ -23,9 +22,9 @@ export class CertificateService {
       {
         fname: info.fname,
         lname: info.lname,
-        fatherDID: info.fatherDID,
-        motherDID: info.motherDID,
-        dob: info.date,
+        father: info.fatherDID,
+        mother: info.motherDID,
+        dob: info.dob,
         gender: info.gender,
         religion: info.religion,
         familyNumber: info.familyNumber,
@@ -40,7 +39,7 @@ export class CertificateService {
   }
 
   addNationalId(info: any) {
-    let data: Object = {};
+    const data: Object = {};
     const peers = ['peer0.org1.example.com'];
     data['peers'] = peers;
     data['fcn'] = 'createNationalIdMyAsset';
@@ -71,7 +70,7 @@ export class CertificateService {
   }
 
   addMarriage(info: any) {
-    let data: Object = {};
+    const data: Object = {};
     const peers = ['peer0.org1.example.com'];
     data['peers'] = peers;
     data['fcn'] = 'createMarriage';
@@ -80,8 +79,8 @@ export class CertificateService {
       {
         fname: info.fname,
         lname: info.lname,
-        father: info.fatherDID,
-        mother: info.motherDID,
+        father: info.father,
+        mother: info.mother,
         familyNumber: info.familyNumber,
         husbandDOB: info.husbandDOB,
         wifeDOB: info.wifeDOB,
@@ -105,6 +104,9 @@ export class CertificateService {
   getNationAll(): Observable<any> {
     return this.http.get(this.userPanelUrl + 'nationalid/getall');
   }
+  getMarriageAll(): Observable<any> {
+    return this.http.get(this.userPanelUrl + 'marriage/getall');
+  }
   rejectBirthRequest(username): Observable<any> {
     return this.http.post(this.userPanelUrl + 'birth/reject', username);
   }
@@ -116,7 +118,35 @@ export class CertificateService {
     return this.http.post(this.userPanelUrl + 'nationalid/approve', data);
   }
 
+  approvemarriageRequest(data): Observable<any> {
+    return this.http.post(this.userPanelUrl + 'marriage/approve', data);
+  }
+
   getFromMongo(obj): Observable<any> {
     return this.http.get(this.userPanelUrl + obj.path + '/getbyid?id=' + obj.id);
+  }
+  getBirth(did) {
+    const data: Object = {};
+    const peers = ['peer0.org1.example.com'];
+    data['peers'] = peers;
+    data['fcn'] = 'readBirthMyAsset';
+    data['args'] = [did]
+    return this.http.post(this.Url + 'birth', data);
+  }
+  getNational(username) {
+    const data: Object = {};
+    const peers = ['peer0.org1.example.com'];
+    data['peers'] = peers;
+    data['fcn'] = 'readNationalIdMyAsset';
+    data['args'] = [username]
+    return this.http.post(this.Url + 'nationalid', data);
+  }
+  getMarriage(username) {
+    const data: Object = {};
+    const peers = ['peer0.org1.example.com'];
+    data['peers'] = peers;
+    data['fcn'] = 'readMarriage';
+    data['args'] = [username]
+    return this.http.post(this.Url + 'marriage', data);
   }
 }

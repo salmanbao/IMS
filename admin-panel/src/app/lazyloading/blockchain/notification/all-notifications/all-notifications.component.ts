@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { CertificateService } from 'app/services/certificate.service';
 
 @Component({
@@ -14,9 +14,12 @@ export class AllNotificationsComponent implements OnInit {
     'status',
     'action'
   ];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
   constructor(
+    private snackBar: MatSnackBar,
     private certificateService: CertificateService
   ) { }
   ngOnInit() {
@@ -35,6 +38,9 @@ export class AllNotificationsComponent implements OnInit {
     if (data.title === 'National ID') {
       this.addNational(data);
     }
+    if (data.title === 'Marriage Certificate') {
+      this.addMarriage(data);
+    }
   }
 
   rejectRequest(username: string) {
@@ -50,9 +56,16 @@ export class AllNotificationsComponent implements OnInit {
         if (res['success']) {
           this.certificateService.getFromMongo({ path: 'birth', id: res['docs']._id }).subscribe(
             response => {
+              if (response['success']) {
+                this.openSnackBar(response['msg']);
+              }
               const birthData = response['docs'].info;
               this.certificateService.addBirth(birthData).subscribe(
-                finalResponse => { console.log(finalResponse) },
+                finalResponse => {
+                  if (finalResponse['success']) {
+                    this.openSnackBar('Transaction successfully executed');
+                  }
+                },
                 finalError => { console.log(finalError) }
               );
             },
@@ -65,17 +78,22 @@ export class AllNotificationsComponent implements OnInit {
   }
 
   addNational(data) {
-    console.log(data);
     this.certificateService.approvenationalRequest(data).subscribe(
       res => {
-        console.log(res);
         if (res['success']) {
           this.certificateService.getFromMongo({ path: 'nationalid', id: res['docs']._id }).subscribe(
             response => {
+              if (response['success']) {
+                this.openSnackBar(response['msg']);
+              }
               const nationalData = response['docs'];
               console.log(nationalData);
               this.certificateService.addNationalId(nationalData).subscribe(
-                finalResponse => { console.log(finalResponse) },
+                finalResponse => {
+                  if (finalResponse['success']) {
+                    this.openSnackBar('Transaction successfully executed');
+                  }
+                },
                 finalError => { console.log(finalError) }
               );
             },
@@ -86,6 +104,34 @@ export class AllNotificationsComponent implements OnInit {
       err => { console.log(err); }
     );
   }
+
+  addMarriage(data) {
+    this.certificateService.approvemarriageRequest(data).subscribe(
+      res => {
+        if (res['success']) {
+          this.certificateService.getFromMongo({ path: 'marriage', id: res['docs']._id }).subscribe(
+            response => {
+              if (response['success']) {
+                this.openSnackBar(response['msg']);
+              }
+              const marriageData = response['docs'];
+              this.certificateService.addMarriage(marriageData.info).subscribe(
+                finalResponse => {
+                  if (finalResponse['success']) {
+                    this.openSnackBar('Transaction successfully executed');
+                  }
+                },
+                finalError => { console.log(finalError) }
+              );
+            },
+            error => { console.log(error) }
+          );
+        }
+      },
+      err => { console.log(err); }
+    );
+  }
+
 
   getAllCertificates() {
     this.certificateService.getBirthAll().subscribe(
@@ -102,5 +148,20 @@ export class AllNotificationsComponent implements OnInit {
       },
       err => { console.log(err); }
     );
+    this.certificateService.getMarriageAll().subscribe(
+      response => {
+        this.dataSource.data = this.dataSource.data.concat(...response.docs);
+        this.dataSource._updateChangeSubscription();
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 1000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 }

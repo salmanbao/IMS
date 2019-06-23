@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CertificateService {
   addBirthUrl = 'http://localhost:8080/birth/add';
+  addMarriageUrl = 'http://localhost:8080/marriage/add';
   addNationalIDUrl = 'http://localhost:8080/nationalid/add';
   constructor(private http: HttpClient) { }
   addBirth(cert: any) {
@@ -13,5 +14,8 @@ export class CertificateService {
   }
   addNationalID(cert: any) {
     return this.http.post(this.addNationalIDUrl, cert);
+  }
+  addMarriage(cert: any) {
+    return this.http.post(this.addMarriageUrl, cert);
   }
 }

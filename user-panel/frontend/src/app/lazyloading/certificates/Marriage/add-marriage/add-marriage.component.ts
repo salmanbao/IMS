@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'app/modules/cities.module';
 import { BasicInfo } from 'app/modules/BasicInfo.module';
 import { CertificateService } from 'app/services/certificate.service';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 
 @Component({
@@ -12,26 +14,30 @@ import { CertificateService } from 'app/services/certificate.service';
 })
 export class AddMarriageComponent implements OnInit {
 
-  value: string = '';
+  value: string;
   minDate = new Date(1950, 0, 1);
-  addBirthForm: FormGroup;
+  addForm: FormGroup;
   maxDate = new Date();
   genders: Array<string> = ['Male', 'Female'];
   regionInfo: City = new City();
   cities: any = this.regionInfo.cities;
-  _province: string = '';
-  _country: string = '';
+  _province: string;
+  _country: string;
   religions: any = this.regionInfo.religions;
   professions: Array<string> = new BasicInfo().professions;
   _martialStatus: Array<string> = new BasicInfo().martialStatus;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   constructor(
     private _formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    private auth: AuthenticationService,
     private certificateService: CertificateService
   ) { }
 
   ngOnInit() {
-    this.addBirthForm = this._formBuilder.group({
-
+    this.addForm = this._formBuilder.group({
+      username:this.auth.getUser(),
       did: ['', null],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
@@ -39,9 +45,9 @@ export class AddMarriageComponent implements OnInit {
       motherDID: ['', Validators.required],
       familyNumber: ['', Validators.required],
       husbandAddress: ['', Validators.required],
+      wifeAddress: ['', Validators.required],
       husbandDOB: ['', Validators.required],
       wifeDOB: ['', Validators.required],
-      wifeAddress: ['', Validators.required],
       witnessOne: ['', Validators.required],
       witnessTwo: ['', Validators.required],
       witnessThird: ['', Validators.required],
@@ -49,27 +55,22 @@ export class AddMarriageComponent implements OnInit {
     })
   }
 
-  //### Create citizen ######
-  registerUser() {
-    console.log(this.addBirthForm);
-    console.log(JSON.stringify(this.addBirthForm.value))
-
-    this.certificateService.addBirth(this.addBirthForm.value)
+  addMarriage() {
+    this.certificateService.addMarriage(this.addForm.value)
       .subscribe(
         data => {
-          console.log(data);
+          this.openSnackBar(data['msg']);
         },
         error => {
-          console.log(error);
+          this.openSnackBar(error);
         });
   }
 
-  getData() {
-    //send request to server for generating DID and return
-    console.log("generate Family Number");
-    this.addBirthForm.controls['familyNumber'].setValue("LHR1234");
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
-
- 
-
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { UserService } from 'app/services/user.service';
 import { AddMemberComponent } from '../add-member/add-member.component';
 
@@ -8,6 +8,7 @@ export interface PeriodicElement {
   id: string;
   type: string;
   affiliation: string;
+  attributes:Array<string>;
 }
 @Component({
   selector: 'app-list-members',
@@ -19,21 +20,27 @@ export class ListMembersComponent implements OnInit {
   title: string;
   name: string;
   orgName: string;
+  password: string;
+  affliation: string;
+  roles: Array<string>;
   users: Array<Object> = [];
-
-  constructor(
-    public dialog: MatDialog,
-    private userService: UserService
-  ) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   displayedColumns: string[] = [
     'id',
     'type',
     'affiliation',
+    'attributes',
     'action'
   ];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -50,15 +57,14 @@ export class ListMembersComponent implements OnInit {
               {
                 id: identity.id,
                 type: identity.type,
+                attributes: identity.attrs,
                 affiliation: identity.affiliation,
-
               }
             );
           });
           this.dataSource.data = this.users;
           this.dataSource._updateChangeSubscription();
-        }
-        else {
+        } else {
           this.dataSource.data = [];
         }
       },
@@ -69,20 +75,33 @@ export class ListMembersComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+ 
   openAddUserDialog(): void {
     const dialogRef = this.dialog.open(AddMemberComponent, {
       width: '60%',
       data: {
         title: this.title,
         name: this.name,
+        password: this.password,
+        affliation: this.affliation,
+        roles: this.roles,
         orgName: this.orgName
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log(result);
+      if (result !== 'undefined') {
+        this.openSnackBar(result['message']);
+      }
     });
   }
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
 }

@@ -1,29 +1,12 @@
-/**
- * Copyright 2017 IBM All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 'use strict';
 var util = require('util');
 var helper = require('./helper.js');
 var logger = helper.getLogger('invoke-chaincode');
-String.prototype.escapeJSON = function() {
+String.prototype.escapeJSON = function () {
     var result = "";
-    for (var i = 0; i < this.length; i++)
-    {
+    for (var i = 0; i < this.length; i++) {
         var ch = this[i];
-        switch (ch)
-        {
+        switch (ch) {
             case "\\": ch = "\\\\"; break;
             case "\'": ch = "\\'"; break;
             case "\"": ch = '\\"'; break;
@@ -42,7 +25,7 @@ String.prototype.escapeJSON = function() {
 
     return result;
 };
-var invokeChaincode = async function(peerNames, channelName, chaincodeName, args, fcn, username, org_name) {
+var invokeChaincode = async function (peerNames, channelName, chaincodeName, args, fcn, username, org_name) {
     logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
     var error_message = null;
     var tx_id_string = null;
@@ -117,24 +100,24 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, args
                         eh.disconnect();
                     }, 3000);
                     eh.registerTxEvent(tx_id_string, (tx, code, block_num) => {
-                            logger.info('The chaincode invoke chaincode transaction has been committed on peer %s', eh.getPeerAddr());
-                            logger.info('Transaction %s has status of %s in blocl %s', tx, code, block_num);
-                            clearTimeout(event_timeout);
+                        logger.info('The chaincode invoke chaincode transaction has been committed on peer %s', eh.getPeerAddr());
+                        logger.info('Transaction %s has status of %s in blocl %s', tx, code, block_num);
+                        clearTimeout(event_timeout);
 
-                            if (code !== 'VALID') {
-                                let message = util.format('The invoke chaincode transaction was invalid, code:%s', code);
-                                logger.error(message);
-                                reject(new Error(message));
-                            } else {
-                                let message = 'The invoke chaincode transaction was valid.';
-                                logger.info(message);
-                                resolve(message);
-                            }
-                        }, (err) => {
-                            clearTimeout(event_timeout);
-                            logger.error(err);
-                            reject(err);
-                        },
+                        if (code !== 'VALID') {
+                            let message = util.format('The invoke chaincode transaction was invalid, code:%s', code);
+                            logger.error(message);
+                            reject(new Error(message));
+                        } else {
+                            let message = 'The invoke chaincode transaction was valid.';
+                            logger.info(message);
+                            resolve(message);
+                        }
+                    }, (err) => {
+                        clearTimeout(event_timeout);
+                        logger.error(err);
+                        reject(err);
+                    },
                         // the default for 'unregister' is true for transaction listeners
                         // so no real need to set here, however for 'disconnect'
                         // the default is false as most event hubs are long running
@@ -192,7 +175,7 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, args
             org_name, channelName, tx_id_string);
         logger.info(message);
         logger.info(proposalResponses[0].response.payload.toString());
-        return {success:true , payload:proposalResponses[0].response.payload};
+        return { success: true, payload: proposalResponses[0].response.payload.toString() };
     } else {
         let message = util.format('Failed to invoke chaincode. cause:%s', error_message);
         logger.error(message);

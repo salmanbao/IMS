@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { RedirectGuard } from './guards/redirect.guard';
-import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +24,7 @@ const routes: Routes = [
     path: 'explorer', canActivate: [RedirectGuard],
     component: RedirectGuard,
     data: {
-      externalUrl: 'http://localhost:3000/'
+      externalUrl: 'http://localhost:8085/'
     }
   }
 

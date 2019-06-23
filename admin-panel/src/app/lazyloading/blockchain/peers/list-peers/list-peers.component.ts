@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import {
+  MatTableDataSource, MatSort,
+  MatDialog, MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition, MatSnackBar
+} from '@angular/material';
 import { AddPeerComponent } from '../add-peer/add-peer.component';
 import { PeerService } from 'app/services/peer.service';
 
@@ -100,5 +104,5 @@ export class ListPeersComponent implements OnInit {
       verticalPosition: this.verticalPosition,
     });
   }
- 
+
 }

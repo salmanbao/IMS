@@ -1,9 +1,11 @@
-var path = require('path');
-var fs = require('fs');
-var util = require('util');
-var hfc = require('fabric-client');
 var helper = require('./helper.js');
 var logger = helper.getLogger('Channel');
+
+/**
+* @param {string} orgname organization name.
+* @param {string} peerName peer name.
+* @returns Array<Object> list of channels.
+*/
 
 var queryChannels = async function (orgname, peerName) {
     logger.debug("==================== Org & Peer "+orgname +" "+peerName);
@@ -18,11 +20,17 @@ var queryChannels = async function (orgname, peerName) {
     }
         return channelNames;
     })
-        .catch((err) => {
+        .catch(() => {
             return new Error("Unable to fetch channel details");
         });
 };
  
+/**
+* @param {string} peer peer name.
+* @param {string} org organization name.
+* @param {string} channelName channel name.
+* @returns {Object} blockchain info .
+*/
 var getChannelInfo = async function (peer, org, channelName) {
     var client = await helper.getClientForOrg(org);
     var target = await helper.buildTarget(peer, org);
@@ -50,6 +58,12 @@ var getChannelInfo = async function (peer, org, channelName) {
         });
 };
 
+/**
+* @param {string} peer peer name.
+* @param {string} org organization name.
+* @param {string} channelName channel name.
+* @returns {Number} block height .
+*/
 var getChannelHeight = function (peer, org, channelName) {
     return getChannelInfo(peer, org, channelName).
         then((response) => {
@@ -61,6 +75,11 @@ var getChannelHeight = function (peer, org, channelName) {
         });
 };
 
+/**
+* @param {string} org organization name.
+* @param {string} channelName channel name.
+* @returns {Array} list of peers .
+*/
 var getChannelPeers = async function(org , channelName){
     var PEERS = [];
     var client = await helper.getClientForOrg(org);

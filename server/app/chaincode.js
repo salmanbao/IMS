@@ -1,12 +1,12 @@
-var path = require('path');
-var fs = require('fs');
-
-var util = require('util');
-var hfc = require('fabric-client');
-var Peer = require('fabric-client/lib/Peer.js');
-var EventHub = require('fabric-client/lib/ChannelEventHub.js');
 var helper = require('./helper.js');
-var logger = helper.getLogger('Chaincode');
+
+/**
+*
+* @param {string} peer peer name.
+* @param {string} org organization name.
+* @param {string} channelName channel name 
+* @returns {Object} The response object contains message , log , installed , initiated .
+*/
 
 var getInstalledChaincodes = async function (peer, org, channelName) {
     var target = await helper.buildTarget(peer, org);
@@ -16,12 +16,28 @@ var getInstalledChaincodes = async function (peer, org, channelName) {
         .then((installedCC) => {
             return installedCC;
         })
+        .catch((err) => {
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
+        })
         .then(async (installedCC) => {
             const CC = await channel.queryInstantiatedChaincodes(target, true);
             return {
                 installed: installedCC,
                 initiated: CC
             };
+        })
+        .catch((err) => {
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
         })
         .then((response) => {
             if (response) {
@@ -37,7 +53,7 @@ var getInstalledChaincodes = async function (peer, org, channelName) {
                         });
                     }
                 }
-                if(response.initiated.chaincodes.length){
+                if (response.initiated.chaincodes.length) {
                     for (let i = 0; i < response.initiated.chaincodes.length; i++) {
                         initiatedCC.push({
                             name: response.initiated.chaincodes[i].name,
@@ -47,23 +63,34 @@ var getInstalledChaincodes = async function (peer, org, channelName) {
                         });
                     }
                 }
-                
+
                 return {
                     message: true,
                     installed: installedCC,
                     initiated: initiatedCC
                 }
             } else {
-                logger.error('response is null');
-                return 'response is null';
+                return {
+                    message: true,
+                    log: 'null response from chaincode query',
+                    installed: [],
+                    initiated: []
+                }
             }
         }, (err) => {
-            logger.error('Failed to send query due to error: ' + err.stack ? err.stack :
-                err);
-            return 'Failed to send query due to error: ' + err.stack ? err.stack : err;
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
         }).catch((err) => {
-            logger.error('Failed to query with error:' + err.stack ? err.stack : err);
-            return 'Failed to query with error:' + err.stack ? err.stack : err;
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
         });
 };
 

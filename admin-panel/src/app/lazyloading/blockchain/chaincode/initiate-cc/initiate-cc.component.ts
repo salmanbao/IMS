@@ -21,7 +21,7 @@ export interface DialogData {
 })
 export class InitiateCCComponent implements OnInit {
   peers = new FormControl('', Validators.required);
-  peersList = [ 'peer0.org1.example.com' , 'peer1.org1.example.com' ];
+  peersList = ['peer0.org1.example.com', 'peer1.org1.example.com'];
   languages = ['golang', 'node'];
   constructor(
     private chaincodeService: ChaincodeService,
@@ -38,11 +38,15 @@ export class InitiateCCComponent implements OnInit {
   initiateChaincode() {
     const chaincodeConfig: InitiateChaincode = new InitiateChaincode(this.data);
     this.chaincodeService.initiateChaincode(chaincodeConfig).subscribe(
-      res => { console.log(res); },
-      err => { console.log(err); }
+      res => {
+        if (res['success']) {
+          this.onNoClick(res['message']);
+        }
+      },
+      err => { this.onNoClick(err) }
     );
   }
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(result): void {
+    this.dialogRef.close(result);
   }
 }

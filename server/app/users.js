@@ -1,5 +1,152 @@
 var helper = require('./helper.js');
+var hfc = require('fabric-client');
+var jwt = require('jsonwebtoken');
 var logger = helper.getLogger('Users');
+var ca = require('fabric-ca-client');
+var { HFCAIdentityAttributes, HFCAIdentityType } = require('fabric-ca-client/lib/IdentityService')
+
+var Attributes = {
+    "HF REGISTRAR DELEGATE ROLES": { name: HFCAIdentityAttributes.HFREGISTRARDELEGATEROLES, value: '*' },
+    "HF REGISTRAR ATTRIBUTES": { name: HFCAIdentityAttributes.HFREGISTRARATTRIBUTES, value: '*' },
+    "HF AFFILIATION MGR": { name: HFCAIdentityAttributes.HFAFFILIATIONMGR, value: '1' },
+    "HF REGISTRAR ROLES": { name: HFCAIdentityAttributes.HFREGISTRARROLES, value: '*' },
+    "HFINTERMEDIATECA": { name: HFCAIdentityAttributes.HFINTERMEDIATECA, value: '1' },
+    "HF REVOKER": { name: HFCAIdentityAttributes.HFREVOKER, value: '1' },
+    "HF GEN CRL": { name: HFCAIdentityAttributes.HFGENCRL, value: '1' }
+}
+
+var Roles = {
+    "CLIENT": HFCAIdentityType.CLIENT,
+    "ORDERER": HFCAIdentityType.ORDERER,
+    "PEER": HFCAIdentityType.PEER,
+    "USER": HFCAIdentityType.USER
+}
+
+/**
+*
+* @param {string} username unique username.
+* @param {string} orgname organization name in which user wants to enroll.
+* @param {string} password password for user to authenticate with CA
+* @param {string} role user role{ user,client,peer,orderer}
+* @param {string} affiliation to which affiliation service user wants to join
+* @param {Array<string>} attrs  list of attributes can assigned to user
+* @param {boolean} isJson is a boolean for json formatting
+* @returns {Object} The response instance.
+*/
+
+var register = async function (username, orgname, password, role, affiliation, attrs, isJson) {
+    try {
+        let roles = [];
+        var client = await helper.getClientForOrg(orgname);
+        let caClient = client.getCertificateAuthority();
+        //Step # 1
+        var admins = hfc.getConfigSetting('admins');
+        let adminUserObj = await client.setUserContext({ username: admins[0].username, password: admins[0].secret });
+        attrs.forEach(attribute => {
+            if (Attributes.hasOwnProperty(attribute))
+                roles.push(Attributes[attribute]);
+        });
+        let secret = await caClient.register({
+            enrollmentID: username,
+            enrollmentSecret: password,
+            affiliation: affiliation,
+            attrs: roles,
+            role: Roles[role]
+        }, adminUserObj);
+        // Step # 3
+        var enrollment = await caClient.enroll({ enrollmentID: username, enrollmentSecret: secret });
+        var user = await client.createUser(
+            {
+                username: username,
+                mspid: client.getMspid(),
+                cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate },
+                skipPersistence: false
+            });
+        user.setRoles(role);
+        user.setAffiliation(affiliation);
+        user._enrollmentSecret = secret;
+        client.setUserContext(user);
+        if (user && user.isEnrolled) {
+            if (isJson && isJson === true) {
+                var response = {
+                    success: true,
+                    secret: user._enrollmentSecret,
+                    message: username + ' enrolled Successfully',
+                };
+                user = await client.saveUserToStateStore();
+                return response;
+            }
+        } else {
+            var response = {
+                success: false,
+                message: username + ' was not enrolled',
+            };
+            return response;
+        }
+    } catch (error) {
+        var response = {
+            success: false,
+            message: helper.parseError(error)
+        };
+        return response;
+    }
+}
+/**
+*
+* @param {string} username unique username.
+* @param {string} orgname organization name in which user enrolled.
+* @param {string} password password for user to authenticate with CA
+* @param {boolean} isJson is a boolean for json formatting
+* @returns {Object} The response instance.
+*/
+var login = async function (username, orgname, password, isJson) {
+    var client = await helper.getClientForOrg(orgname);
+    try {
+        let user = await client.getUserContext(username, true);
+        if (user && user.isEnrolled) {
+            if (user._enrollmentSecret === password) {
+                var token = jwt.sign({
+                    exp: Math.floor(Date.now() / 1000) + parseInt(hfc.getConfigSetting('jwt_expiretime')),
+                    username: username,
+                    orgName: orgname,
+                    secret: password
+                }, "thisismysecret");
+                if (isJson && isJson === true) {
+                    var response = {
+                        success: true,
+                        token: token,
+                        message: username + ' login Successfully',
+                    };
+                    return response;
+                }
+            } else {
+                var response = {
+                    success: false,
+                    message: ' Incorrect credentials',
+                };
+                return response;
+            }
+        } else {
+            var response = {
+                success: false,
+                message: username + ' does not exist',
+            };
+            return response;
+        }
+    }
+    catch (error) {
+        var response = {
+            success: false,
+            message: helper.parseError(error)
+        };
+        return response;
+    }
+}
+
+/**
+* @param {string} orgname organization name to which users you want to list.
+* @returns {Object} The response instance.
+*/
 
 var getAllUsers = async function (orgname) {
     const client = await helper.getClientForOrg(orgname);
@@ -7,7 +154,6 @@ var getAllUsers = async function (orgname) {
     var identityService = client.getCertificateAuthority().newIdentityService();
     var result = await identityService.getAll(cert);
     if (result.success) {
-        console.log(result.result.identities[0]);
         return { success: true, result: result.result.identities };
     }
     else {
@@ -15,13 +161,55 @@ var getAllUsers = async function (orgname) {
     }
 }
 
-var revokeUserCertificate = async function(orgname , user){
-    var client = await helper.getClientForOrg(orgname);
-    var member = await client.getUserContext('admin', true);
-    var result = await client.getCertificateAuthority().revoke({ enrollmentID: user} , member);
-    return result;
+/**
+* @param {string} orgname organization name to which users you want to revoke.
+* @param {string} user username of admin.
+* @param {string} revokeUser username to which user you want to revoke.
+* @returns {Object} The object instance.
+*/
+
+var revokeUserCertificate = async function (orgname, user, revokeUser) {
+    var response = {};
+    try {
+        var client = await helper.getClientForOrg(orgname);
+        var registrar = await client.getUserContext(user, true);
+        var caClient = client.getCertificateAuthority();
+        var result = await caClient.revoke({ enrollmentID: revokeUser }, registrar);
+        response.success = result.success;
+        response.result = result.result;
+        return response;
+    } catch (error) {
+        response.success = false;
+        response.message = helper.parseError(error).message;
+        return response;
+    }
+}
+/**
+* @param {string} orgname organization name.
+* @param {string} user username.
+* @returns {Object} The object instance.
+*/
+
+var CRL = async function (orgname, user) {
+    var response = {};
+    var date = new Date();
+    try {
+        var client = await helper.getClientForOrg(orgname);
+        var registrar = await client.getUserContext(user, true);
+        var caClient = client.getCertificateAuthority();
+        var result = await caClient.generateCRL({
+            revokedBefore:date
+        }, registrar);
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.log(error)
+        return error;
+    }
 }
 
-
+exports.register = register;
+exports.login = login;
 exports.getAllUsers = getAllUsers;
 exports.revokeUserCertificate = revokeUserCertificate;
+exports.CRL = CRL;

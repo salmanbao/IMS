@@ -1,32 +1,15 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+// tslint:disable-next-line: max-line-length
 import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { AddMemberCertificatesDialogComponent } from './add-member-certificates-dialog/add-member-certificates-dialog.component';
+import { UserService } from 'app/services/user.service';
 
 
 export interface PeriodicElement {
-  name: string;
-  dateAdded: string;
-  action: string;
+  id: string;
+  type: string;
+  affiliation: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    name: 'john@gmail.com',
-    dateAdded: 'PeerOrg1',
-    action: "block"
-  },
-  {
-    name: 'johndoe@gmail.com',
-    dateAdded: 'PeerOrg1',
-    action: "unblock"
-  },
-  {
-    name: 'doe@gmail.com',
-    dateAdded: 'PeerOrg1',
-    action: "block"
-  }
-
-];
 
 @Component({
   selector: 'app-add-members-certificates',
@@ -37,48 +20,72 @@ export class AddMembersCertificatesComponent implements OnInit {
 
   title: string;
   name: string;
-  certificate:string;
-    
+  certificate: string;
+  users: Array<Object> = [];
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-
-  constructor(
-    public dialog: MatDialog,
-    private snackBar: MatSnackBar
-    ) { }
   displayedColumns: string[] = [
-    'name',
-    'dateAdded',
+    'id',
+    'type',
+    'affiliation',
     'action'
   ];
-  
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
-
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private userService: UserService
+  ) { }
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.getAllUsers();
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddMemberCertificatesDialogComponent, {
       width: '50%',
-      data: {  
+      data: {
         title: this.title,
         name: this.name,
-        certificate:this.certificate
+        certificate: this.certificate
 
-       }
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
     });
+  }
+
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe(
+      res => {
+        const response = res.valueOf();
+        if (response['success']) {
+          response['result'].forEach(identity => {
+            this.users.push(
+              {
+                id: identity.id,
+                type: identity.type,
+                affiliation: identity.affiliation,
+              }
+            );
+          });
+          this.dataSource.data = this.users;
+          this.dataSource._updateChangeSubscription();
+        } else {
+          this.dataSource.data = [];
+        }
+      },
+      err => { console.log(err); }
+    );
   }
 
   openSnackBarCertificate() {

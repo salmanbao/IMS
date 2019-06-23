@@ -1,17 +1,3 @@
-<mat-toolbar color="primary">
-        <mat-toolbar-row>
-    <button mat-icon-button   fxShow="true" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>IMS</span>
-        <span class="menu-spacer"></span>
-        <div fxShow="true" fxHide.lt-md>
-            
-            <a routerLink="/login" mat-button>Login</a>
-        </div>
-    </mat-toolbar-row>
-</mat-toolbar>
-
 <div fxLayout="row">
     <mat-drawer-container>
         <mat-drawer #snav [mode]="'side'">
@@ -43,8 +29,11 @@
                             </mat-form-field>
                         </p>
 
-                        <p *ngIf="error" class="error">
-                            {{ error }}
+                        <p>
+                            <mat-form-field>
+                                <mat-label>Organization Name</mat-label>
+                                <input matInput [type]="text" formControlName="orgName">
+                            </mat-form-field>
                         </p>
 
                         <div class="button">

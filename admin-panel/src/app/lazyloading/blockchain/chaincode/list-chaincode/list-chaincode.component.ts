@@ -39,18 +39,14 @@ export class ListChaincodeComponent implements OnInit {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatSort) sort: MatSort;
   constructor(
     private peerService: PeerService,
     private chaincodeService: ChaincodeService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar
   ) { }
-
-  dataSource = new MatTableDataSource();
-
-  @ViewChild(MatSort) sort: MatSort;
-
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.loadPeers();
@@ -101,7 +97,6 @@ export class ListChaincodeComponent implements OnInit {
       if (typeof result !== 'undefined') {
         this.openSnackBar(result.message);
       }
-
     });
   }
 
@@ -120,7 +115,7 @@ export class ListChaincodeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (typeof result !== 'undefined') {
-        this.openSnackBar('Successfully Initiated');
+        this.openSnackBar(result);
       }
     });
   }
