@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { AddMemberCertificatesDialogComponent } from './add-member-certificates-dialog/add-member-certificates-dialog.component';
 import { UserService } from 'app/services/user.service';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 
 export interface PeriodicElement {
@@ -36,7 +37,8 @@ export class AddMembersCertificatesComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private userService: UserService
+    private userService: UserService,
+    private auth: AuthenticationService
   ) { }
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -88,16 +90,56 @@ export class AddMembersCertificatesComponent implements OnInit {
     );
   }
 
-  openSnackBarCertificate() {
-    this.snackBar.open('Certificate has been revoked', 'Close', {
-      duration: 1000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
+  revokeUser(revokedUser) {
+    const user = this.auth.getUser();
+    user.revokeUser = revokedUser;
+    this.userService.revokeUser(user).subscribe(
+      res => {
+        console.log(res);
+        if (res['success']) {
+          if (res['result'].RevokedCerts !== null) {
+            this.openSnackBarCertificate('Successfully revoked');
+          } else {
+            this.openSnackBarCertificate('Already revoked');
+          }
+        } else {
+          this.openSnackBarCertificate(res['message']);
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-  openSnackBarSyncCertificate() {
-    this.snackBar.open('Certificate has been synchronized', 'Close', {
+  reEnroll(enrollUser) {
+    const user = this.auth.getUser();
+    user.enrollUser = enrollUser;
+    this.userService.enrollUser(user).subscribe(
+      res => {
+        this.openSnackBarCertificate(res['message'])
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  deleteUser(removeUser) {
+    const user = this.auth.getUser();
+    user.removeUser = removeUser;
+    this.userService.removeUser(user).subscribe(
+      res => {
+        if (res['success']) {
+          this.openSnackBarCertificate('Successfully deleted user');
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  openSnackBarCertificate(msg) {
+    this.snackBar.open(msg, 'Close', {
       duration: 1000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

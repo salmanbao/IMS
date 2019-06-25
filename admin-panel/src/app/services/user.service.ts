@@ -19,4 +19,14 @@ export class UserService {
   getAdminCert() {
     return this.http.get(this.baseUrl + 'getAdminCert')
   }
+  revokeUser(user) {
+    return this.http.post(this.baseUrl + 'revoke', user);
+  }
+  enrollUser(user) {
+    return this.http.post(this.baseUrl + 'reenroll', user);
+  }
+
+  removeUser(user) {
+    return this.http.post(this.baseUrl + 'delete', user);
+  }
 }

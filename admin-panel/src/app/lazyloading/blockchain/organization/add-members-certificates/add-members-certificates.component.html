@@ -34,13 +34,17 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="openSnackBarCertificate()" >
+              <button mat-menu-item (click)="revokeUser(element.id)" >
                 <mat-icon svgIcon="square-edit-outline"></mat-icon>
-                <span>Revok</span>
+                <span>Revoke</span>
               </button>
-              <button mat-menu-item (click)="openSnackBarSyncCertificate()">
+              <button mat-menu-item (click)="reEnroll(element.id)">
                 <mat-icon svgIcon="sync"></mat-icon>
                 <span>Reenroll</span>
+              </button>
+              <button mat-menu-item (click)="deleteUser(element.id)">
+                <mat-icon svgIcon="sync"></mat-icon>
+                <span>Delete</span>
               </button>
             </mat-menu>
         </td>

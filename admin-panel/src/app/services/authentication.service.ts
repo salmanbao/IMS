@@ -16,6 +16,7 @@ export class AuthenticationService {
                 console.log('Authentication service:', user);
                 if (user && user.token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('profile', JSON.stringify({ username: username, orgName: orgName }));
                 }
                 return user;
             }));
@@ -29,6 +30,9 @@ export class AuthenticationService {
         }
         return false;
     }
-
+    getUser() {
+        const user = JSON.parse(localStorage.getItem('profile'));
+        return user;
+    }
 
 }

@@ -161,7 +161,7 @@ app.post('/register', async function (req, res) {
     logger.debug('role : ' + role);
     logger.debug('affiliation  : ' + affiliation);
     logger.debug('isJson  : ' + isJson);
-    var response = await users.register(username, orgname, password, role, affiliation,attributes, isJson);
+    var response = await users.register(username, orgname, password, role, affiliation, attributes, isJson);
     res.send(response);
 });
 // POST to login 
@@ -699,23 +699,45 @@ app.post('/addAffiliation', async function (req, res) {
 app.post('/revoke', async function (req, res) {
     try {
         var orgname = req.body.orgName;
-    var username = req.body.username;
-    var revokeUser = req.body.revokeUser;
-    var result = await users.revokeUserCertificate(orgname,username,revokeUser);
-    console.log(result)
-    res.send(result);
+        var username = req.body.username;
+        var revokeUser = req.body.revokeUser;
+        var result = await users.revokeUserCertificate(orgname, username, revokeUser);
+        res.send(result);
     } catch (error) {
-        console.log(error);
+        console.log('Error' + error);
         return error;
     }
-    
+});
+// POST to delete identity
+app.post('/delete', async function (req, res) {
+    var orgname = req.body.orgName;
+    var username = req.body.username;
+    var removeUser = req.body.removeUser;
+    logger.debug('Username' + username);
+    logger.debug('Org '+ orgname);
+    logger.debug('Delete User '+ removeUser);
+    var result = await users.removeUser(orgname, username,removeUser);
+    res.send(result);
+
+});
+// POST to re-enroll
+app.post('/reenroll', async function (req, res) {
+    var orgname = req.body.orgName;
+    var username = req.body.username;
+    var enrollUser = req.body.enrollUser;
+    logger.debug('Username' + username);
+    logger.debug('Org '+ orgname);
+    logger.debug('Re-enroll User '+ enrollUser);
+    var result = await users.reEnroll(orgname, username,enrollUser);
+    res.send(result);
 
 });
 // POST to get CRL
 app.post('/crl', async function (req, res) {
     var orgname = req.body.orgName;
     var username = req.body.username;
-    var result = await users.CRL(orgname,username);
+    var result = await users.CRL(orgname, username);
     res.send(result);
 
 });
+

@@ -1,8 +1,10 @@
 var helper = require('./helper.js');
+var X509 = require('x509');
 var hfc = require('fabric-client');
 var jwt = require('jsonwebtoken');
+var Client = require('fabric-ca-client');
 var logger = helper.getLogger('Users');
-var ca = require('fabric-ca-client');
+
 var { HFCAIdentityAttributes, HFCAIdentityType } = require('fabric-ca-client/lib/IdentityService')
 
 var Attributes = {
@@ -54,7 +56,11 @@ var register = async function (username, orgname, password, role, affiliation, a
             role: Roles[role]
         }, adminUserObj);
         // Step # 3
-        var enrollment = await caClient.enroll({ enrollmentID: username, enrollmentSecret: secret });
+        var enrollment = await caClient.enroll({
+            enrollmentID: username,
+            enrollmentSecret: secret,
+            attr_reqs:roles
+        });
         var user = await client.createUser(
             {
                 username: username,
@@ -172,11 +178,23 @@ var revokeUserCertificate = async function (orgname, user, revokeUser) {
     var response = {};
     try {
         var client = await helper.getClientForOrg(orgname);
-        var registrar = await client.getUserContext(user, true);
         var caClient = client.getCertificateAuthority();
-        var result = await caClient.revoke({ enrollmentID: revokeUser }, registrar);
+        var registrar = await client.getUserContext(user, true);
+        var member = await client.getUserContext(revokeUser, true);
+        //Get certificate
+        var certificate = String(member.getIdentity()._certificate);
+        //Normalize and parse/decode certificate
+        var normalizeCertificate = X509.parseCert(Client.normalizeX509(certificate));
+        var akiString = normalizeCertificate.extensions.authorityKeyIdentifier;
+        var aki = akiString.slice(akiString.indexOf(':') + 1);
+        var result = await caClient.revoke({
+            enrollmentID: revokeUser,
+            aki: aki,
+            serial: normalizeCertificate.serial
+        }, registrar);
         response.success = result.success;
         response.result = result.result;
+        response.certificate = certificate;
         return response;
     } catch (error) {
         response.success = false;
@@ -191,25 +209,74 @@ var revokeUserCertificate = async function (orgname, user, revokeUser) {
 */
 
 var CRL = async function (orgname, user) {
-    var response = {};
     var date = new Date();
     try {
         var client = await helper.getClientForOrg(orgname);
         var registrar = await client.getUserContext(user, true);
         var caClient = client.getCertificateAuthority();
         var result = await caClient.generateCRL({
-            revokedBefore:date
+            revokedBefore: date
         }, registrar);
-        console.log(result);
+        logger.debug(result);
         return result;
     } catch (error) {
-        console.log(error)
+        logger.debug(error);
         return error;
     }
 }
 
+/**
+* @param {string} orgname organization name.
+* @param {string} user username.
+* @returns {Object} The object instance.
+* Only enrolled members can be reenrolled
+* Revoked members cannot reenrolled again
+*/
+
+var reEnroll = async function (orgname, user, enrollUser) {
+    var response = {};
+    try {
+        var client = await helper.getClientForOrg(orgname);
+        var member = await client.getUserContext(enrollUser, true);
+        var caClient = client.getCertificateAuthority();
+        var result = await caClient.reenroll(member);
+        if(result['certificate']){
+            response.success = true;
+            response.message = 'Successfully Enrolled';
+        }
+        return response;
+    } catch (error) {
+        response.success = false;
+        response.message = helper.parseError(error).message;;
+        return response;
+    }
+}
+
+/**
+* @param {string} orgname organization name.
+* @param {string} user username.
+* @returns {Object} The object instance.
+*/
+
+var removeUser = async function (orgname, user, removeUser) {
+    try {
+        var client = await helper.getClientForOrg(orgname);
+        var member = await client.getUserContext(user, true);
+        var caClient = client.getCertificateAuthority();
+        var idService = await caClient.newIdentityService();
+        var result = await idService.delete(removeUser, member);
+        return result;
+    } catch (error) {
+        logger.debug(error.stack)
+        //logger.debug(helper.parseError(error))
+        return error;
+    }
+}
 exports.register = register;
 exports.login = login;
 exports.getAllUsers = getAllUsers;
 exports.revokeUserCertificate = revokeUserCertificate;
+exports.removeUser = removeUser;
+exports.reEnroll = reEnroll;
 exports.CRL = CRL;
+
