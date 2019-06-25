@@ -6,7 +6,8 @@ var hfc = require('fabric-client');
 var helper = require('./helper.js');
 var logger = helper.getLogger('instantiate-chaincode');
 
-var instantiateChaincode = async function(peers, channelName, chaincodeName, chaincodeVersion, functionName, chaincodeType, args, username, org_name) {
+
+var instantiateChaincode = async function(peers, channelName, chaincodeName, chaincodeVersion,chaincodeType, functionName,  args, username, org_name) {
     logger.debug('\n\n============ Instantiate chaincode on channel ' + channelName +
         ' ============\n');
     var error_message = null;
@@ -27,7 +28,6 @@ var instantiateChaincode = async function(peers, channelName, chaincodeName, cha
         // be used to sign the proposal request.
         // will need the transaction ID string for the event registration later
         var deployId = tx_id.getTransactionID();
-
         // send proposal to endorser
         var request = {
             targets: peers,

@@ -60,9 +60,24 @@ var installChaincode = async function (peers, chaincodeName, chaincodePath,
         logger.error('Failed to install due to error: ' + error.stack ? error.stack : error);
         error_message = error.toString();
     }
-
-    if (!error_message) {
-        let message = util.format('Successfully install chaincode');
+    try {
+        if (!error_message) {
+            let message = util.format('Successfully install chaincode');
+            logger.info(message);
+            // build a response to send back to the REST caller
+            let response = {
+                success: true,
+                message: message
+            };
+            return response;
+        } else {
+            let message = util.format('Failed to install due to:%s', error_message);
+            logger.error(message);
+            throw new Error(message);
+        }
+    } catch (error) {
+        logger.error('Failed to install due to error: ' + error.stack ? error.stack : error);
+        let message = util.format('Failed due to chaincode misconfiguration');
         logger.info(message);
         // build a response to send back to the REST caller
         let response = {
@@ -70,10 +85,7 @@ var installChaincode = async function (peers, chaincodeName, chaincodePath,
             message: message
         };
         return response;
-    } else {
-        let message = util.format('Failed to install due to:%s', error_message);
-        logger.error(message);
-        throw new Error(message);
     }
+
 };
 exports.installChaincode = installChaincode;

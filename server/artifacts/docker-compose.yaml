@@ -19,7 +19,7 @@ services:
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/0e729224e8b3f31784c8a93c5b8ef6f4c1c91d9e6e577c45c33163609fe40011_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --cfg.identities.allowremove --cfg.affiliations.allowremove -b admin:adminpw -d'
     volumes:
       - ./channel/crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerOrg1
@@ -179,17 +179,19 @@ services:
       - COUCHDB_PASSWORD=
     ports:
       - 5984:5984
-  #client:
-   # container_name: backenfrontend
-    #build: ../../frontend/
-    #ports: 
-     # - 4200:4200
-    #depends_on:
-     # - ca.org1.example.com
-      #- ca.org2.example.com
-      #- orderer.example.com
-      #- peer0.org1.example.com
-      #- peer1.org1.example.com
-      #- peer0.org2.example.com
-      #- peer1.org2.example.com
-      #- couchdb
+  # client:
+  #   container_name: serverui
+  #   build:
+  #     context: ../../admin-panel/
+  #   image: serverui
+  #   ports: 
+  #    - 4200:80
+  #   depends_on:
+  #     - ca.org1.example.com
+  #     - ca.org2.example.com
+  #     - orderer.example.com
+  #     - peer0.org1.example.com
+  #     - peer1.org1.example.com
+  #     - peer0.org2.example.com
+  #     - peer1.org2.example.com
+  #     - couchdb

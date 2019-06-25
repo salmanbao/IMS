@@ -1,8 +1,19 @@
 ##Register User
-http://localhost:4000/users
+http://localhost:4000/login
 {
 	"username":"bao",
+	"password":"salman",
 	"orgName":"Org1"
+} 
+
+## Login
+http://localhost:4000/register
+{
+	"username":"bao",
+	"password":"salman"
+	"orgName":"Org1",
+	"role":"User",
+	"affiliation":"ims"
 } 
 
 ##Create Channel
@@ -112,4 +123,8 @@ http://localhost:4000/chaincodes/:channel?peer=peer0.org1.example.com
 
 ## Query to get BlockCount on a channel
 http://localhost:4000/channels/:channelName/height?peer=peer0.org1.example.com
+{}
+
+## Query to get All Users
+http://localhost:4000/getAllUsers
 {}

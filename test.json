@@ -1,0 +1,34 @@
+"no error"   "HF REGISTRAR ATTRIBUTES"
+"no error"   "HF REGISTRAR ROLES" 
+"no error"   "HF REVOKER"
+"no error"   "HFINTERMEDIATECA"
+"no error"   "HF GEN CRL"
+"no error"   "HF GEN CRL"
+
+
+
+"already registered user"  [[{"code":0,"message":"Registration of 'noman' failed: Identity 'noman' is already registered"}]]
+
+
+"HF REGISTRAR DELEGATE ROLES"    [[{"code":71,"message":"Authorization failure"}]]
+"HF REGISTRAR DELEGATE ROLES"   [[{"code":71,"message":"Authorization failure"}]]
+"HF REGISTRAR ATTRIBUTES","HF REGISTRAR DELEGATE ROLES"     [[{"code":71,"message":"Authorization failure"}]] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

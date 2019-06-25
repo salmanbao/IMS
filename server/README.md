@@ -6,9 +6,9 @@
 3. Launch the Node.js application (Rest Server wrapper of top of the NodeSDK API)
 4. Create the channel myChannel
 5. Install and instantiate the auction chaincode
-6. Invoke a transaction where the Node.js app transforms a base 64 encrypted image into a string format
+6. Invoke a transactions.
 7. Store the encrypted image image on the Blockchain ledger
-8. Query ledger to get the image data by its imageID and save the image as a Thumbnail in a public folder
+8. Query ledger to get data.
 
 <!--Update this section-->
 ## Prerequisites
@@ -29,7 +29,7 @@ nvm use 8.9.0
 
 <!--Update this section-->
 ## Included components
-* [Hyperledger Composer v0.19.4](https://hyperledger.github.io/composer/latest/) Hyperledger Composer is an extensive, open development toolset and framework to make developing blockchain applications easier
+
 * [Hyperledger Fabric v1.1](https://hyperledger-fabric.readthedocs.io) Hyperledger Fabric is a platform for distributed ledger solutions, underpinned by a modular architecture delivering high degrees of confidentiality, resiliency, flexibility and scalability.
 
 <!--Update this section-->

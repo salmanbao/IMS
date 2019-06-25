@@ -1,12 +1,12 @@
-var path = require('path');
-var fs = require('fs');
-
-var util = require('util');
-var hfc = require('fabric-client');
-var Peer = require('fabric-client/lib/Peer.js');
-var EventHub = require('fabric-client/lib/ChannelEventHub.js');
 var helper = require('./helper.js');
-var logger = helper.getLogger('Chaincode');
+
+/**
+*
+* @param {string} peer peer name.
+* @param {string} org organization name.
+* @param {string} channelName channel name 
+* @returns {Object} The response object contains message , log , installed , initiated .
+*/
 
 var getInstalledChaincodes = async function (peer, org, channelName) {
     var target = await helper.buildTarget(peer, org);
@@ -16,49 +16,81 @@ var getInstalledChaincodes = async function (peer, org, channelName) {
         .then((installedCC) => {
             return installedCC;
         })
-        .then((installedCC) => {
-            let initiatedCC = channel.queryInstantiatedChaincodes(target, true);
-            let CC = [];
-            initiatedCC.then((cc) => {
-                CC = cc;
-            })
+        .catch((err) => {
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
+        })
+        .then(async (installedCC) => {
+            const CC = await channel.queryInstantiatedChaincodes(target, true);
             return {
                 installed: installedCC,
                 initiated: CC
             };
         })
+        .catch((err) => {
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
+        })
         .then((response) => {
             if (response) {
-                var installed = [];
-                var initiated = response.initiated;
-                console.log(response);
-                for (let i = 0; i < response.installed.chaincodes.length; i++) {
-                    // logger.debug('name: ' + response.installed.chaincodes[i].name + ', version: ' +
-                    //     response.installed.chaincodes[i].version + ', path: ' + response.installed.chaincodes[i].path
-                    // );
-                    installed.push({
-                        name: response.installed.chaincodes[i].name,
-                        version: response.installed.chaincodes[i].version,
-                        path: response.installed.chaincodes[i].path,
-                        status: 'Installed'
-                    });
+                var installedCC = [];
+                var initiatedCC = [];
+                if (response.installed.chaincodes.length > 0) {
+                    for (let i = 0; i < response.installed.chaincodes.length; i++) {
+                        installedCC.push({
+                            name: response.installed.chaincodes[i].name,
+                            version: response.installed.chaincodes[i].version,
+                            path: response.installed.chaincodes[i].path,
+                            status: 'Installed'
+                        });
+                    }
                 }
+                if (response.initiated.chaincodes.length) {
+                    for (let i = 0; i < response.initiated.chaincodes.length; i++) {
+                        initiatedCC.push({
+                            name: response.initiated.chaincodes[i].name,
+                            version: response.initiated.chaincodes[i].version,
+                            path: response.initiated.chaincodes[i].path,
+                            status: 'Initiated'
+                        });
+                    }
+                }
+
                 return {
                     message: true,
-                    installed: installed,
-                    initiated: initiated
+                    installed: installedCC,
+                    initiated: initiatedCC
                 }
             } else {
-                logger.error('response is null');
-                return 'response is null';
+                return {
+                    message: true,
+                    log: 'null response from chaincode query',
+                    installed: [],
+                    initiated: []
+                }
             }
         }, (err) => {
-            logger.error('Failed to send query due to error: ' + err.stack ? err.stack :
-                err);
-            return 'Failed to send query due to error: ' + err.stack ? err.stack : err;
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
         }).catch((err) => {
-            logger.error('Failed to query with error:' + err.stack ? err.stack : err);
-            return 'Failed to query with error:' + err.stack ? err.stack : err;
+            return {
+                message: true,
+                log: err,
+                installed: [],
+                initiated: []
+            }
         });
 };
 

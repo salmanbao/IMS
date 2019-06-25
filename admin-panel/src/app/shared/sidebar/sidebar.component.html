@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button (click)="snav.toggle()" fxShow="true" fxHide.gt-sm *ngIf="auth.isLogged();">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>IMS</span>
+            <span class="menu-spacer"></span>
+            <div fxShow="true" fxHide.lt-md *ngIf="auth.isLogged();">
+                <a (click)='logout()' mat-button>Logout</a>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    
+    <div fxLayout="row">
+        <mat-drawer-container>
+            <mat-drawer #snav [mode]="'side'">
+                <mat-nav-list *ngIf="auth.isLogged();">
+                    <a mat-list-item [routerLink]="[nav.path]" *ngFor="let nav of menuItems">
+                        <mat-icon color="primary">fingerprint</mat-icon>
+                        {{nav.title}}
+                    </a>
+                </mat-nav-list>
+            </mat-drawer>
+    
+            <mat-drawer-content>
+                <router-outlet></router-outlet>
+                <div>
+                    <app-footer></app-footer>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    
+    </div>

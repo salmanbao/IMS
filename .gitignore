@@ -8,16 +8,20 @@
 # dependencies
 chaincode/node_modules
 chaincode/package-lock.json
-frontend/node_modules
-frontend/package-lock.json
-Lib/node_modules
-Lib/package-lock.json
+admin-panel/node_modules
+admin-panel/package-lock.json
+user-panel/frontend/node_modules
+user-panel/frontend/package-lock.json
+user-panel/server/node_modules
+user-panel/server/package-lock.json
+chaincodes/
 server/node_modules
 server/package-lock.json
 server/artifacts/src/github.com/nationalid/node_modules
 server/artifacts/src/github.com/birthcertificate/node_modules
 explorer/node_modules
 explorer/client/node_modules
+
 
 
 # IDEs and editors
