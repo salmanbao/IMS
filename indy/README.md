@@ -1,29 +1,3 @@
-# Hyperledger Indy Agent Demonstration
-
-This folder contains a demonstration of basic Hyperledger Indy Agents. The agents provide a web browser interface to show establishing relationships between agents, issuing Verifiable Credentials, and proving claims from Verifiable Credentials.
-
-To learn more about Hyperledger Indy, see the project wiki - https://wiki.hyperledger.org/projects/indy.
-
-This demo is used as an exercise for those taking the Hyperledger Project's EdX  [Blockchain for Business](https://www.edx.org/course/blockchain-business-introduction-linuxfoundationx-lfs171x-0) course.
-
-Once you have the demo started, this **[Agent Demo Script](AgentDemoScript.md)** guides you through the scenario of Alice using Hyperledger Indy to get her transcripts from Faber College and then using them to apply for a job with Acme Corp.
-
-[Click here](https://youtu.be/9WZxlrGMA3s) to view a short screencast of the demo.
-
-## Credits
-
-The code for this demonstration was initially written by Spencer Holman and Matthew Hailstone of Brigham Young University. Carol Howard created the documentation for the demonstration.
-
-## Running in your Browser or on Local Machine
-
-This demo can be run in a terminal using just a browser , or if you are more technically inclined, you can run it on your local machine. In the following sections, there is a sub-section for `In Browser` and `Local Machine`, depending on how you want to run the demo.
-
-## Prerequisites
-
-### In Browser
-
-The only prequisite (other than a browser) is an account with [Docker Hub](https://hub.docker.com). Docker Hub is the "Play Store" for the [Docker](https://docker.com) ecosystem.
-
 ### Local Machine
 
 To run this Indy Agent demonstration on your local machine, you must have the following installed:

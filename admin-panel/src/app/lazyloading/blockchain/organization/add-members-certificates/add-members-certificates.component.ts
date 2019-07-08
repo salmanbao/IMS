@@ -71,6 +71,7 @@ export class AddMembersCertificatesComponent implements OnInit {
       res => {
         const response = res.valueOf();
         if (response['success']) {
+          this.users = [];
           response['result'].forEach(identity => {
             this.users.push(
               {
@@ -130,6 +131,7 @@ export class AddMembersCertificatesComponent implements OnInit {
     this.userService.removeUser(user).subscribe(
       res => {
         if (res['success']) {
+          this.getAllUsers();
           this.openSnackBarCertificate('Successfully deleted user');
         }
       },

@@ -4,7 +4,7 @@
   "description": "user panel server side",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "node app"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",

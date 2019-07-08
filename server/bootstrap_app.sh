@@ -54,7 +54,8 @@ function downloaFabricImages(){
 
 # Download v1.2 docker images
 downloaFabricImages
-
+docker container prune
+docker volume prune
 #Restart the network each time you start application
 restartNetwork
 

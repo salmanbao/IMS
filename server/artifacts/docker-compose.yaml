@@ -178,11 +178,35 @@ services:
       - COUCHDB_USER=
       - COUCHDB_PASSWORD=
     ports:
-      - 5984:5984
+      - 5984:5984  
+  # mongo:
+  #   image: mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8082:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: password
+
+  # userServer:
+  #   container_name: userserver
+  #   build:
+  #     context: ./../../user-panel/server
+  #   image: userserver
+  #   # ports: 
+  #   #  - 8090:8080
+
   # client:
   #   container_name: serverui
   #   build:
-  #     context: ../../admin-panel/
+  #     context: ../../admin-panel
   #   image: serverui
   #   ports: 
   #    - 4200:80
@@ -195,3 +219,5 @@ services:
   #     - peer0.org2.example.com
   #     - peer1.org2.example.com
   #     - couchdb
+  #     - mongo
+  #     - mongo-express

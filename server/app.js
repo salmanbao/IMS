@@ -601,7 +601,6 @@ app.get('/caservice', async function (req, res) {
     logger.debug('==================== Testing ==================');
     try {
         var client = await helper.getClientForOrg(req.orgname);
-        logger.debug('Successfully initialized the credential stores');
         var ca = client.getCertificateAuthority();
         res.send({
             name: ca._name,

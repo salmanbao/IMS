@@ -47,14 +47,22 @@
                     <%for(let relationship of relationships) {%>
                         <option value="<%=relationship.their_did%>"><%=relationship.metadata.name%></option>
                     <%}%>
+                    <option value="_self_">Self</option>
                 </select>
                 <br><br>
                 <label>Select a Credential Definition:</label>
-                <select class="w3-select" name="cred_def_id" required>
+                <select class="w3-select" name="cred_def_id" id="currentCredentialDefinition" required onchange="showDiv(this.value, 'credentialDataClass')">
                     <%for(let credDef of credentialDefinitions) {%>
                         <option value="<%=credDef.id%>"><%=credDef.tag%></option>
                     <%}%>
                 </select>
+                <br><br>
+                <label>Please supply a JSON object of attribute names and values:</label><br><br>
+                <%for(let credDef of credentialDefinitions) {%>
+                <div id="<%=credDef.id%>" class="credentialDataClass" style="width:100%;display:none;">
+                    <textarea style="height:220px;" class="w3-input" name="cred_data" required><%=JSON.stringify(credDef.credentialData)%></textarea>
+                </div>
+                <%}%>
                 <br><br>
                 <input class="w3-btn w3-white w3-border" type="submit">
             </form>

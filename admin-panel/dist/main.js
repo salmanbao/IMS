@@ -798,6 +798,7 @@ var AuthenticationService = /** @class */ (function () {
             console.log('Authentication service:', user);
             if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('profile', JSON.stringify({ username: username, orgName: orgName }));
             }
             return user;
         }));
@@ -810,6 +811,10 @@ var AuthenticationService = /** @class */ (function () {
             return true;
         }
         return false;
+    };
+    AuthenticationService.prototype.getUser = function () {
+        var user = JSON.parse(localStorage.getItem('profile'));
+        return user;
     };
     AuthenticationService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1241,6 +1246,15 @@ var UserService = /** @class */ (function () {
     };
     UserService.prototype.getAdminCert = function () {
         return this.http.get(this.baseUrl + 'getAdminCert');
+    };
+    UserService.prototype.revokeUser = function (user) {
+        return this.http.post(this.baseUrl + 'revoke', user);
+    };
+    UserService.prototype.enrollUser = function (user) {
+        return this.http.post(this.baseUrl + 'reenroll', user);
+    };
+    UserService.prototype.removeUser = function (user) {
+        return this.http.post(this.baseUrl + 'delete', user);
     };
     UserService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({

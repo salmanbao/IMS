@@ -45,7 +45,7 @@ exports.createEndpointDid = async function () {
     await indy.pool.setEndpointForDid(endpointDid, config.endpointDidEndpoint);
     await indy.crypto.createMasterSecret();
 
-    await issueGovernmentIdCredential();
+    //await issueGovernmentIdCredential();
 };
 
 exports.setEndpointDidAttribute = async function (attribute, item) {
@@ -103,47 +103,48 @@ async function setupSteward() {
     [stewardDid, stewardKey] = await sdk.createAndStoreMyDid(stewardWallet, stewardDidInfo);
 
 }
+ 
+// async function issueGovernmentIdCredential() {
+//     let schemaName = 'Government-ID';
+//     let schemaVersion = '1.1';
+//     let signatureType = 'CL';
+//     let govIdSchema;
+//     let govIdSchemaId = `${stewardDid}:2:${schemaName}:${schemaVersion}`;
+//     try {
+//         govIdSchema = await indy.issuer.getSchema(govIdSchemaId);
+//     } catch(e) {
+//         [govIdSchemaId, govIdSchema] = await sdk.issuerCreateSchema(stewardDid, schemaName, schemaVersion, [
+//             'name',
+//             'email',
+//             'tax_id'
+//         ]);
 
-async function issueGovernmentIdCredential() {
-    let schemaName = 'Government-ID';
-    let schemaVersion = '1.1';
-    let signatureType = 'CL';
-    let govIdSchema;
-    let govIdSchemaId = `${stewardDid}:2:${schemaName}:${schemaVersion}`;
-    try {
-        govIdSchema = await indy.issuer.getSchema(govIdSchemaId);
-    } catch(e) {
-        [govIdSchemaId, govIdSchema] = await sdk.issuerCreateSchema(stewardDid, schemaName, schemaVersion, [
-            'name',
-            'email',
-            'tax_id'
-        ]);
+//         await indy.issuer.sendSchema(await indy.pool.get(), stewardWallet, stewardDid, govIdSchema);
+//         govIdSchema = await indy.issuer.getSchema(govIdSchemaId);
+//     }
 
-        await indy.issuer.sendSchema(await indy.pool.get(), stewardWallet, stewardDid, govIdSchema);
-        govIdSchema = await indy.issuer.getSchema(govIdSchemaId);
-    }
+//     let govIdCredDef;
+//     [govIdCredDefId, govIdCredDef] = await sdk.issuerCreateAndStoreCredentialDef(stewardWallet, stewardDid, govIdSchema, 'GOVID', signatureType, '{"support_revocation": false}');
+//     await indy.issuer.sendCredDef(await indy.pool.get(), stewardWallet, stewardDid, govIdCredDef);
 
-    let govIdCredDef;
-    [govIdCredDefId, govIdCredDef] = await sdk.issuerCreateAndStoreCredentialDef(stewardWallet, stewardDid, govIdSchema, 'GOVID', signatureType, '{"support_revocation": false}');
-    await indy.issuer.sendCredDef(await indy.pool.get(), stewardWallet, stewardDid, govIdCredDef);
-
-    exports.setEndpointDidAttribute('govIdCredDefId', govIdCredDefId);
-
-
-    let govIdCredOffer = await sdk.issuerCreateCredentialOffer(stewardWallet, govIdCredDefId);
-    let [govIdCredRequest, govIdRequestMetadata] = await sdk.proverCreateCredentialReq(await indy.wallet.get(), endpointDid, govIdCredOffer, govIdCredDef, await indy.did.getEndpointDidAttribute('master_secret_id'));
+//     exports.setEndpointDidAttribute('govIdCredDefId', govIdCredDefId);
 
 
-    let govIdValues = {
-        name: {"raw": config.userInformation.name, "encoded": indy.credentials.encode(config.userInformation.name)},
-        email: {"raw": config.userInformation.email, "encoded": indy.credentials.encode(config.userInformation.email)},
-        tax_id: {"raw": config.userInformation.tax_id, "encoded": indy.credentials.encode(config.userInformation.tax_id)}
-    };
+//     let govIdCredOffer = await sdk.issuerCreateCredentialOffer(stewardWallet, govIdCredDefId);
+//     let [govIdCredRequest, govIdRequestMetadata] = await sdk.proverCreateCredentialReq(await indy.wallet.get(), endpointDid, govIdCredOffer, govIdCredDef, await indy.did.getEndpointDidAttribute('master_secret_id'));
 
-    let [govIdCredential] = await sdk.issuerCreateCredential(stewardWallet, govIdCredOffer, govIdCredRequest, govIdValues);
-    let res = await sdk.proverStoreCredential(await indy.wallet.get(), null, govIdRequestMetadata, govIdCredential, govIdCredDef);
-}
 
-exports.getGovIdCredDefId = async function() {
-    return await exports.getEndpointDidAttribute('govIdCredDefId');
-};
+//     let govIdValues = {
+//         name: {"raw": config.userInformation.name, "encoded": indy.credentials.encode(config.userInformation.name)},
+//         email: {"raw": config.userInformation.email, "encoded": indy.credentials.encode(config.userInformation.email)},
+//         tax_id: {"raw": config.userInformation.tax_id, "encoded": indy.credentials.encode(config.userInformation.tax_id)}
+//     };
+
+//     let [govIdCredential] = await sdk.issuerCreateCredential(stewardWallet, govIdCredOffer, govIdCredRequest, govIdValues);
+//     let res = await sdk.proverStoreCredential(await indy.wallet.get(), null, govIdRequestMetadata, govIdCredential, govIdCredDef);
+// }
+
+// exports.getGovIdCredDefId = async function() {
+//     return await exports.getEndpointDidAttribute('govIdCredDefId');
+// };
+ 

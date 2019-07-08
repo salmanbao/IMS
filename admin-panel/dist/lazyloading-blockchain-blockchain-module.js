@@ -1735,7 +1735,7 @@ var AddMemberCertificatesDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-md-12\">\n  <div class=\"col-md-12\">\n    <mat-form-field>\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search Certificate\">\n    </mat-form-field>\n    <button mat-raised-button class=\"btn btn-danger\" id=\"addMember\" (click)=\"openDialog()\"><mat-icon>add_circle_outline</mat-icon> Add\n      Certificate</button>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8\">\n\n    <!-- ID Column -->\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.id}} </td>\n  </ng-container>\n\n  <!-- Type Column -->\n  <ng-container matColumnDef=\"type\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.type}} </td>\n  </ng-container>\n\n  <!-- Affiliation Column -->\n  <ng-container matColumnDef=\"affiliation\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> AFFILIATION </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.affiliation}} </td>\n  </ng-container>\n\n    <!-- action Column -->\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>\n      <td mat-cell *matCellDef=\"let element\">\n          <button mat-icon-button [matMenuTriggerFor]=\"menu\" aria-label=\"Actions For Certificate\">\n              <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #menu=\"matMenu\">\n              <button mat-menu-item (click)=\"openSnackBarCertificate()\" >\n                <mat-icon svgIcon=\"square-edit-outline\"></mat-icon>\n                <span>Revok</span>\n              </button>\n              <button mat-menu-item (click)=\"openSnackBarSyncCertificate()\">\n                <mat-icon svgIcon=\"sync\"></mat-icon>\n                <span>Reenroll</span>\n              </button>\n            </mat-menu>\n        </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n\n</div>"
+module.exports = "<div class=\"col-md-12\">\n  <div class=\"col-md-12\">\n    <mat-form-field>\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Search Certificate\">\n    </mat-form-field>\n    <button mat-raised-button class=\"btn btn-danger\" id=\"addMember\" (click)=\"openDialog()\"><mat-icon>add_circle_outline</mat-icon> Add\n      Certificate</button>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8\">\n\n    <!-- ID Column -->\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.id}} </td>\n  </ng-container>\n\n  <!-- Type Column -->\n  <ng-container matColumnDef=\"type\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.type}} </td>\n  </ng-container>\n\n  <!-- Affiliation Column -->\n  <ng-container matColumnDef=\"affiliation\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> AFFILIATION </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.affiliation}} </td>\n  </ng-container>\n\n    <!-- action Column -->\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>\n      <td mat-cell *matCellDef=\"let element\">\n          <button mat-icon-button [matMenuTriggerFor]=\"menu\" aria-label=\"Actions For Certificate\">\n              <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #menu=\"matMenu\">\n              <button mat-menu-item (click)=\"revokeUser(element.id)\" >\n                <mat-icon svgIcon=\"square-edit-outline\"></mat-icon>\n                <span>Revoke</span>\n              </button>\n              <button mat-menu-item (click)=\"reEnroll(element.id)\">\n                <mat-icon svgIcon=\"sync\"></mat-icon>\n                <span>Reenroll</span>\n              </button>\n              <button mat-menu-item (click)=\"deleteUser(element.id)\">\n                <mat-icon svgIcon=\"sync\"></mat-icon>\n                <span>Delete</span>\n              </button>\n            </mat-menu>\n        </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n\n</div>"
 
 /***/ }),
 
@@ -1764,6 +1764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _add_member_certificates_dialog_add_member_certificates_dialog_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./add-member-certificates-dialog/add-member-certificates-dialog.component */ "./src/app/lazyloading/blockchain/organization/add-members-certificates/add-member-certificates-dialog/add-member-certificates-dialog.component.ts");
 /* harmony import */ var app_services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var app_services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/services/authentication.service */ "./src/app/services/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1778,11 +1779,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddMembersCertificatesComponent = /** @class */ (function () {
-    function AddMembersCertificatesComponent(dialog, snackBar, userService) {
+    function AddMembersCertificatesComponent(dialog, snackBar, userService, auth) {
         this.dialog = dialog;
         this.snackBar = snackBar;
         this.userService = userService;
+        this.auth = auth;
         this.users = [];
         this.horizontalPosition = 'center';
         this.verticalPosition = 'bottom';
@@ -1835,15 +1838,51 @@ var AddMembersCertificatesComponent = /** @class */ (function () {
             }
         }, function (err) { console.log(err); });
     };
-    AddMembersCertificatesComponent.prototype.openSnackBarCertificate = function () {
-        this.snackBar.open('Certificate has been revoked', 'Close', {
-            duration: 1000,
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,
+    AddMembersCertificatesComponent.prototype.revokeUser = function (revokedUser) {
+        var _this = this;
+        var user = this.auth.getUser();
+        user.revokeUser = revokedUser;
+        this.userService.revokeUser(user).subscribe(function (res) {
+            console.log(res);
+            if (res['success']) {
+                if (res['result'].RevokedCerts !== null) {
+                    _this.openSnackBarCertificate('Successfully revoked');
+                }
+                else {
+                    _this.openSnackBarCertificate('Already revoked');
+                }
+            }
+            else {
+                _this.openSnackBarCertificate(res['message']);
+            }
+        }, function (err) {
+            console.log(err);
         });
     };
-    AddMembersCertificatesComponent.prototype.openSnackBarSyncCertificate = function () {
-        this.snackBar.open('Certificate has been synchronized', 'Close', {
+    AddMembersCertificatesComponent.prototype.reEnroll = function (enrollUser) {
+        var _this = this;
+        var user = this.auth.getUser();
+        user.enrollUser = enrollUser;
+        this.userService.enrollUser(user).subscribe(function (res) {
+            _this.openSnackBarCertificate(res['message']);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    AddMembersCertificatesComponent.prototype.deleteUser = function (removeUser) {
+        var _this = this;
+        var user = this.auth.getUser();
+        user.removeUser = removeUser;
+        this.userService.removeUser(user).subscribe(function (res) {
+            if (res['success']) {
+                _this.openSnackBarCertificate('Successfully deleted user');
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    AddMembersCertificatesComponent.prototype.openSnackBarCertificate = function (msg) {
+        this.snackBar.open(msg, 'Close', {
             duration: 1000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
@@ -1861,7 +1900,8 @@ var AddMembersCertificatesComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"],
-            app_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
+            app_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            app_services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
     ], AddMembersCertificatesComponent);
     return AddMembersCertificatesComponent;
 }());

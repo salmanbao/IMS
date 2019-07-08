@@ -228,6 +228,7 @@ var CRL = async function (orgname, user) {
 /**
 * @param {string} orgname organization name.
 * @param {string} user username.
+* @param {string} enrollUser user you want to re-enroll
 * @returns {Object} The object instance.
 * Only enrolled members can be reenrolled
 * Revoked members cannot reenrolled again
@@ -255,6 +256,7 @@ var reEnroll = async function (orgname, user, enrollUser) {
 /**
 * @param {string} orgname organization name.
 * @param {string} user username.
+* @param {string} removeUser user you want to remove.
 * @returns {Object} The object instance.
 */
 

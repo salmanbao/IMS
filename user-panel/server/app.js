@@ -30,7 +30,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-mongoose.connect(config.dbUrl(), { useMongoClient: true});
+mongoose.connect(config.database, { useMongoClient: true});
 // On Connection
 mongoose.connection.on('connected', () => {
   console.log('Connected to Database '+process.env.ipAddr);

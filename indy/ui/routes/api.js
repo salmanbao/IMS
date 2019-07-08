@@ -34,7 +34,7 @@ router.post('/issuer/create_cred_def', auth.isLoggedIn, async function (req, res
 });
 
 router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (req, res) {
-    await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.cred_def_id);
+    await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.cred_def_id, req.body.cred_data);
     res.redirect('/#issuing');
 });
 
