@@ -72,38 +72,10 @@ The above script **bootstrap_app.sh** performs the following actions:
 
 ### Step 3. Create the Network Channel and Invoke a Transaction
 In another terminal issue the following command from auction directory.
-```
-./quicktest.sh
-```
-The above script **quicktest.sh** performs the following actions:
-* creates a *channel* named **mychannel** & and all the peers on the network *join*s the channel
-* *Installs* & *Instantiates* auction chaincode
-* send an *Invoke transaction*. where Node.js app generates base64 encrypted image in to a string format and sends it to chaincode, then *auction chaincode* stores the image on the Blockchain ledger of the channel *mychannel*.
-* Query chaincode to get the Image data using the imageID, the image will be saved as Thumbnail and saved in `public/images` folder.
 
-You should see similar results from running `quicktest.sh`:
 <p align="center">
 <img src="./readme-images/image-output.png"/>
 </p>
 
 
 * For all the image processing & conversion refer to the Node.js code [here](https://github.com/ChainyardLabs/auction/blob/master/app/saveImageTx.js)
-
-* Storing an image using chaincode, refer the code snippet [here](https://github.com/ChainyardLabs/auction/blob/master/artifacts/src/github.com/auction/auction.go#L138-L168)
-
-* Please check youtube video available here: https://goo.gl/jH1uCQ
-
-
-# Links
-
-* [IBM Blockchain - Marbles demo](https://github.com/IBM-Blockchain/marbles)
-* [Hyperledger Composer](https://hyperledger.github.io/composer/latest/index.html)
-
-
-# Learn more
-
-* **Blockchain Code Patterns**: Enjoyed this Code Pattern? Check out our other [Blockchain Code Patterns](https://developer.ibm.com/code/technologies/blockchain/)
-
-* **Blockchain 101**: Learn why IBM believes that blockchain can transform businesses, industries – and even the world. [Blockchain 101](https://developer.ibm.com/code/technologies/blockchain/)
-
-

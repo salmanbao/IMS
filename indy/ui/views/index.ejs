@@ -224,7 +224,7 @@
             }
 
             function request(url, method, message) {
-                console.log(message);
+                console.log('Checking line');
                 console.log(`${method}ing ${url}: ${message}`);
                 let xhttp = new XMLHttpRequest();
                 xhttp.open(method, url, true);
@@ -253,8 +253,8 @@
                 let xhttp = new XMLHttpRequest();
                 xhttp.open('POST', '/api/proofs/validate', true);
                 xhttp.setRequestHeader('Content-Type', 'application/json');
-                console.log(proof);
-                xhttp.send(JSON.stringify(proof));
+                console.log(JSON.parse(proof));
+                xhttp.send(JSON.stringify({proof:proof}));
                 xhttp.onload = function() {
                     console.log(xhttp);
                     if(xhttp.status === 200) {

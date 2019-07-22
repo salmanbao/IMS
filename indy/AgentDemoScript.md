@@ -1,3 +1,20 @@
+<!----- Conversion time: 5.162 seconds.
+
+Using this Markdown file:
+
+1. Cut and paste this output into your source file.
+2. See the notes and action items below regarding this conversion run.
+3. Check the rendered output (headings, lists, code blocks, tables) for proper
+   formatting and use a linkchecker before you publish this page.
+
+Conversion notes:
+
+* GD2md-html version 1.0β11
+* Sun Sep 16 2018 13:23:06 GMT-0700 (PDT)
+* Source doc: https://docs.google.com/a/cloudcompass.ca/open?id=1KnM8H88REu6arFhqfBAthZttS-QaFGIAjwZwJq5KQsM
+
+----->
+
 # Agent Demo Guide
 
 <!-- TOC depthFrom:1 depthTo:2 orderedList:false updateOnSave:false withLinks:true -->
@@ -131,7 +148,7 @@ Back to our story.  Faber has just set up a Hyperledger Indy Agent that can issu
   This writes the Schema to the Ledger so Faber (and others) can use it. 
 
 
- 
+
 4.  In the Credential Definition window, select a **Schema** (Transcript 1.3), tag it and click **Submit** and wait for the action to complete (which takes a bit…).
 
 |![CreateCredDef](images/CreateCredDef.png "Create Faber Credential Definition")|

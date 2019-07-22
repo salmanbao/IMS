@@ -109,39 +109,6 @@ services:
       - RUST_LOG=${RUST_LOG}
     volumes:
       - node4-data:/home/indy/ledger
-   #
-  # Government
-  #
-  gov:
-    image: indy-agentjs
-    build:
-      context: .
-      dockerfile: agent.dockerfile
-    command: "bash -c 'sleep 10; npm start'"
-    environment:
-      - ICON_SRC=https://maxcdn.icons8.com/Share/icon/Users/person_female1600.png
-      - THEME=DarkGray
-      - PORT=3000
-      - NAME=Government
-      - EMAIL=government@gov.pk
-      - PASSWORD=123
-      - USERNAME=government
-      - PUBLIC_DID_ENDPOINT=173.17.0.110:3000
-      - RUST_LOG=${RUST_LOG}
-      - TEST_POOL_IP=${TEST_POOL_IP}
-    ports:
-      - 3000:3000
-    depends_on:
-      - node1
-      - node2
-      - node3
-      - node4
-    networks:
-      services:
-        ipv4_address: 173.17.0.110
-    volumes:
-      - node1-data:/home/indy/ledger
-      - ./:/home/nodejs
 
   #
   # Agents
@@ -155,12 +122,42 @@ services:
     environment:
       - ICON_SRC=https://maxcdn.icons8.com/Share/icon/Users/person_female1600.png
       - THEME=DarkGray
-      - PORT=3001
+      - PORT=3000
       - NAME=Alice
       - EMAIL=alice@faber.edu
       - PASSWORD=123
       - USERNAME=alice
-      - PUBLIC_DID_ENDPOINT=173.17.0.120:3001
+      - PUBLIC_DID_ENDPOINT=173.17.0.150:3000
+      - RUST_LOG=${RUST_LOG}
+      - TEST_POOL_IP=${TEST_POOL_IP}
+    ports:
+      - 3000:3000
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+    networks:
+      services:
+        ipv4_address: 173.17.0.150
+    volumes:
+      - node1-data:/home/indy/ledger
+    
+  api:
+    image: indy-agentjs
+    build:
+      context: .
+      dockerfile: agent.dockerfile
+    command: "bash -c 'sleep 10; npm start'"
+    environment:
+      - ICON_SRC=https://maxcdn.icons8.com/Share/icon/Users/person_female1600.png
+      - THEME=DarkGray
+      - PORT=3001
+      - NAME=api
+      - EMAIL=alice@faber.edu
+      - PASSWORD=123
+      - USERNAME=api
+      - PUBLIC_DID_ENDPOINT=173.17.0.140:3001
       - RUST_LOG=${RUST_LOG}
       - TEST_POOL_IP=${TEST_POOL_IP}
     ports:
@@ -172,11 +169,9 @@ services:
       - node4
     networks:
       services:
-        ipv4_address: 173.17.0.120
+        ipv4_address: 173.17.0.140
     volumes:
       - node1-data:/home/indy/ledger
-      - ./:/home/nodejs
-
   #
   #
   # bob:
@@ -206,48 +201,46 @@ services:
   #       ipv4_address: 173.17.0.160
   #   volumes:
   #     - node1-data:/home/indy/ledger
-  #     - .:.
 
-  # faber:
-  #   image: indy-agentjs
-  #   command: "bash -c 'sleep 10; npm start'"
-  #   environment:
-  #     - ICON_SRC=https://cdn2.iconfinder.com/data/icons/bubble-education-icons-1/360/School-512.png
-  #     - THEME=OliveDrab
-  #     - PORT=3002
-  #     - NAME=Faber College
-  #     - EMAIL=admin@faber.edu
-  #     - PASSWORD=123
-  #     - USERNAME=faber
-  #     - PUBLIC_DID_ENDPOINT=173.17.0.170:3002
-  #     - RUST_LOG=${RUST_LOG}
-  #     - TEST_POOL_IP=${TEST_POOL_IP}
-  #   ports:
-  #     - 3002:3002
-  #   depends_on:
-  #     - node1
-  #     - node2
-  #     - node3
-  #     - node4
-  #     - alice
-  #   networks:
-  #     services:
-  #       ipv4_address: 173.17.0.170
-  #   volumes:
-  #     - node1-data:/home/indy/ledger
-  #     - .:.
+  umt:
+    image: indy-agentjs
+    command: "bash -c 'sleep 10; npm start'"
+    environment:
+      - ICON_SRC=https://cdn2.iconfinder.com/data/icons/bubble-education-icons-1/360/School-512.png
+      - THEME=OliveDrab
+      - PORT=3002
+      - NAME=UMT
+      - EMAIL=admin@umt.edu
+      - PASSWORD=123
+      - USERNAME=umt
+      - PUBLIC_DID_ENDPOINT=173.17.0.170:3002
+      - RUST_LOG=${RUST_LOG}
+      - TEST_POOL_IP=${TEST_POOL_IP}
+    ports:
+      - 3002:3002
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+      - alice
+    networks:
+      services:
+        ipv4_address: 173.17.0.170
+    volumes:
+      - node1-data:/home/indy/ledger
 
-  # acme:
+  # minitech:
   #   image: indy-agentjs
   #   command: "bash -c 'sleep 10; npm start'"
   #   environment:
   #     - ICON_SRC=https://i.ytimg.com/vi/JUMufld7UcY/maxresdefault.jpg
   #     - THEME=LightSteelBlue
   #     - PORT=3003
-  #     - NAME=Acme Corporation
-  #     - EMAIL=boss@acme.com
+  #     - NAME=Mini Tech
+  #     - EMAIL=admin@minitech.com
   #     - PASSWORD=123
-  #     - USERNAME=acme
+  #     - USERNAME=minitech
   #     - PUBLIC_DID_ENDPOINT=173.17.0.180:3003
   #     - RUST_LOG=${RUST_LOG}
   #     - TEST_POOL_IP=${TEST_POOL_IP}
@@ -264,7 +257,6 @@ services:
   #       ipv4_address: 173.17.0.180
   #   volumes:
   #     - node1-data:/home/indy/ledger
-  #     - .:.
 
   # thrift:
   #   image: indy-agentjs
@@ -293,7 +285,6 @@ services:
   #       ipv4_address: 173.17.0.190
   #   volumes:
   #     - node1-data:/home/indy/ledger
-  #     - .:.
 
 volumes:
   webserver-cli:

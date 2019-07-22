@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <div class="card">
+    <div class="card-body">
+
+      <div class="row">
+          <mat-form-field >
+              <input matInput placeholder="Recipient's Endpoint DID:" [(ngModel)]="data.did" id="did">
+          </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+  <button mat-button class="btn btn-danger" (click)="sendConnectionRequest()" cdkFocusInitial>Send Connection Request</button>
+</div>

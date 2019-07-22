@@ -1,0 +1,74 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12" >
+                <button mat-raised-button (click)="openConnectionBox()" color="primary" style="float: right; margin-top:5px;">
+                    <mat-icon>compare_arrows</mat-icon>Send New Connection Request
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let relation of relationships">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <mat-icon svgIcon="certificate"></mat-icon>
+                        </div>
+                        <p class="card-category">{{relation.metadata.name}}</p>
+                        <small class="card-title">
+                            <button mat-icon-button (click)="selectRelation(relation.metadata.theirEndpointDid)">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                        </small>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">vpn_key</i>
+                            {{relation.metadata.theirEndpointDid}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="isSelected">
+            <div class="offset-lg-4 col-lg-4">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{selected.metadata.name}}</mat-card-title>
+                        <mat-card-subtitle>Public DID: {{selected.metadata.theirEndpointDid}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="http://www.sclance.com/pngs/college-png/college_png_300669.jpg"
+                        alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <p>
+                            <mat-list>
+                                <h3 mat-subheader>Relationship DIDs</h3>
+                                <mat-list-item >
+                                    <mat-icon mat-list-icon>vpn_key</mat-icon>
+                                    <p mat-line>My DID:{{selected.my_did}}</p>
+                                    <p mat-line>Their DID:{{selected.their_did}}</p>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                                <h3 mat-subheader>Proofs</h3>
+                                <mat-list-item *ngFor="let proof of selected.metadata.proofs">
+                                    <mat-icon mat-list-icon>card_membership</mat-icon>
+
+                                    <button mat-button (click)="openProofDetails(proof)">{{proof.request.name}}</button>
+                                    <button mat-button (click)="validate(proof)">Validate
+                                    </button>
+                                    
+                                </mat-list-item>
+                            </mat-list>
+
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+
+                    </mat-card-actions>
+                </mat-card>
+
+            </div>
+        </div>
+    </div>
+</div>

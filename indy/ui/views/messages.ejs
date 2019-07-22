@@ -1,7 +1,7 @@
 <div id="messages" class="tab" style="display:none;">
     <button class="w3-right w3-btn w3-white w3-border" style="margin:15px 20px;" onclick="document.getElementById('newMessageModel').style.display='block'">Send a Message</button>
     <div id="messages" class="" style="display:block;margin:auto;width:50%; height:700px; overflow:scroll;">
-        <%for(var message of messages) {%> 
+        <%for(var message of messages) {%>
         <div class="center w3-padding">
             <div class="w3-card w3-container" >
                 <button class="w3-btn w3-white w3-right" onclick="request('/api/messages/delete', 'POST', JSON.stringify({messageId: '<%=message.id%>'}))"><i class="fa fa-close"></i></button>

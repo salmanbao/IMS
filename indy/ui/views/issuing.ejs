@@ -47,11 +47,10 @@
                     <%for(let relationship of relationships) {%>
                         <option value="<%=relationship.their_did%>"><%=relationship.metadata.name%></option>
                     <%}%>
-                    <option value="_self_">Self</option>
                 </select>
                 <br><br>
                 <label>Select a Credential Definition:</label>
-                <select class="w3-select" name="cred_def_id" id="currentCredentialDefinition" required onchange="showDiv(this.value, 'credentialDataClass')">
+                <select class="w3-select" name="cred_def_id" required  id="currentCredentialDefinition" onchange="showDiv(this.value, 'credentialDataClass')">
                     <%for(let credDef of credentialDefinitions) {%>
                         <option value="<%=credDef.id%>"><%=credDef.tag%></option>
                     <%}%>

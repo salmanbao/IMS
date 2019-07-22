@@ -3,35 +3,46 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+//var bodyParser = require('body-parser');
+const cors = require('cors');
 const logger = require('morgan');
 const config = require('./config');
-
-const indexRouter = require('./ui/routes/index');
-const apiRouter = require('./ui/routes/api');
 const indyHandler = require('./indy/src/handler')({ defaultHandlers: true, eventHandlers: [] }); // () executes the function so that we can potentially have multiple indy handlers;
 // const uiMessageHandlers = require('./ui/uiMessageHandlers');
 // uiMessageHandlers.enableDefaultHandlers(indyHandler);
+const indexRouter = require('./ui/routes/index');
+const apiRouter = require('./ui/routes/api');
+
 
 const app = express();
 
+app.options('*', cors());
+app.use(cors());
+//support parsing of application/json type post data
+//app.use(bodyParser.json({ limit: '10mb', extended: true }));
+//support parsing of application/x-www-form-urlencoded post data
+//app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
+
+
 // view engine setup
-app.set('views', path.join(__dirname, 'ui/views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'ui/views'));
+// app.set('view engine', 'ejs');
 
 const FileStore = require('session-file-store')(session);
-app.use(session({
-    name: `server-session-cookie-id-for-${config.walletName}`,
-    secret: config.sessionSecret,
-    saveUninitialized: true,
-    resave: true,
-    rolling: true,
-    store: new FileStore()
-}));
+// app.use(session({
+//     name: `server-session-cookie-id-for-${config.walletName}`,
+//     secret: config.sessionSecret,
+//     saveUninitialized: true,
+//     resave: true,
+//     rolling: true,
+//     store: new FileStore()
+// }));
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'ui/public')));
 
 app.use('/', indexRouter);

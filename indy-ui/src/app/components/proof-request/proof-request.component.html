@@ -1,0 +1,55 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Request Proof</h4>
+      <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="proofRequest">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Relationship</mat-label>
+              <mat-select formControlName="relation" [(value)]="rel">
+                <mat-option *ngFor="let rel of relationships" [value]="rel.their_did">{{rel.metadata.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Select Proof</mat-label>
+              <mat-select formControlName="proof_request_id" [(value)]="proof" (ngModelChange)="selectProof(proof)">
+                <mat-option *ngFor="let proof of proofs" [value]="proof">{{proof}}</mat-option>
+                <mat-option value="proofRequestOther">Other (Paste Proof Request Here) --></mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isOtherProof">
+          <div class="col-md-12">
+            <mat-form-field>
+              <mat-chip-list matPrefix #chipList>
+                <mat-chip *ngFor="let attr of attributes" (removed)="remove(attr)">
+                  {{attr}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+              <input matInput placeholder="New Attribute" aria-label="Attributes" [matChipInputFor]="chipList"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="isOtherProof">
+            <div class="col-md-12">
+              <mat-form-field class="otherProof">
+                <textarea matInput formControlName="requestedProof" placeholder="Paste Your Proof Here"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        <button mat-raised-button type="submit" (click)="sendProofRequest()" class="btn btn-danger pull-right">Create
+          Schema</button>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>

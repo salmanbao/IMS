@@ -36,7 +36,6 @@ exports.sendOffer = async function (theirDid, credentialDefinitionId, credential
       return indy.crypto.sendAnonCryptedMessage(theirEndpointDid, message);
     }
 };
-
 exports.sendRequest = async function (theirDid, encryptedMessage) {
     let myDid = await indy.pairwise.getMyDid(theirDid);
     let credentialOffer = await indy.crypto.authDecrypt(myDid, encryptedMessage);

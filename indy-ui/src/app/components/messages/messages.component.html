@@ -1,0 +1,51 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <!-- Received Column -->
+          <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Received At</th>
+            <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+          </ng-container>
+
+          <!-- Relationship Column -->
+          <ng-container matColumnDef="relationshipName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Relationship Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.relationshipName}} </td>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+          </ng-container>
+
+          <!-- action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions For Messages">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item  *ngFor="let link of element.links"
+                  (click)="request(link.href, link.method, link.message)">
+                  <mat-icon svgIcon="rotate-3d"></mat-icon>
+                  <span>{{link.name}}</span>
+                </button>
+              </mat-menu>
+
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

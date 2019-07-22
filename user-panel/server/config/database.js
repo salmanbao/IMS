@@ -6,6 +6,6 @@
 //   return 'mongodb://' + str_ip + ':27017/userpanel'
 //   }
 // exports.dbUrl = dbUrl;
-exports.database = 'mongodb://localhost:27017/userpanel'
+exports.database = 'mongodb://root:password@mongo:27017/userpanel'
 exports.secret = 'secret';
 

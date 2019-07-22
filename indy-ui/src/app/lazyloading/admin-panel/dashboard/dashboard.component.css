@@ -1,0 +1,14 @@
+.spinner-margin {
+    margin: 0 10px;
+  }
+  .example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('http://www.sclance.com/pngs/college-png/college_png_300669.jpg');
+    background-size: cover;
+  }
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
