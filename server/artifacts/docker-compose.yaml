@@ -198,42 +198,42 @@ services:
     depends_on: 
       - mongo
 
-  userServer:
-    container_name: userserver
-    build:
-      context: ../../user-panel/server
-    image: userserver
-    # ports: 
-    #  - 8090:8080
-    depends_on: 
-      - mongo
-      - mongo-express
+  # userServer:
+  #   container_name: userserver
+  #   build:
+  #     context: ../../user-panel/server
+  #   image: userserver
+  #   # ports: 
+  #   #  - 8090:8080
+  #   depends_on: 
+  #     - mongo
+  #     - mongo-express
 
-  user-ui:
-    container_name: userui
-    build:
-      context: ../../user-panel/frontend
-    image: userui
-    ports: 
-     - 4300:80
-    depends_on:
-      - userServer
+  # user-ui:
+  #   container_name: userui
+  #   build:
+  #     context: ../../user-panel/frontend
+  #   image: userui
+  #   ports: 
+  #    - 4300:80
+  #   depends_on:
+  #     - userServer
 
-  client:
-    container_name: serverui
-    build:
-      context: ../../admin-panel
-    image: serverui
-    ports: 
-     - 4200:80
-    depends_on:
-      - ca.org1.example.com
-      - ca.org2.example.com
-      - orderer.example.com
-      - peer0.org1.example.com
-      - peer1.org1.example.com
-      - peer0.org2.example.com
-      - peer1.org2.example.com
-      - couchdb
-      - mongo
-      - mongo-express
+  # client:
+  #   container_name: serverui
+  #   build:
+  #     context: ../../admin-panel
+  #   image: serverui
+  #   ports: 
+  #    - 4200:80
+  #   depends_on:
+  #     - ca.org1.example.com
+  #     - ca.org2.example.com
+  #     - orderer.example.com
+  #     - peer0.org1.example.com
+  #     - peer1.org1.example.com
+  #     - peer0.org2.example.com
+  #     - peer1.org2.example.com
+  #     - couchdb
+  #     - mongo
+  #     - mongo-express

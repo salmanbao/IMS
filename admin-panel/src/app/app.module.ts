@@ -26,9 +26,6 @@ import { PeerService } from './services/peer.service';
 import { UserService } from './services/user.service';
 import { RedirectGuard } from './guards/redirect.guard';
 import { SharedModule } from './shared/shared.module';
-import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.component';
-
-
 
 @NgModule({
   imports: [
@@ -42,9 +39,6 @@ import { AdminLayoutComponent } from './lazyloading/admin-panel/admin-layout.com
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
     SharedModule
   ],
   exports: [

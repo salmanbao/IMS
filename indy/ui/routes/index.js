@@ -36,7 +36,6 @@ router.get('/' ,async function (req, res) {
     let credentials = await indy.credentials.getAll();
     let relationships = await indy.pairwise.getAll();
      
-    if(config.userInformation.name === 'api'){
         let schemas = await indy.issuer.getSchemas();
         let credentialDefinitions = await indy.did.getEndpointDidAttribute('credential_definitions');
         let endpointDid =  await indy.did.getEndpointDid();
@@ -52,36 +51,8 @@ router.get('/' ,async function (req, res) {
         name: config.userInformation.name,
         srcId: config.userInformation.icon_src,
         theme: THEME
-    });
-    } else{
-        res.render('index', {
-
-        messages: messages,
-        messageTypes: messageTypes,
-        relationships: relationships,
-        credentials: credentials,
-        schemas: await indy.issuer.getSchemas(),
-        credentialDefinitions: await indy.did.getEndpointDidAttribute('credential_definitions'),
-        endpointDid: await indy.did.getEndpointDid(),
-        proofRequests: proofRequests,
-        name: config.userInformation.name,
-        srcId: config.userInformation.icon_src,
-        theme: THEME
-    
-    });
-
-           for(let prKey of Object.keys(proofRequests)) {
-        delete proofRequests[prKey].string;
-    }
- 
-    }
+    })
 });
-
-// router.get('/login', function(req, res) {
-//    res.render('login', {
-//        name: config.userInformation.name
-//    });
-// });
 
 router.post('/login', async function(req, res) {
     if(req.body.username === config.userInformation.username &&

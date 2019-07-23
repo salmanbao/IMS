@@ -11,10 +11,6 @@ import { AddPeerComponent } from './peers/add-peer/add-peer.component';
 import { ManagechannelsComponent } from './channel/managechannels/managechannels.component';
 import { AddMembersCertificatesComponent } from './organization/add-members-certificates/add-members-certificates.component';
 import { AddChannelComponent } from './channel/add-channel/add-channel.component';
-import { ManageNotificationsComponent } from './notification/manage-notifications/manage-notifications.component';
-import { AllNotificationsComponent } from './notification/all-notifications/all-notifications.component';
-import { PendingNotificationsComponent } from './notification/pending-notifications/pending-notifications.component';
-import { CompletedNotificationsComponent } from './notification/completed-notifications/completed-notifications.component';
 // tslint:disable-next-line: max-line-length
 import { AddMemberCertificatesDialogComponent } from './organization/add-members-certificates/add-member-certificates-dialog/add-member-certificates-dialog.component';
 import { ListPeersComponent } from './peers/list-peers/list-peers.component';
@@ -44,10 +40,6 @@ import { ListMembersComponent } from './ca/list-members/list-members.component';
     AddChannelComponent,
     InitiateCCComponent,
     AddPeerComponent,
-    ManageNotificationsComponent,
-    AllNotificationsComponent,
-    PendingNotificationsComponent,
-    CompletedNotificationsComponent,
     AddMemberCertificatesDialogComponent,
     ListPeersComponent,
     RequestChannelComponent,

@@ -20,6 +20,7 @@ const routes: Routes = [
   },
   { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule', canActivate: [AuthGuard] },
   { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule', canActivate: [AuthGuard] },
+  { path: 'requests', loadChildren: './components/components.module#ComponentsModule' },
   {
     path: 'explorer', canActivate: [RedirectGuard],
     component: RedirectGuard,

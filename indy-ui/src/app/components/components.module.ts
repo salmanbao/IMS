@@ -30,7 +30,8 @@ import { ProofRequestComponent } from './proof-request/proof-request.component';
   CreateCredentialDefinitionComponent,
   SendCredentialOfferComponent,
   AttributesFormComponent,
-  ProofRequestComponent],
+  ProofRequestComponent
+],
   exports: [
 
   ]

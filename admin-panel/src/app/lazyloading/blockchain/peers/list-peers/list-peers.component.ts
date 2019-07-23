@@ -13,7 +13,7 @@ import { PeerService } from 'app/services/peer.service';
   styleUrls: ['./list-peers.component.scss']
 })
 export class ListPeersComponent implements OnInit {
-
+  blinker = true;
   title: string;
   name: string;
   route: string;
@@ -29,6 +29,7 @@ export class ListPeersComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom'
   dataSource = new MatTableDataSource();
+  @ViewChild(MatSort) sort: MatSort;
   constructor(
     private peerService: PeerService,
     public dialog: MatDialog,
@@ -36,10 +37,6 @@ export class ListPeersComponent implements OnInit {
   ) {
     this.dataSource.sort = this.sort;
   }
-
-  // tslint:disable-next-line: member-ordering
-  @ViewChild(MatSort) sort: MatSort;
-  blinker: boolean = true;
   ngOnInit() {
     this.getPeers();
     this.getOrderers();

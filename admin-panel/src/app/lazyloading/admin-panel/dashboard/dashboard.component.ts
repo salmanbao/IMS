@@ -10,6 +10,9 @@ import { PeerService } from 'app/services/peer.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  users: Number = 0;
+  dids: Number = 0;
+  organizations = 0;
   channels: Number = 0;
   chaincodes: Number = 0;
   peers: Number = 0;
@@ -24,31 +27,31 @@ export class DashboardComponent implements OnInit {
       res => {
         this.channels = res.length;
       },
-      err => {}
+      err => { }
     );
   }
-  getChaincodes(){
+  getChaincodes() {
     this.chaincodeService.listChaincodes().subscribe(
       res => {
         this.chaincodes = res.initiated.length + res.installed.length;
       },
-      err => {}
+      err => { }
     );
   }
-  getPeers(){
+  getPeers() {
     this.peerService.getPeers().subscribe(
       res => {
         this.peers = res.length;
       },
-      err => {}
+      err => { }
     );
   }
-  getOrderers(){
+  getOrderers() {
     this.peerService.getOrderers().subscribe(
       res => {
         this.orderers = res.orderers.length;
       },
-      err => {}
+      err => { }
     );
   }
 
@@ -57,7 +60,7 @@ export class DashboardComponent implements OnInit {
     this.getChaincodes();
     this.getPeers();
     this.getOrderers();
-  
+
   }
 
 }

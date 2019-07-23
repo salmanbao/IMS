@@ -12,7 +12,11 @@ export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'fingerprint', class: '' },
   { path: '/certificates', title: 'Certificates', icon: 'fingerprint', class: '' },
   { path: '/blockchain', title: 'Blockchain', icon: 'fingerprint', class: '' },
- // { path: '/reports', title: 'Reports', icon: 'fingerprint', class: '' },
+  { path: '/requests/relations', title: 'Relations', icon: 'fingerprint', class: '' },
+  { path: '/requests/credentials', title: 'Credentials', icon: 'fingerprint', class: '' },
+  { path: '/requests/proofs', title: 'Proof Requests', icon: 'fingerprint', class: '' },
+  { path: '/requests/issuing', title: 'Issuing', icon: 'fingerprint', class: '' },
+  { path: '/requests/messages', title: 'Messages', icon: 'fingerprint', class: '' },
   { path: '/explorer', title: 'Explorer', icon: 'fingerprint', class: '' },
 ];
 
