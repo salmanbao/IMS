@@ -20,7 +20,7 @@ class BirthMyAssetContract extends Contract {
         }
         const buffer = await ctx.stub.getState(key);
         const asset = JSON.parse(buffer.toString());
-        return asset;
+        return asset; 
     }
 
     async createBirthMyAsset(ctx, key, value) {
@@ -60,45 +60,47 @@ class BirthMyAssetContract extends Contract {
         }
         await ctx.stub.deleteState(key);
     }
-    async getQueryResultForQueryString(ctx) {
+    async getAll(ctx) {
 
         const queryString = "{\"selector\": {\"_id\": {\"$gt\": null}}}"
         let resultsIterator = await stub.getQueryResult(queryString);
-        let results = await this.getAllResults(resultsIterator, false);
+        let results = await this.getAllResults(resultsIterator);
 
         return Buffer.from(JSON.stringify(results));
     }
 
-    async getAllResults(iterator, isHistory) {
+    async getQueryResultForQueryString(ctx, queryString) {
+
+        console.info('- getQueryResultForQueryString queryString:\n' + queryString)
+        let resultsIterator = await ctx.stub.getQueryResult(queryString);
+        let method = this['getAllResults'];
+
+        let results = await method(resultsIterator);
+
+        return Buffer.from(JSON.stringify(results));
+    }
+
+    async getAllResults(iterator) {
         let allResults = [];
         while (true) {
             let res = await iterator.next();
-
             if (res.value && res.value.value.toString()) {
                 let jsonRes = {};
-                console.log(res.value.value.toString('utf8'));
-
-                if (isHistory && isHistory === true) {
-                    jsonRes.TxId = res.value.tx_id;
-                    jsonRes.Timestamp = res.value.timestamp;
-                    jsonRes.IsDelete = res.value.is_delete.toString();
-                    try {
-                        jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
-                    } catch (err) {
-                        console.log(err);
-                        jsonRes.Value = res.value.value.toString('utf8');
-                    }
-                } else {
+                try {
+                    jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
                     jsonRes.Key = res.value.key;
-                    try {
-                        jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
-                    } catch (err) {
-                        console.log(err);
-                        jsonRes.Record = res.value.value.toString('utf8');
-                    }
+                } catch (err) {
+                    console.log(err);
+                    jsonRes.Value = res.value.value.toString('utf8');
+                }
+                try {
+                    jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+                } catch (err) {
+                    console.log(err);
+                    jsonRes.Record = res.value.value.toString('utf8');
                 }
                 allResults.push(jsonRes);
-            }
+            }  
             if (res.done) {
                 console.log('end of data');
                 await iterator.close();
@@ -107,7 +109,7 @@ class BirthMyAssetContract extends Contract {
             }
         }
     }
-
+    
     validate(certificate) {
         if (!certificate.fname) {
             return { valid: false, error: 'first name parameter is missing' };

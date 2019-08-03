@@ -1,9 +1,9 @@
 #!/bin/bash
-#
-# Copyright IBM Corp. All Rights Reserved.
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+export MSYS_NO_PATHCONV=1
+# Name of container to use for start the indy cli or bash
+export BASH_CONTAINER=${BASH_CONTAINER:= nodejs_alice_1}
+# Services to start for "up" - normally blank to start all services
+export START_SERVICES=${START_SERVICES:=""}
 
 function stopContainers(){
 	echo
@@ -56,6 +56,7 @@ function downloaFabricImages(){
 downloaFabricImages
 docker container prune
 docker volume prune
+docker network prune
 #Restart the network each time you start application
 restartNetwork
 

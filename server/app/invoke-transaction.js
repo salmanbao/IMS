@@ -45,7 +45,7 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, arg
         tx_id_string = tx_id.getTransactionID();
         var arg_str = new String(JSON.stringify(args[1]));
         //console.log(args_string.escapeJSON());
-        //console.log(args_string.escapeJSON());
+        console.log(arg_str.escapeJSON());
         // send proposal to endorser
         stringify_array.push(args[0]);
         stringify_array.push(arg_str.valueOf());

@@ -31,6 +31,8 @@ var query = require('./app/query.js');
 var channel = require('./app/channel.js');
 var chaincode = require('./app/chaincode.js');
 var users = require('./app/users.js')
+const nano = require('nano')('http://localhost:5984');
+const db = nano.use('certificates');
 var host = process.env.HOST || hfc.getConfigSetting('host');
 var port = process.env.PORT || hfc.getConfigSetting('port');
 var isSetup = false;
@@ -713,9 +715,9 @@ app.post('/delete', async function (req, res) {
     var username = req.body.username;
     var removeUser = req.body.removeUser;
     logger.debug('Username' + username);
-    logger.debug('Org '+ orgname);
-    logger.debug('Delete User '+ removeUser);
-    var result = await users.removeUser(orgname, username,removeUser);
+    logger.debug('Org ' + orgname);
+    logger.debug('Delete User ' + removeUser);
+    var result = await users.removeUser(orgname, username, removeUser);
     res.send(result);
 
 });
@@ -725,9 +727,9 @@ app.post('/reenroll', async function (req, res) {
     var username = req.body.username;
     var enrollUser = req.body.enrollUser;
     logger.debug('Username' + username);
-    logger.debug('Org '+ orgname);
-    logger.debug('Re-enroll User '+ enrollUser);
-    var result = await users.reEnroll(orgname, username,enrollUser);
+    logger.debug('Org ' + orgname);
+    logger.debug('Re-enroll User ' + enrollUser);
+    var result = await users.reEnroll(orgname, username, enrollUser);
     res.send(result);
 
 });
@@ -737,6 +739,4 @@ app.post('/crl', async function (req, res) {
     var username = req.body.username;
     var result = await users.CRL(orgname, username);
     res.send(result);
-
 });
-

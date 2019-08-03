@@ -1,7 +1,24 @@
-/*
- * SPDX-License-Identifier: Apache-2.0
- */
-
+// {
+//     "fname":"salman",
+//     "lname":"salmeem",
+//     "phone":"0312-4277841",
+//     "dob":"22-12-1996",
+//     "father":"saleem",
+//     "mother":"seydan",
+//     "gender":"male",
+//     "martialStatus":"unmarried",
+//     "familyNumber":"1122",
+//     "religion":"islam",
+//     "profession":"student",
+//     "address":{
+//     "address":"lahore",
+//     "province":"punjab",
+//     "division":"lahore",
+//     "district":"lahore",
+//     "tehsile":"lahore",
+//     "country":"pakistan"
+//     }
+//     }
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
@@ -20,7 +37,7 @@ class NationalIdMyAssetContract extends Contract {
     async createNationalIdMyAsset(ctx, key, value) {
         const exists = await this.nationalIdMyAssetExists(ctx, key);
         if (exists) {
-            return {error: false, msg:`${key} already exists`};
+            return { error: false, msg: `${key} already exists` };
         }
         let check = this.validate(JSON.parse(value));
         if (check.valid) {
@@ -35,7 +52,7 @@ class NationalIdMyAssetContract extends Contract {
     async readNationalIdMyAsset(ctx, key) {
         const exists = await this.nationalIdMyAssetExists(ctx, key);
         if (!exists) {
-            return {error: false, msg:`${key} does not exists`};
+            return { error: false, msg: `${key} does not exists` };
         }
         const buffer = await ctx.stub.getState(key);
         const asset = JSON.parse(buffer.toString());
@@ -45,7 +62,7 @@ class NationalIdMyAssetContract extends Contract {
     async updateNationalIdMyAsset(ctx, key, newValue) {
         const exists = await this.nationalIdMyAssetExists(ctx, key);
         if (!exists) {
-            return {error: false, msg:`${key} does not exists`};
+            return { error: false, msg: `${key} does not exists` };
         }
         let check = this.validate(JSON.parse(newValue));
         if (check.valid) {
@@ -60,9 +77,50 @@ class NationalIdMyAssetContract extends Contract {
     async deleteNationalIdMyAsset(ctx, key) {
         const exists = await this.nationalIdMyAssetExists(ctx, key);
         if (!exists) {
-            return {error: false, msg:`${key} does not exists`};
+            return { error: false, msg: `${key} does not exists` };
         }
         await ctx.stub.deleteState(key);
+    }
+
+    async getQueryResultForQueryString(ctx, queryString) {
+
+        console.info('- getQueryResultForQueryString queryString:\n' + queryString)
+        let resultsIterator = await ctx.stub.getQueryResult(queryString);
+        let method = this['getAllResults'];
+
+        let results = await method(resultsIterator);
+
+        return Buffer.from(JSON.stringify(results));
+    }
+
+    async getAllResults(iterator) {
+        let allResults = [];
+        while (true) {
+            let res = await iterator.next();
+            if (res.value && res.value.value.toString()) {
+                let jsonRes = {};
+                try {
+                    jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+                    jsonRes.Key = res.value.key;
+                } catch (err) {
+                    console.log(err);
+                    jsonRes.Value = res.value.value.toString('utf8');
+                }
+                try {
+                    jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+                } catch (err) {
+                    console.log(err);
+                    jsonRes.Record = res.value.value.toString('utf8');
+                }
+                allResults.push(jsonRes);
+            }  
+            if (res.done) {
+                console.log('end of data');
+                await iterator.close();
+                console.info(allResults);
+                return allResults;
+            }
+        }
     }
 
     validate(certificate) {
@@ -88,7 +146,7 @@ class NationalIdMyAssetContract extends Contract {
             return { valid: false, error: 'gender parameter is missing' };
         }
         if (!certificate.martialStatus) {
-            return { valid: false, error: 'religion parameter is missing' };
+            return { valid: false, error: 'martialStatus parameter is missing' };
         }
         if (!certificate.familyNumber) {
             return { valid: false, error: 'family number parameter is missing' };
