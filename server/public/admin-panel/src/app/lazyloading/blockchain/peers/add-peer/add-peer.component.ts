@@ -17,6 +17,9 @@ export interface DialogData {
 })
 export class AddPeerComponent implements OnInit {
 
+  channel: string;
+  Channels: Array<string> = [];
+  Peers: Array<string> = [];
   constructor(
     private peerService: PeerService,
     private channelService: ChannelService,
@@ -24,9 +27,7 @@ export class AddPeerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     data.title = 'Join Channel'
   }
-  channel: string;
-  Channels: Array<string> = [];
-  Peers: Array<string> = [];
+
 
   ngOnInit() {
     this.getPeers();
@@ -41,10 +42,10 @@ export class AddPeerComponent implements OnInit {
     };
     this.peerService.joinChannel(peerDetails).subscribe(
       res => {
-        this.onNoClick(res);
+        this.dialogRef.close(res);
       },
       err => {
-        this.onNoClick(err);
+        this.dialogRef.close(err);
       }
     );
   }
@@ -71,7 +72,7 @@ export class AddPeerComponent implements OnInit {
     );
   }
 
-  onNoClick(result): void {
-    this.dialogRef.close(result);
+  onNoClick(): void {
+    this.dialogRef.close(null);
   }
 }

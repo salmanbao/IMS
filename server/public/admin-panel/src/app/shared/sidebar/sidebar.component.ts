@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
 
   constructor(
-    private auth: AuthenticationService,
+    public auth: AuthenticationService,
     private router: Router
   ) { }
 

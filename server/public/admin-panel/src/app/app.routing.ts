@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'dashboard', loadChildren: './lazyloading/admin-panel/admin-layout.module#AdminLayoutModule', canActivate: [AuthGuard] },
   { path: 'certificates', loadChildren: './lazyloading/certificates/certificates.module#CertificatesModule', canActivate: [AuthGuard] },
   { path: 'blockchain', loadChildren: './lazyloading/blockchain/blockchain.module#BlockchainModule', canActivate: [AuthGuard] },
-  { path: 'requests', loadChildren: './components/components.module#ComponentsModule' , canActivate: [AuthGuard]},
+  { path: 'requests', loadChildren: './components/components.module#ComponentsModule', canActivate: [AuthGuard] },
   {
     path: 'explorer', canActivate: [RedirectGuard],
     component: RedirectGuard,

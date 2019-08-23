@@ -10,7 +10,7 @@ export class FormService {
     // TODO: make asynchronous
     getForm(attributes) {
 
-        let form: FormBase<any>[] = []; //
+        let form: FormBase<any>[] = [];
         // = [
 
         // new Dropdown({
@@ -24,16 +24,32 @@ export class FormService {
         //     ],
         //     order: 3
         // }),
-        let i = 0;
         for (const attr of attributes) {
-            form.push(new Textbox({
-                key: attr,
-                value: '',
-                required: true,
-                order: i++
-            }));
-        }
+            switch (attr.metadata.type) {
+                case 'list':
+                    form.push(
+                        new Dropdown({
+                            key: attr.name,
+                            label: attr.name,
+                            options: attr.metadata.options,
+                            order: attr.metadata.order
+                        }));
+                    break;
+                case 'textbox':
+                    form.push(
+                        new Textbox({
+                            key: attr.name,
+                            value: '',
+                            required: true,
+                            order: attr.metadata.order
+                        }));
+                    break;
 
+                default:
+                    break;
+            }
+
+        }
 
         // new Textbox({
         //     key: 'emailAddress',
@@ -42,7 +58,6 @@ export class FormService {
         //     order: 2
         // })
         // ];
-
-        return form.sort((a, b) => a.order - b.order);
+        return form.sort();
     }
 }

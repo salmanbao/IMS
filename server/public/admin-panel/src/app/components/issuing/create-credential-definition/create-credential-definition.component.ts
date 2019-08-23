@@ -11,8 +11,7 @@ import { CertificateService } from 'app/services/certificate.service';
 })
 export class CreateCredentialDefinitionComponent implements OnInit {
   schemas;
-
-
+  schema;
   createCreadentialDef: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -36,7 +35,7 @@ export class CreateCredentialDefinitionComponent implements OnInit {
   }
 
   create_Cred_Def() {
-    const name: String = this.createCreadentialDef.get('schema').value;
+    const name: String = this.schema;
     const tag = this.createCreadentialDef.get('tag').value;
     this.indyAPI.createCredentialDef(name, tag).subscribe(
       res => {

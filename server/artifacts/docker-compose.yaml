@@ -486,6 +486,38 @@ services:
     depends_on:
       - college
 
+  ims:
+    image: indy-agentjs
+    command: "bash -c 'sleep 10; npm start'"
+    environment:
+      - ICON_SRC=https://i.ytimg.com/vi/JUMufld7UcY/maxresdefault.jpg
+      - THEME=LightSteelBlue
+      - PORT=3005
+      - NAME=IMS
+      - EMAIL=ims@govt.com
+      - PASSWORD=123
+      - USERNAME=ims
+      - PUBLIC_DID_ENDPOINT=173.17.0.105:3005
+      - RUST_LOG=${RUST_LOG}
+      - TEST_POOL_IP=${TEST_POOL_IP}
+    ports:
+      - 3005:3005
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+    networks:
+      services:
+        ipv4_address: 173.17.0.105
+    volumes:
+      - node1-data:/home/indy/ledger
+  ims-ui:
+    container_name: ims-ui
+    image: ims-ui
+    ports: 
+     - 4006:80
+
 volumes:
   webserver-cli:
   node1-data:

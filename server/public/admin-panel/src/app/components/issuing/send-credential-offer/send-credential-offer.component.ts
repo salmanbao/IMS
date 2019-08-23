@@ -5,7 +5,6 @@ import { ApiService } from 'app/services/api.service';
 import { FormService } from 'app/services/form.service';
 import { FormControlService } from 'app/services/form-control.service';
 import { CertificateService } from 'app/services/certificate.service';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'app-send-credential-offer',
@@ -16,9 +15,12 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 export class SendCredentialOfferComponent implements OnInit {
   attrsForm;
   relationships;
+  relation;
   did;
   credentialDefinitions;
   attributes = [];
+  credential;
+  selectedCred;
   createCreadentialOffer: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -45,7 +47,6 @@ export class SendCredentialOfferComponent implements OnInit {
       },
       err => { console.log(err) }
     );
-    console.log(this.credentialDefinitions);
     this.ref.detectChanges();
   }
 
@@ -53,26 +54,47 @@ export class SendCredentialOfferComponent implements OnInit {
     const { relation, cred_def } = this.createCreadentialOffer.value;
     delete this.createCreadentialOffer.value['relation'];
     delete this.createCreadentialOffer.value['cred_def'];
-    console.log(this.createCreadentialOffer.value)
+    console.log(this.createCreadentialOffer.value);
     if (this.createCreadentialOffer.value.title) {
       this.certificateService.addCertificate(this.createCreadentialOffer.value).subscribe(
         res => { },
         err => { }
       );
+    } else {
+      const value = this.setAttributesValues(this.createCreadentialOffer.value);
+      this.indyAPI.sendCredentialOffer(relation, cred_def, value).subscribe(
+        res => {
+          if (res['success']) {
+            this.openSnackBar('Credential Offer successfully send');
+          }
+        },
+        err => { console.log(err) }
+      );
     }
-
-    this.indyAPI.sendCredentialOffer(relation, cred_def, this.createCreadentialOffer.value).subscribe(
-      res => {
-        if (res['success']) {
-          this.openSnackBar('Credential Offer successfully send');
-          this.ref.detach();
-        }
-      },
-      err => { console.log(err) }
-    );
   }
 
-  loadAttrs(cred) {
+  loadAttributes() {
+    if (this.selectedCred) {
+      this.credential = this.selectedCred;
+      let parsedAttributes = [];
+      this.getCredentialAttributes(this.selectedCred);
+      parsedAttributes = this.attributes;
+      this.attributes = [];
+      parsedAttributes.forEach((attr) => {
+        this.attributes.push(JSON.parse(attr))
+      });
+      this.attributes = this.attributes.sort().reverse();
+      this.attrsForm = this.formService.getForm(this.attributes);
+      const controls = this.formControlService.toFormGroup(this.attrsForm);
+      this.attributes.forEach((attribute) => {
+        const name = attribute.name;
+        this.createCreadentialOffer.addControl(name, controls[name]);
+      });
+      this.ref.detectChanges();
+    }
+  }
+
+  getCredentialAttributes(cred) {
     for (const credential of this.credentialDefinitions) {
       if (credential.id === cred) {
         this.attributes = Object.keys(credential.value.primary.r)
@@ -80,35 +102,22 @@ export class SendCredentialOfferComponent implements OnInit {
         break;
       }
     }
-    console.log(this.attributes);
-    this.attributes = []
-    this.attributes.push({
-      name: 'cities',
-      order: 2,
-      metadata: {
-        type: 'list',
-        options: [
-          { key: 'lahore', value: 'Lahore' },
-          { key: 'kasur', value: 'Kasur' }
-        ]
-      }
-    });
-    this.attributes.push({
-      name: 'name',
-      order: 1,
-      metadata: {
-        type: 'textbox'
-      }
-    });
-    this.attributes = this.attributes.sort().reverse();
-    this.attrsForm = this.formService.getForm(this.attributes);
-    const controls = this.formControlService.toFormGroup(this.attrsForm);
-    this.attributes.forEach((attribute) => {
-      const name = attribute.name;
-      this.createCreadentialOffer.addControl(name, controls[name]);
-    });
-    this.ref.detectChanges();
   }
+
+  setAttributesValues(values) {
+    const credentialValues = {};
+    this.getCredentialAttributes(this.credential);
+    this.attributes.forEach(attribute => {
+      Object.keys(values).forEach((key) => {
+        if (key === JSON.parse(attribute).name) {
+          credentialValues[attribute] = values[key];
+        }
+      })
+    });
+    this.attributes = [];
+    return credentialValues;
+  }
+
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 5000,

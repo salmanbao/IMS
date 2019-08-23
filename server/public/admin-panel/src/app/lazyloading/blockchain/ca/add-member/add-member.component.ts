@@ -31,7 +31,7 @@ export class AddMemberComponent implements OnInit {
     'HFINTERMEDIATECA',
     'HF REVOKER',
     'HF GEN CRL'
-  ]; 
+  ];
   constructor(
     private userService: UserService,
     public dialogRef: MatDialogRef<AddMemberComponent>,
@@ -53,14 +53,14 @@ export class AddMemberComponent implements OnInit {
     user.attributes = this.data.attributes;
     this.userService.register(user).subscribe(
       result => {
-        this.onNoClick(result);
+        this.dialogRef.close(result);
       }
       ,
       err => { console.log(err); }
     )
   }
-  onNoClick(result): void {
-    this.dialogRef.close(result);
+  onNoClick(): void {
+    this.dialogRef.close(null);
   }
 
 }

@@ -34,22 +34,22 @@ export class AddChannelComponent implements OnInit {
 
   addChannel() {
     this.channelService.setCurrentChannel(this.data.channelName);
-    let channelDetails = {
+    const channelDetails = {
       channelName: this.data.channelName,
       channelFile: this.data.channelFile
     };
     this.channelService.addChannel(channelDetails).subscribe(
       res => {
-          this.onNoClick(res);
+        this.dialogRef.close(res);
       },
       err => {
-        this.onNoClick('fail');
+        this.dialogRef.close('fail');
       }
     );
   }
 
-  onNoClick(result): void {
-    this.dialogRef.close(result);
+  onNoClick(): void {
+    this.dialogRef.close(null);
   }
 
 }

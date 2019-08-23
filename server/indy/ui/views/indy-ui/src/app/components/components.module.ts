@@ -12,6 +12,7 @@ import { SendCredentialOfferComponent } from './issuing/send-credential-offer/se
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AttributesFormComponent } from './issuing/send-credential-offer/attributes-form/attributes-form.component';
 import { ProofRequestComponent } from './proof-request/proof-request.component';
+import { AttributesMetaDataComponent } from './issuing/create-schema/attributes-meta-data/attributes-meta-data.component';
 
 @NgModule({
   imports: [
@@ -27,13 +28,16 @@ import { ProofRequestComponent } from './proof-request/proof-request.component';
   CredentialsComponent,
   IssuingComponent,
   CreateSchemaComponent,
+  AttributesMetaDataComponent,
   CreateCredentialDefinitionComponent,
   SendCredentialOfferComponent,
   AttributesFormComponent,
   ProofRequestComponent
 ],
-  exports: [
+  exports: [ ],
 
+  entryComponents: [
+    AttributesMetaDataComponent
   ]
 })
 export class ComponentsModule { }

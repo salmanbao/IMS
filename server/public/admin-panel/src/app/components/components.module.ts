@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'app/modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MessagesComponent } from './messages/messages.component';
-import { CredentialsComponent } from './credentials/credentials.component';
 import { IssuingComponent } from './issuing/issuing.component';
 import { CreateSchemaComponent } from './issuing/create-schema/create-schema.component';
 import { CreateCredentialDefinitionComponent } from './issuing/create-credential-definition/create-credential-definition.component';
@@ -16,6 +16,7 @@ import { RelationshipsComponent } from './relationships/relationships.component'
 import { ProofDetailsComponent } from './relationships/proof-details/proof-details.component';
 import { SendConnectionRequestComponent } from './relationships/send-connection-request/send-connection-request.component';
 import { AttributesMetaDataComponent } from './issuing/create-schema/attributes-meta-data/attributes-meta-data.component';
+import { CredentialsComponent } from './issuing/create-credential-definition/credentials/credentials.component';
 
 @NgModule({
   imports: [

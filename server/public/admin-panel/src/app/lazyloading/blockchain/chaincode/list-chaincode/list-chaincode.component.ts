@@ -96,7 +96,7 @@ export class ListChaincodeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (typeof result !== 'undefined') {
+      if (typeof result !== 'undefined' || result !== null) {
         this.openSnackBar(result.message);
       }
     });
@@ -116,7 +116,7 @@ export class ListChaincodeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (typeof result !== 'undefined') {
+      if (typeof result !== 'undefined' || result !== null) {
         this.openSnackBar(result);
       }
     });

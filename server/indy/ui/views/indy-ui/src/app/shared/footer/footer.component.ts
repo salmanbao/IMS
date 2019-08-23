@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-footer',

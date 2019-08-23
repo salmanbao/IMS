@@ -3,6 +3,7 @@ import { ChannelService } from 'app/services/channel.service';
 import { ChaincodeService } from 'app/services/chaincode.service';
 import { PeerService } from 'app/services/peer.service';
 import { UserService } from 'app/services/user.service';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,13 +12,14 @@ import { UserService } from 'app/services/user.service';
 })
 export class DashboardComponent implements OnInit {
   users: Number = 0;
-  dids: Number = 0;
+  relations: Number = 0;
   organizations = 0;
   channels: Number = 0;
   chaincodes: Number = 0;
   peers: Number = 0;
   orderers: Number = 0;
   constructor(
+    private apiService: ApiService,
     private channelService: ChannelService,
     private peerService: PeerService,
     private userService: UserService,
@@ -28,6 +30,7 @@ export class DashboardComponent implements OnInit {
     await this.getChannels();
     await this.getChaincodes();
     await this.getPeers();
+    await this.getRelations();
     await this.getOrderers();
     await this.getAllUsers();
   }
@@ -74,6 +77,16 @@ export class DashboardComponent implements OnInit {
         }
       },
       err => { console.log(err); }
+    );
+  }
+
+  getRelations(){
+    this.apiService.loadGeneralInfo().subscribe(
+      res => {
+        this.relations = res['relationships'].length;
+        console.log(res);
+      },
+      err => {}
     );
   }
 

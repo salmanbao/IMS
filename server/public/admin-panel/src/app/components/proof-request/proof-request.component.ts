@@ -12,6 +12,7 @@ export class ProofRequestComponent implements OnInit {
   relationships;
   proofRequests;
   proofs;
+  selectedProof;
   isOtherProof: Boolean = false;
   attributes = [];
   proofRequest: FormGroup;
@@ -51,10 +52,11 @@ export class ProofRequestComponent implements OnInit {
       const attributes_ref = Object.keys(JSON.parse(proof_string)['requested_attributes']);
       attributes_ref.forEach((ref) => {
         this.attributes.push(
-          JSON.parse(proof_string)['requested_attributes'][ref]['name']
+          JSON.parse(JSON.parse(proof_string)['requested_attributes'][ref]['name']).name
         );
       });
     }
+    console.log(this.attributes);
     this.ref.detectChanges();
   }
 

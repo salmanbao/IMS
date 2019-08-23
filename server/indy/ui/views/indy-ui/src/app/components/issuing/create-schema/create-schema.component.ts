@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatChipInputEvent } from '@angular/material';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatChipInputEvent, MatDialog } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ApiService } from 'app/services/api.service';
+import { SchemaMetaData, AttributesMetaDataComponent } from './attributes-meta-data/attributes-meta-data.component';
 
 @Component({
   selector: 'app-create-schema',
@@ -9,13 +10,16 @@ import { ApiService } from 'app/services/api.service';
   styleUrls: ['./create-schema.component.scss']
 })
 export class CreateSchemaComponent implements OnInit {
-  attributes = [];
+  dialogRef;
+  attributes: Array<SchemaMetaData> = [];
+  addOnBlur: boolean = true;
   createSchema: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   constructor(
     private snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
+    public dialog: MatDialog,
     private indyAPI: ApiService
   ) { }
 
@@ -29,18 +33,41 @@ export class CreateSchemaComponent implements OnInit {
   addSchema() {
     const name = this.createSchema.get('name').value;
     const version = this.createSchema.get('version').value;
-    const attributes = this.attributes;
-    this.indyAPI.createSchema(name, version, attributes).subscribe(
+    const attributes_with_key = [];
+    this.attributes.forEach((attribute) => {
+      attributes_with_key.push(
+        JSON.stringify(attribute)
+      );
+    });
+    console.log(attributes_with_key);
+    this.indyAPI.createSchema(name, version, attributes_with_key).subscribe(
       res => {
         if (res['success']) {
-          this.createSchema.reset();
+          this.createSchema.reset({
+            name: '',
+            version: ''
+          });
           this.attributes = [];
           this.openSnackBar('Schema successfully send')
         }
       },
       err => { console.log(err) }
     );
+  }
 
+  openMetaDataDialog(name): void {
+    this.dialogRef = this.dialog.open(AttributesMetaDataComponent, {
+      width: '60%',
+      data: {
+        title: 'MetaData',
+        name: name,
+        order: 0,
+        metadata: {
+          type: '',
+          options: []
+        }
+      }
+    });
   }
 
   openSnackBar(message: string) {
@@ -50,20 +77,21 @@ export class CreateSchemaComponent implements OnInit {
       verticalPosition: this.verticalPosition,
     });
   }
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
-    // Add our person
     if ((value || '').trim()) {
       const name = value.trim();
-      this.attributes.push(name);
+      this.openMetaDataDialog(name);
+      this.dialogRef.afterClosed().subscribe((result: SchemaMetaData) => {
+        this.attributes.push(result);
+      });
     }
     // Reset the input value
     if (input) {
       input.value = '';
     }
-
   }
 
   remove(attr): void {

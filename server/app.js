@@ -84,21 +84,21 @@ app.use(function (req, res, next) {
 //////////////////////////////// START SERVER /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 var server = http.createServer(app).listen(port, function () {
-    // if (!isSetup) {
-    //     users.register(userConfig.username, userConfig.orgname, userConfig.password, userConfig.role, userConfig.affiliation, [
-    //         "HF REGISTRAR DELEGATE ROLES",
-    //         "HF REGISTRAR ATTRIBUTES",
-    //         "HF AFFILIATION MGR",
-    //         "HF REGISTRAR ROLES",
-    //         "HFINTERMEDIATECA",
-    //         "HF REVOKER",
-    //         "HF GEN CRL"
-    //     ] , true)
-    //         .then((response) => {
-    //             console.log(response);
-    //             logger.info('****************** User has been setup ************************');
-    //         });
-    // }
+    if (!isSetup) {
+        users.register(userConfig.username, userConfig.orgname, userConfig.password, userConfig.role, userConfig.affiliation, [
+            "HF REGISTRAR DELEGATE ROLES",
+            "HF REGISTRAR ATTRIBUTES",
+            "HF AFFILIATION MGR",
+            "HF REGISTRAR ROLES",
+            "HFINTERMEDIATECA",
+            "HF REVOKER",
+            "HF GEN CRL"
+        ] , true)
+            .then((response) => {
+                console.log(response);
+                logger.info('****************** User has been setup ************************');
+            });
+    }
 });
 logger.info('****************** SERVER STARTED ************************');
 logger.info('***************  http://%s:%s  ******************', host, port);

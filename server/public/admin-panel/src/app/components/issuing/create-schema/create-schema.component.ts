@@ -11,6 +11,7 @@ import { AttributesMetaDataComponent, SchemaMetaData } from './attributes-meta-d
   styleUrls: ['./create-schema.component.scss']
 })
 export class CreateSchemaComponent implements OnInit {
+  addOnBlur: boolean = true;
   dialogRef;
   attributes: Array<SchemaMetaData> = [];
   createSchema: FormGroup;
@@ -33,9 +34,14 @@ export class CreateSchemaComponent implements OnInit {
   addSchema() {
     const name = this.createSchema.get('name').value;
     const version = this.createSchema.get('version').value;
-    const attributes = this.attributes;
-    console.log(this.attributes);
-    this.indyAPI.createSchema(name, version, attributes).subscribe(
+    const attributes_with_key = [];
+    this.attributes.forEach((attribute) => {
+      attributes_with_key.push(
+        JSON.stringify(attribute)
+      );
+    });
+    console.log(attributes_with_key);
+    this.indyAPI.createSchema(name, version, attributes_with_key).subscribe(
       res => {
         if (res['success']) {
           this.createSchema.reset({
@@ -87,7 +93,6 @@ export class CreateSchemaComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-
   }
 
   remove(attr): void {

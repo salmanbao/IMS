@@ -10,7 +10,7 @@
           <div class="col-md-6">
             <mat-form-field>
               <mat-label>Relationship</mat-label>
-              <mat-select formControlName="relation" [(value)]="rel">
+              <mat-select formControlName="relation">
                 <mat-option *ngFor="let rel of relationships" [value]="rel.their_did">{{rel.metadata.name}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -18,7 +18,7 @@
           <div class="col-md-6">
             <mat-form-field>
               <mat-label>Select Proof</mat-label>
-              <mat-select formControlName="proof_request_id" [(value)]="proof" (ngModelChange)="selectProof(proof)">
+              <mat-select formControlName="proof_request_id" [(value)]="selectedProof" (ngModelChange)="selectProof(selectedProof)">
                 <mat-option *ngFor="let proof of proofs" [value]="proof">{{proof}}</mat-option>
                 <mat-option value="proofRequestOther">Other (Paste Proof Request Here) --></mat-option>
               </mat-select>

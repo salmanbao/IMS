@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MessagesComponent } from 'app/components/messages/messages.component';
-import { CredentialsComponent } from 'app/components/credentials/credentials.component';
+import { CredentialsComponent } from 'app/components/issuing/create-credential-definition/credentials/credentials.component';
 import { ProofRequestComponent } from 'app/components/proof-request/proof-request.component';
 import { IssuingComponent } from 'app/components/issuing/issuing.component';
 import { RelationshipsComponent } from 'app/components/relationships/relationships.component';

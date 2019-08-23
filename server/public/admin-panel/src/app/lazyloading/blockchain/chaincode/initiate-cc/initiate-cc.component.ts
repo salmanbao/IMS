@@ -40,13 +40,13 @@ export class InitiateCCComponent implements OnInit {
     this.chaincodeService.initiateChaincode(chaincodeConfig).subscribe(
       res => {
         if (res['success']) {
-          this.onNoClick(res['message']);
+          this.dialogRef.close(res['message']);
         }
       },
-      err => { this.onNoClick(err) }
+      err => { this.dialogRef.close(err) }
     );
   }
-  onNoClick(result): void {
-    this.dialogRef.close(result);
+  onNoClick(): void {
+    this.dialogRef.close(null);
   }
 }
