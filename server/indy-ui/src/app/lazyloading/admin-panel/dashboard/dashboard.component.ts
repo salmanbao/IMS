@@ -1,16 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog } from '@angular/material';
-import { ApiService } from 'app/services/api.service';
+import { MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { ProofDetailsComponent } from './proof-details/proof-details.component';
 import { SendConnectionRequestComponent } from './send-connection-request/send-connection-request.component';
+import { ApiService } from 'app/services/api.service';
+
 
 @Component({
-  selector: 'app-relationships',
-  templateUrl: './relationships.component.html',
-  styleUrls: ['./relationships.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class RelationshipsComponent implements OnInit {
-
+export class DashboardComponent implements OnInit {
   name;
   schemas;
   relationships;

@@ -1,0 +1,70 @@
+
+
+1- college (--issue college result--)-->  student
+2- student (--present college result--)--> university 
+3- university (--issue semester results and Degree-)-->student 
+4- student (--present Degree--)--> HEC 
+5- HEC(--issue verified degree certificate--)--> student
+
+
+step-1
+
+inter result card schema attributes
+1-name
+2-father
+3-board
+4-session
+5-English
+6-Urdu-
+7-Islamiyat
+8-Physics
+9-Chemistry
+10-Math
+11-PakStudies
+12-TotalMarks
+13-Grade
+
+
+step-2
+
+university verify student result card
+
+step-3
+
+university issue semester results
+
+name
+father
+id
+date
+program
+semester
+gpa
+cgpa
+subjects
+
+university issue degree
+
+name
+program
+seesion
+cgpa
+university
+	
+step-4
+
+student present degree ti hec
+
+step-5
+
+hec verify student degree
+
+hec issue degree verified certificate to student
+
+name
+program
+university
+status
+
+
+

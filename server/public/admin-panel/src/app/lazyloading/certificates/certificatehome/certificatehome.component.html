@@ -1,25 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6" >
-                        <div class="card card-stats">
-                            <div class="card-header card-header-success card-header-icon">
-                                <div class="card-icon">
-                                    <i class="fa fa-certificate"></i>
-                                </div>
-                                <p class="card-category"></p>
-                                <h3 class="card-title">Birth</h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <a [routerLink]="['/certificates/list','Birth']">
-                                        <i class="material-icons">visibility</i>
-                                    </a>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-
             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let certificate of credentialDefinitions">
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">

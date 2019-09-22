@@ -57,7 +57,6 @@ export class ProofRequestComponent implements OnInit {
         );
       });
     }
-    console.log(this.attributes);
     this.ref.detectChanges();
   }
 

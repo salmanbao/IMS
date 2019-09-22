@@ -4,7 +4,6 @@ import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar
 import { ApiService } from 'app/services/api.service';
 import { FormService } from 'app/services/form.service';
 import { FormControlService } from 'app/services/form-control.service';
-import { CertificateService } from 'app/services/certificate.service';
 
 @Component({
   selector: 'app-send-credential-offer',
@@ -15,7 +14,6 @@ import { CertificateService } from 'app/services/certificate.service';
 export class SendCredentialOfferComponent implements OnInit {
   attrsForm;
   relationships;
-  relation;
   did;
   credentialDefinitions;
   attributes = [];
@@ -30,7 +28,6 @@ export class SendCredentialOfferComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private formService: FormService,
     private formControlService: FormControlService,
-    private certificateService: CertificateService,
     private indyAPI: ApiService
   ) { }
 
@@ -42,10 +39,9 @@ export class SendCredentialOfferComponent implements OnInit {
     this.indyAPI.loadGeneralInfo().subscribe(
       res => {
         this.relationships = res['relationships'];
-        this.did = res['endpointDid'];
         this.credentialDefinitions = res['credentialDefinitions'];
       },
-      err => { console.log(err) }
+      err => { }
     );
     this.ref.detectChanges();
   }
@@ -55,25 +51,20 @@ export class SendCredentialOfferComponent implements OnInit {
     delete this.createCreadentialOffer.value['relation'];
     delete this.createCreadentialOffer.value['cred_def'];
     console.log(this.createCreadentialOffer.value);
-    if (this.createCreadentialOffer.value.title) {
-      this.certificateService.addCertificate(this.createCreadentialOffer.value).subscribe(
-        res => { },
-        err => { }
-      );
-    }
     const value = this.setAttributesValues(this.createCreadentialOffer.value);
+    console.log(value);
     this.indyAPI.sendCredentialOffer(relation, cred_def, value).subscribe(
       res => {
         if (res['success']) {
           this.openSnackBar('Credential Offer successfully send');
+          this.ref.detach();
         }
       },
       err => { console.log(err) }
     );
-
   }
 
-  loadAttributes() {
+  loadAttrs() {
     if (this.selectedCred) {
       this.credential = this.selectedCred;
       let parsedAttributes = [];
@@ -92,7 +83,9 @@ export class SendCredentialOfferComponent implements OnInit {
       });
       this.ref.detectChanges();
     }
+
   }
+
 
   getCredentialAttributes(cred) {
     for (const credential of this.credentialDefinitions) {
@@ -114,6 +107,7 @@ export class SendCredentialOfferComponent implements OnInit {
         }
       })
     });
+    console.log(credentialValues);
     this.attributes = [];
     return credentialValues;
   }

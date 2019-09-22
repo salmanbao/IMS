@@ -60,10 +60,10 @@ class BirthMyAssetContract extends Contract {
         }
         await ctx.stub.deleteState(key);
     }
-    async getAll(ctx) {
+    async getAll(ctx , query) {
 
-        const queryString = "{\"selector\": {\"_id\": {\"$gt\": null}}}"
-        let resultsIterator = await stub.getQueryResult(queryString);
+        const queryString = query;
+        let resultsIterator = await ctx.stub.getQueryResult(queryString);
         let results = await this.getAllResults(resultsIterator);
 
         return Buffer.from(JSON.stringify(results));

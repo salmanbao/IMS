@@ -1,5 +1,12 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatSort,
+  MatDialog,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+  MatSnackBar
+} from '@angular/material';
 import { InstallChaincodeComponent } from '../install-chaincode/install-chaincode.component';
 import { InitiateCCComponent } from '../initiate-cc/initiate-cc.component';
 import { PeerService } from 'app/services/peer.service';

@@ -18,12 +18,17 @@ export class ListCertificatesComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-        this.certificateAPI.getAll(id).subscribe(
-          res => {
-            this.certificates = res['docs'];
-           },
-          err => { }
-        );
-    }
+    console.log(id.split(':')[4])
+    this.certificateAPI.getAll(id.split(':')[4]).subscribe(
+      res => {
+        console.log(res);
+        this.certificates = JSON.parse(String.fromCharCode.apply(null, new Uint16Array(JSON.parse(res['payload']).data)));
+        console.log(this.certificates)
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
 
 }

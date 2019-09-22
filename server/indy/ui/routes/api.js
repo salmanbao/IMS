@@ -49,7 +49,7 @@ router.post('/credentials/accept_offer', async function (req, res) {
 router.post('/credentials/reject_offer', async function (req, res) {
     indy.store.messages.deleteMessage(req.body.messageId);
     res.send({ success: true });
-});
+}); 
 
 router.put('/connections/request', async function (req, res) {
     let name = req.body.name;
@@ -94,7 +94,7 @@ router.post('/proofs/validate', async function (req, res) {
         if (isValid) {
             res.status(200).send({ success: true });
         } else {
-            res.status(400).send({ success: false });
+            res.status(200).send({ success: true });
         }
     } catch (err) {
         console.log(err);

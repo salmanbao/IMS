@@ -30,6 +30,7 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, arg
     var error_message = null;
     var tx_id_string = null;
     var stringify_array = [];
+    var arg_str;
     try {
         // first setup the client for this org
         var client = await helper.getClientForOrg(org_name, username);
@@ -43,12 +44,16 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, arg
         var tx_id = client.newTransactionID();
         // will need the transaction ID string for the event registration later
         tx_id_string = tx_id.getTransactionID();
-        var arg_str = new String(JSON.stringify(args[1]));
-        //console.log(args_string.escapeJSON());
-        console.log(arg_str.escapeJSON());
-        // send proposal to endorser
         stringify_array.push(args[0]);
-        stringify_array.push(arg_str.valueOf());
+        if(args.length > 1){
+             arg_str = new String(JSON.stringify(args[1]));
+             stringify_array.push(arg_str.valueOf());
+        } 
+        //console.log(args_string.escapeJSON());
+        // console.log(arg_str.escapeJSON());
+        // send proposal to endorser
+        
+        
         var request = {
             targets: peerNames,
             chaincodeId: chaincodeName,

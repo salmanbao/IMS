@@ -180,24 +180,25 @@ services:
       - COUCHDB_PASSWORD=
     ports:
       - 5984:5984  
-  mongo:
-    container_name: mongo
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
 
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8082:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: password
-    depends_on: 
-      - mongo
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8082:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: password
+  #   depends_on: 
+  #     - mongo
 
   #
   # Webserver
@@ -517,6 +518,41 @@ services:
     image: ims-ui
     ports: 
      - 4006:80
+
+  hec:
+    image: indy-agentjs
+    command: "bash -c 'sleep 10; npm start'"
+    environment:
+      - ICON_SRC=https://i.ytimg.com/vi/JUMufld7UcY/maxresdefault.jpg
+      - THEME=LightSteelBlue
+      - PORT=3006
+      - NAME=HEC
+      - EMAIL=hec@govt.com
+      - PASSWORD=123
+      - USERNAME=hec
+      - PUBLIC_DID_ENDPOINT=173.17.0.115:3006
+      - RUST_LOG=${RUST_LOG}
+      - TEST_POOL_IP=${TEST_POOL_IP}
+    ports:
+      - 3006:3006
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+    networks:
+      services:
+        ipv4_address: 173.17.0.115
+    volumes:
+      - node1-data:/home/indy/ledger
+
+  hec-ui:
+    container_name: hec-ui
+    image: hec-ui
+    ports: 
+     - 4007:80
+    depends_on:
+      - hec
 
 volumes:
   webserver-cli:

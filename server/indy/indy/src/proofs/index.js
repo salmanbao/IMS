@@ -85,6 +85,7 @@ exports.prepareRequest = async function (message) {
     let proofRequest = await indy.crypto.authDecrypt(pairwise.my_did, message.message);
     let credsForProofRequest = await sdk.proverGetCredentialsForProofReq(await indy.wallet.get(), proofRequest);
     let credsForProof = {};
+    console.log(credsForProofRequest['attrs'][0]);
     for (let attr of Object.keys(proofRequest.requested_attributes)) {
         credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];
     }

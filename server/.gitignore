@@ -8,3 +8,11 @@ package-lock.json
 #artifacts/crypto-config/
 #artifacts/channel/*.block
 #artifacts/channel/*.tx
+
+public/admin-panel/node_modules
+indy-ui/node_modules
+explorer/node_modules
+explorer/client/node_modules
+artifacts/src/github.com/birth/node_modules
+artifacts/src/github.com/marriage/node_modules
+artifacts/src/github.com/nationalid/node_modules

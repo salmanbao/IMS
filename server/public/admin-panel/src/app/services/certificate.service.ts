@@ -12,8 +12,17 @@ export class CertificateService {
   userPanelUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
+
+  loadGeneralInfo(): Observable<any> {
+    return this.http.get('http://localhost:3005');
+  }
   getAll(id) {
-    return this.http.get('http://localhost:4000/certificates/' + id);
+    const data: Object = {};
+    const peers = ['peer0.org1.example.com'];
+    data['peers'] = peers;
+    data['fcn'] = 'getAll';
+    data['args'] = ["{\"selector\": {\"_id\": {\"$gt\": null}}}"]
+    return this.http.post('http://localhost:4000/channels/mychannel/chaincodes/' + id, data);
   }
   addCertificate(certificate) {
     if (certificate.title.toLowerCase() === 'birth') {
@@ -59,7 +68,7 @@ export class CertificateService {
     data['peers'] = peers;
     data['fcn'] = 'createBirthMyAsset';
     data['args'] = [
-      info.did,
+      info.fname,
       {
         fname: info.fname,
         lname: info.lname,
